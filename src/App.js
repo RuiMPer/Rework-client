@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import ProjectList from './components/projects/ProjectList';
 import ProjectDetails from './components/projects/ProjectDetails';
 import EditProject from './components/projects/EditProject';
 import Navbar from './components/Navbar';
+
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/projects/auth/Login';
 import Signup from './components/projects/auth/Signup';
