@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 class Login extends Component {
     state = {
         username: '',
-        password: ''
+        password: '',
+        email: ''
     }
     service = new AuthService();
 
@@ -16,12 +17,12 @@ class Login extends Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        const { username, password } = this.state;
+        const {username, password } = this.state;
         this.service.login(username, password)
             .then(response => {
                 //Set the whole application with the user that just logged in
                 this.props.setCurrentUser(response);
-                this.setState({ username: '', password: ''});
+                this.setState({ username: '', password: '', email:''});
                 this.props.history.push('/projects');
             })
     }
