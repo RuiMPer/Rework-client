@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class AddTask extends Component {
+class AddBooking extends Component {
     state = {
         title: '',
         description: ''
@@ -15,10 +15,10 @@ class AddTask extends Component {
     handleFormSubmit = (event) => {
         event.preventDefault();
         const { title, description } = this.state;
-        const project = this.props.projectId;
-        axios.post('http://localhost:5000/api/tasks', { title, description, project })
+        const service = this.props.serviceId;
+        axios.post('http://localhost:5000/api/bookings', { title, description, service })
           .then(() => {
-            this.props.getProject();
+            this.props.getService();
             this.setState({title: '', description: ''});
           })
     }
@@ -26,7 +26,7 @@ class AddTask extends Component {
     render() {
         return(
             <div>
-                <h3>Add Task</h3>
+                <h3>Add Booking</h3>
                 <form onSubmit={this.handleFormSubmit}>
                     <label>Title</label>
                     <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
@@ -39,4 +39,4 @@ class AddTask extends Component {
     }
 }
 
-export default AddTask;
+export default AddBooking;

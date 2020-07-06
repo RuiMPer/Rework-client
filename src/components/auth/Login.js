@@ -24,7 +24,6 @@ class Login extends Component {
                 this.setState({ username: '', password: ''});
                 this.props.history.push('/projects');
             })
-
     }
 
     render() {

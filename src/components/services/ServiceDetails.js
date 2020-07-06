@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import AddTask from '../tasks/AddTask';
+import AddBooking from '../bookings/AddBooking';
 
-class ProjectDetails extends Component {
+class ServiceDetails extends Component {
     //1. Option one
     /*state = {
         title: '',
@@ -14,35 +14,35 @@ class ProjectDetails extends Component {
     state = {}
 
 
-    getSingleProject = () => {
-        //id of the project is on the url /projects/1234567
+    getSingleService = () => {
+        //id of the project is on the url /services/1234567
         const { params } = this.props.match;
-        axios.get(`http://localhost:5000/api/projects/${params.id}`)
+        axios.get(`http://localhost:5000/api/services/${params.id}`)
             .then(responseFromAPI => {
-                const project = responseFromAPI.data;
-                console.log('project found', project);
+                const service = responseFromAPI.data;
+                console.log('service found', service);
                 //1. Option one
                 /* this.setState({
-                    title: project.title,
-                    description: project.description
+                    title: service.title,
+                    description: service.description
                 })*/
 
                 //2. Option two
-                this.setState(project);
+                this.setState(service);
             })
     }
 
     // 2. Happens second
     componentDidMount() {
-      this.getSingleProject();
+      this.getSingleService();
     }
 
-    deleteProject = () => {
+    deleteService = () => {
         const { params } = this.props.match;
-        axios.delete(`http://localhost:5000/api/projects/${params.id}`)
+        axios.delete(`http://localhost:5000/api/services/${params.id}`)
             .then(() => {
                 //return <Redirect to='/projects' />
-                this.props.history.push('/projects');
+                this.props.history.push('/services');
             })
     }
 
@@ -70,7 +70,7 @@ class ProjectDetails extends Component {
                 </div>
                 <hr />
                 <div>
-                    <AddTask getProject={this.getSingleProject} projectId={this.state._id} />
+                    <AddBooking getProject={this.getSingleProject} projectId={this.state._id} />
                 </div>
                 <div>
                     {this.state.tasks && this.state.tasks.map(task => {
@@ -83,4 +83,4 @@ class ProjectDetails extends Component {
     }
 }
 
-export default ProjectDetails
+export default ServiceDetails;

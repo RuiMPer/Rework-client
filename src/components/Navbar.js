@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from './projects/auth/auth-service';
+import AuthService from './auth/auth-service';
 
 class Navbar extends Component {
 

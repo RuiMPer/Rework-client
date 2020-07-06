@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import ProjectList from './components/projects/ProjectList';
-import ProjectDetails from './components/projects/ProjectDetails';
-import EditProject from './components/projects/EditProject';
+import ServiceList from './components/services/ServiceList';
+import ServiceDetails from './components/services/ServiceDetails';
+import EditService from './components/services/EditService';
 import Navbar from './components/Navbar';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Login from './components/projects/auth/Login';
-import Signup from './components/projects/auth/Signup';
-import AuthService from './components/projects/auth/auth-service';
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+import AuthService from './components/auth/auth-service';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -51,11 +51,11 @@ class App extends Component {
         <Switch>
           <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} /> } />
           <Route path='/signup' render={(props) => <Signup setCurrentUser={this.setCurrentUser} {...props} /> } />
-          <Route exact path="/projects" component={ProjectList} />
-          <Route exact path="/projects/:id" render={(props) => <ProjectDetails {...props} loggedInUser={this.state.loggedInUser} /> } />
-          <Route exact path="/projects/:id/edit" render={ (props) => {
+          <Route exact path="/services" component={ServiceList} />
+          <Route exact path="/services/:id" render={(props) => <ServiceDetails {...props} loggedInUser={this.state.loggedInUser} /> } />
+          <Route exact path="/services/:id/edit" render={ (props) => {
             if (this.state.loggedInUser){
-              return <EditProject {...props} />
+              return <EditService {...props} />
             }
             else {
               return <Redirect to="/login" />
