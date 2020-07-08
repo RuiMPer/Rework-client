@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class EditProject extends Component {
+class EditService extends Component {
     state = {
         title: this.props.location.state.title,
+        category: this.props.location.state.category,
         description: this.props.location.state.description,
     }
 
@@ -13,17 +14,17 @@ class EditProject extends Component {
     }
 
     handleChange = (event) => {
-        const {name, value} = event.target;
-        this.setState({[name]: value});
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
     }
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        const { title, description } = this.state;
-        const { params } = this.props.match;
-        axios.put(`http://localhost:5000/api/projects/${params.id}`, { title, description} )
+        const { title, category, description } = this.state;
+        const { params } = this.props.match;
+        axios.put(`http://localhost:5000/api/services/${params.id}`, { title, category, description })
             .then(() => {
-                this.props.history.push('/projects');
+                this.props.history.push('/services');
             });
     }
 
@@ -34,14 +35,16 @@ class EditProject extends Component {
                 <form onSubmit={this.handleFormSubmit}>
                     <label>Title</label>
                     <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
+                    <label>Category</label>
+                    <input type="text" name="category" value={this.state.category} onChange={this.handleChange} />
                     <label>Description</label>
                     <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
                     <input type="submit" value="submit" />
-                 </form>
+                </form>
             </div>
         )
     }
-    
+
 }
 
-export default EditProject;
+export default EditService;

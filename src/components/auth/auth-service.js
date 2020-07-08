@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 class AuthService {
     constructor() {
@@ -9,8 +10,8 @@ class AuthService {
         this.service = service;
     }
 
-    signup = (username, password, firstName, lastName, email)  => {
-        return this.service.post('/signup', { username, password, firstName, lastName, email})
+    signup = (username, password, firstName, lastName, email) => {
+        return this.service.post('/signup', { username, password, firstName, lastName, email })
             .then((response) => {
                 return response.data;
             });
@@ -30,9 +31,12 @@ class AuthService {
             });
     }
 
-    login = (username, password)  => {
-        return this.service.post('/login', { username, password})
-            .then(response => response.data);
+    login = (username, password) => {
+        return this.service.post('/login', { username, password })
+            .then(response => response.data)
+            .catch((err) => {
+                console.log(err)
+            })
     }
 }
 

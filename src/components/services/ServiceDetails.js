@@ -15,8 +15,8 @@ class ServiceDetails extends Component {
 
 
     getSingleService = () => {
-        //id of the project is on the url /services/1234567
-        const { params } = this.props.match;
+        //id of the service is on the url /services/1234567
+        const { params } = this.props.match;
         axios.get(`http://localhost:5000/api/services/${params.id}`)
             .then(responseFromAPI => {
                 const service = responseFromAPI.data;
@@ -34,50 +34,55 @@ class ServiceDetails extends Component {
 
     // 2. Happens second
     componentDidMount() {
-      this.getSingleService();
+        this.getSingleService();
     }
 
     deleteService = () => {
         const { params } = this.props.match;
         axios.delete(`http://localhost:5000/api/services/${params.id}`)
             .then(() => {
-                //return <Redirect to='/projects' />
+                //return <Redirect to='/services' />
                 this.props.history.push('/services');
             })
     }
 
     // 1. Happens first
     render() {
-        const { params } = this.props.match;
-        return(
+        const { params } = this.props.match;
+        return (
             <div>
                 <h1>{this.state.title}</h1>
-                <p>{this.state.description}</p>
+                <div>
+                    <h3>Category</h3>
+                    <p>{this.state.category}</p>
+                    <h3>Description</h3>
+                    <p>{this.state.description}</p>
+                </div>
 
                 {this.props.loggedInUser &&
                     <div>
-                        <button onClick={() => this.deleteProject()}>Delete Project</button>
+                        <button onClick={() => this.deleteService()}>Delete Service</button>
                     </div>
                 }
                 <div>
-                <Link to={{
-                    pathname: `/projects/${params.id}/edit`,
-                    state: {
-                        title: this.state.title,
-                        description: this.state.description
-                    }
-                    }}>Edit Project</Link>  
+                    <Link to={{
+                        pathname: `/services/${params.id}/edit`,
+                        state: {
+                            title: this.state.title,
+                            description: this.state.description
+                        }
+                    }}>Edit Service</Link>
                 </div>
                 <hr />
                 <div>
-                    <AddBooking getProject={this.getSingleProject} projectId={this.state._id} />
+                    <AddBooking getService={this.getSingleService} service={this.state._id} />
                 </div>
-                <div>
+                {/* <div>
                     {this.state.tasks && this.state.tasks.map(task => {
-                      return <div key={task._id}>{task.title}</div>  
+                        return <div key={task._id}>{task.title}</div>
                     })}
-                </div>
-                
+                </div> */}
+
             </div>
         )
     }

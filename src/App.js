@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import AddService from './components/services/AddService';
 import ServiceList from './components/services/ServiceList';
 import ServiceDetails from './components/services/ServiceDetails';
 import EditService from './components/services/EditService';
@@ -13,9 +14,10 @@ import AuthService from './components/auth/auth-service';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+
 class App extends Component {
   state = {
-    loggedInUser: null 
+    loggedInUser: null
   }
   service = new AuthService();
 
@@ -30,8 +32,8 @@ class App extends Component {
   // OR
   // 2. check if the user is still loggedin by calling the backend
   fetchUser = () => {
-    if(this.state.loggedInUser === null) {
-      this.service.loggedin() 
+    if (this.state.loggedInUser === null) {
+      this.service.loggedin()
         .then(response => {
           if (response._id) {
             this.setState({
@@ -47,20 +49,21 @@ class App extends Component {
     this.fetchUser();
     return (
       <div className="App">
-        <Navbar loggedInUser={this.state.loggedInUser} setCurrentUser= {this.setCurrentUser} />
+        <Navbar loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} />
         <Switch>
-          <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} /> } />
-          <Route path='/signup' render={(props) => <Signup setCurrentUser={this.setCurrentUser} {...props} /> } />
+          <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} />} />
+          <Route path='/signup' render={(props) => <Signup setCurrentUser={this.setCurrentUser} {...props} />} />
           <Route exact path="/services" component={ServiceList} />
-          <Route exact path="/services/:id" render={(props) => <ServiceDetails {...props} loggedInUser={this.state.loggedInUser} /> } />
-          <Route exact path="/services/:id/edit" render={ (props) => {
-            if (this.state.loggedInUser){
+          <Route exact path="/servicesAdd" component={AddService}/>
+          <Route exact path="/services/:id" render={(props) => <ServiceDetails {...props} loggedInUser={this.state.loggedInUser} />} />
+          <Route exact path="/services/:id/edit" render={(props) => {
+            if (this.state.loggedInUser) {
               return <EditService {...props} />
             }
             else {
               return <Redirect to="/login" />
             }
-          }}/>
+          }} />
         </Switch>
       </div>
     );

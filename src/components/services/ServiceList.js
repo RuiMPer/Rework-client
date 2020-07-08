@@ -10,7 +10,7 @@ class ServiceList extends Component {
     }
 
     getAllServices = () => {
-        // Get list of project from the API we just built
+        // Get list of service from the API we just built
         axios.get('http://localhost:5000/api/services')
             .then(responseFromAPI => {
                 this.setState({
@@ -39,7 +39,7 @@ class ServiceList extends Component {
                     })}
                 </div>
                 <div style={{width: '40%', float: 'right'}}>
-                    <AddService refreshProjects={this.getAllServices} />
+                    <AddService refreshServices={this.getAllServices} />
                 </div>
             </div>
         )

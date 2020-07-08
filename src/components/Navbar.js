@@ -23,9 +23,12 @@ class Navbar extends Component {
                             Welcome {this.props.loggedInUser.username}
                         </li>
                         <li>
-                            <Link to='/projects'>Projects</Link>
+                            <Link to='/services'>Services</Link>
                         </li>
                         <li>
+                            <Link to='/profile'>
+                                <button>Home</button>
+                            </Link>
                             <Link to='/'>
                                 <button onClick = { () => this.logoutUser()}>Logout</button>
                             </Link>

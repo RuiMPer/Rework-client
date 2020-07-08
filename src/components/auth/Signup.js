@@ -24,7 +24,7 @@ class Signup extends Component {
                     email: ''
                 });
                 this.props.setCurrentUser(response)
-                //redirecting to projects on the browsers history
+                //redirecting to services on the browsers history
                 this.props.history.push("/services")
             })
             .catch(error => console.log(error))
