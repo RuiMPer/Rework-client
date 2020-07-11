@@ -8,11 +8,6 @@ class EditService extends Component {
         description: this.props.location.state.description,
     }
 
-    componentDidMount() {
-        //Make call to the API
-        //Set the state with the response
-    }
-
     handleChange = (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
@@ -22,7 +17,7 @@ class EditService extends Component {
         event.preventDefault();
         const { title, category, description } = this.state;
         const { params } = this.props.match;
-        axios.put(`http://localhost:5000/api/services/${params.id}`, { title, category, description })
+        axios.put(`https://rework-project.herokuapp.com/api/services/${params.id}`, { title, category, description })
             .then(() => {
                 this.props.history.push('/services');
             });

@@ -17,10 +17,11 @@ class ServiceDetails extends Component {
     getSingleService = () => {
         //id of the service is on the url /services/1234567
         const { params } = this.props.match;
-        axios.get(`http://localhost:5000/api/services/${params.id}`)
+        axios.get(`https://rework-project.herokuapp.com/api/services/${params.id}`)
             .then(responseFromAPI => {
                 const service = responseFromAPI.data;
                 console.log('service found', service);
+                console.log(this.props.match.params.id)
                 //1. Option one
                 /* this.setState({
                     title: service.title,
@@ -39,7 +40,7 @@ class ServiceDetails extends Component {
 
     deleteService = () => {
         const { params } = this.props.match;
-        axios.delete(`http://localhost:5000/api/services/${params.id}`)
+        axios.delete(`https://rework-project.herokuapp.com/api/services/${params.id}`)
             .then(() => {
                 //return <Redirect to='/services' />
                 this.props.history.push('/services');
@@ -69,13 +70,14 @@ class ServiceDetails extends Component {
                         pathname: `/services/${params.id}/edit`,
                         state: {
                             title: this.state.title,
-                            description: this.state.description
+                            description: this.state.description,
+                            category: this.state.category
                         }
                     }}>Edit Service</Link>
                 </div>
                 <hr />
                 <div>
-                    <AddBooking getService={this.getSingleService} service={this.state._id} />
+                    <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />
                 </div>
                 {/* <div>
                     {this.state.tasks && this.state.tasks.map(task => {

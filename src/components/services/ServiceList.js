@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AddService from './AddService';
 
 class ServiceList extends Component {
@@ -11,7 +11,7 @@ class ServiceList extends Component {
 
     getAllServices = () => {
         // Get list of service from the API we just built
-        axios.get('http://localhost:5000/api/services')
+        axios.get('https://rework-project.herokuapp.com/api/services')
             .then(responseFromAPI => {
                 this.setState({
                     listOfServices: responseFromAPI.data
@@ -20,14 +20,14 @@ class ServiceList extends Component {
     }
 
     componentDidMount() {
-      this.getAllServices();
+        this.getAllServices();
     }
 
     render() {
-        return(
+        return (
             <div>
-                <div style={{width: '60%', float: 'left'}}>
-                    {this.state.listOfServices.map(service=> {
+                <div style={{ width: '60%', float: 'left' }}>
+                    {this.state.listOfServices.map(service => {
                         return (
                             <div key={service._id}>
                                 {/* go to /services/123456 */}
@@ -38,7 +38,7 @@ class ServiceList extends Component {
                         )
                     })}
                 </div>
-                <div style={{width: '40%', float: 'right'}}>
+                <div style={{ width: '40%', float: 'right' }}>
                     <AddService refreshServices={this.getAllServices} />
                 </div>
             </div>
