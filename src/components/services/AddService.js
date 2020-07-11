@@ -20,7 +20,7 @@ class AddService extends Component {
             .then((response) => {
                 console.log('image uploaded', response);
 
-                axios.post('http://localhost:5000/api/services', { category, title, description, photoPath: response.data.photoPath })
+                axios.post('http://localhost:5000/api/services', { category, title, description, photoPath: response.data.secure_url })
                     .then((response) => {
                         console.log('image created', response);
                         this.props.refreshServices();

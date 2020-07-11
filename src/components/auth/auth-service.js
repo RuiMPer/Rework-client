@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 
 class AuthService {
     constructor() {
