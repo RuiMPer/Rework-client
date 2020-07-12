@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AddBooking from '../bookings/AddBooking';
+import EditBooking from '../bookings/EditBooking';
 
 class ServiceDetails extends Component {
     //1. Option one
@@ -21,7 +22,6 @@ class ServiceDetails extends Component {
             .then(responseFromAPI => {
                 const service = responseFromAPI.data;
                 console.log('service found', service);
-                console.log(this.props.match.params.id)
                 //1. Option one
                 /* this.setState({
                     title: service.title,
@@ -45,6 +45,14 @@ class ServiceDetails extends Component {
                 //return <Redirect to='/services' />
                 this.props.history.push('/services');
             })
+    }
+
+    showForm = () => {
+        return(
+            <div>
+                2
+            </div>
+        )
     }
 
     // 1. Happens first
@@ -84,7 +92,21 @@ class ServiceDetails extends Component {
                         return <div key={task._id}>{task.title}</div>
                     })}
                 </div> */}
-
+                <div>
+                    {this.state.bookings && this.state.bookings.map(booking => {
+                        return (
+                            <div key={booking._id}>
+                                <ul>
+                                    <li>{booking.title}</li>
+                                    <li>{booking.description}</li>
+                                    <li>{booking.date}</li>
+                                    <li>{booking.time}</li>
+                                    <li><button onClick={this.showForm}>Edit</button></li>
+                                </ul>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }
