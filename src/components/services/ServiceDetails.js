@@ -12,7 +12,9 @@ class ServiceDetails extends Component {
     }*/
 
     //2. Option two
-    state = {}
+    state = {
+        showForm: false,
+    }
 
 
     getSingleService = () => {
@@ -48,11 +50,8 @@ class ServiceDetails extends Component {
     }
 
     showForm = () => {
-        return(
-            <div>
-                2
-            </div>
-        )
+        console.log("click")
+        return this.showForm = true
     }
 
     // 1. Happens first
@@ -97,14 +96,15 @@ class ServiceDetails extends Component {
                                     <li>{booking.date}</li>
                                     <li>{booking.time}</li>
                                     <li><button onClick={this.showForm}>Edit</button></li>
-                                    {/* <EditBooking bookingId={booking._id} /> */}
+                                    {/* {this.state.showForm && <EditBooking booking={booking} {...this.props} />} */}
+                                    <EditBooking booking={booking} {...this.props} />
                                 </ul>
                             </div>
                         )
                     })}
                 </div>
                 <div>
-                    
+
                 </div>
             </div>
         )

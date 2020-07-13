@@ -3,10 +3,10 @@ import axios from 'axios';
 
 class EditBooking extends Component {
 	state = {
-		title: this.state.title,
-		description: this.state.description,
-		date: this.state.date,
-		time: this.state.time
+		title: this.props.booking.title,
+		description: this.props.booking.description,
+		date: this.props.booking.date,
+		time: this.props.booking.time
 	}
 
 	handleChange = (event) => {
@@ -17,8 +17,8 @@ class EditBooking extends Component {
 	handleFormSubmit = (event) => {
 		event.preventDefault();
 		const { title, description, date, time } = this.state;
-		const { params } = this.props.match;
-		axios.put(`https://rework-project.herokuapp.com/api/services/${params.id}`, { title, description, date, time })
+
+		axios.put(`https://rework-project.herokuapp.com/api/bookings/${this.props.booking._id}`, { title, description, date, time })
 			.then(() => {
 				this.props.history.push('/services');
 			});
