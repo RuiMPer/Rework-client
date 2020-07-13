@@ -24,6 +24,7 @@ class Login extends Component {
                 //Set the whole application with the user that just logged in
                 this.props.setCurrentUser(response);
                 this.setState({ username: '', password: '', email: '' });
+                localStorage.setItem("loggedin", true);
                 this.props.history.push('/profile');
             })
     }
@@ -36,7 +37,7 @@ class Login extends Component {
                     <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
                     <label>Password:</label>
                     <input name="password" value={this.state.password} onChange={this.handleChange} />
-                    <input type="submit" value="Login" />
+                    <button type="submit">Login</button>
                 </form>
                 <p>Don't have account?
                     <Link to={"/signup"}> Signup</Link>

@@ -24,6 +24,7 @@ class Signup extends Component {
                     email: ''
                 });
                 this.props.setCurrentUser(response)
+                localStorage.setItem("loggedin", true);
                 //redirecting to services on the browsers history
                 this.props.history.push("/services")
             })
