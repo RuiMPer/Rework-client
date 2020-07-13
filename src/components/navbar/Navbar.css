@@ -1,3 +1,24 @@
 ul li {
     list-style-type:none;
 }
+
+a{
+    text-decoration:none;
+    color:#666;
+    transition: color .5s ease;
+}
+
+a:hover{
+    text-decoration:none;
+    color:rgb(245, 132, 87);
+}
+
+.nav-item{
+    color:#666;
+    padding:1.25rem;
+}
+
+.nav-item a.active{
+    color: rgb(235, 67, 0);
+    text-decoration:underline;
+}

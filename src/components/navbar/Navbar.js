@@ -1,23 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import AuthService from '../auth/auth-service';
-import {Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
+import {Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
 
 
 class Navbar extends React.Component {
 
     state= {
-        active: true
+        clickActive: '/'
     }
 
     service =  new AuthService();
-
     
-    toggleActiveClass = () => {
-        const [dropdownOpen, setDropdownOpen] = useState(false);
-        setDropdownOpen(!dropdownOpen);
-    }
 
     logoutUser = () => {
         this.service.logout()
@@ -33,23 +28,22 @@ class Navbar extends React.Component {
                 <>
                 <Nav pills>
                     <NavItem>
-                        <NavLink href="/" active>Home</NavLink>
+                        <NavLink exact to="/">Home</NavLink>
+                    </NavItem>
+                    <NavItem active={window.location.hash === '/services'}>
+                        <NavLink to="/services">All Services</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/services">All Services</NavLink>
+                        <NavLink to="/search">Search</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/search">Search</NavLink>
+                        <NavLink to='/login'>Login</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#"><Link to='/login'>Login</Link></NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink href="#"><Link to='/signup'>Signup</Link></NavLink>
+                        <NavLink to='/signup'>Signup</NavLink>
                     </NavItem>
                     { this.props.loggedInUser ? ( <>
-                        <NavItem>
-                            <Link to='/services'>Services</Link>
+                        <NavItem to='/services'>Services
                         </NavItem>
                         <Dropdown nav onClick = { () => this.toggleActiveClass()} >
                             <DropdownToggle nav caret>
@@ -64,13 +58,13 @@ class Navbar extends React.Component {
                             </DropdownMenu>
                         </Dropdown>
                         <NavItem>
-                            <NavLink href="/profile">Profile</NavLink>
+                            <NavLink to="/profile">Profile</NavLink>
                         </NavItem>
                         <span>
                             Welcome {this.props.loggedInUser.username}
                         </span>
                         <NavItem>
-                            <NavLink href="/" active><Link to='/' onClick = { () => this.logoutUser()}>Logout</Link></NavLink>
+                            <NavLink to="/" onClick = { () => this.logoutUser()}>Logout</NavLink>
                         </NavItem>
                     </> ) : ( <>
                     </> )}
