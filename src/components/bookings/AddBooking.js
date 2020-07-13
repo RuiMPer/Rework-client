@@ -39,7 +39,6 @@ class AddBooking extends Component {
                     <label>Time</label>
                     <input type="text" name="time" value={this.state.time} onChange={this.handleChange} />
 
-
                     <input type="submit" value="submit" />
                 </form>
             </div>
