@@ -11,7 +11,7 @@ class ServiceList extends Component {
 
     getAllServices = () => {
         // Get list of service from the API we just built
-        axios.get('https://rework-project.herokuapp.com/api/services')
+        axios.get(`${process.env.REACT_APP_SERVER}/services`)
             .then(responseFromAPI => {
                 this.setState({
                     listOfServices: responseFromAPI.data

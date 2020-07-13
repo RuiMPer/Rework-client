@@ -6,14 +6,18 @@ import {Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } fro
 
 
 class Navbar extends React.Component {
-
-    state= {
-        clickActive: '/'
-    }
-
     service =  new AuthService();
-    
 
+    state = {
+        dropdownOpen: false
+    };
+
+    toggle() {
+        this.setState({
+          dropdownOpen: !this.state.dropdownOpen
+        });
+    }
+    
     logoutUser = () => {
         this.service.logout()
         .then(() => {
@@ -49,14 +53,20 @@ class Navbar extends React.Component {
                         
                     </> ) : ( <>
 
-                        <NavItem to='/services'>Services
+                        <NavItem to='/services'>
+                            <NavLink to="/services">All Services</NavLink>
                         </NavItem>
-                        <Dropdown nav onClick = { () => this.toggleActiveClass()} >
+                        
+                        <span>
+                            Welcome, {this.props.loggedInUser.firstName}!
+                        </span>
+                        <Dropdown nav isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
                             <DropdownToggle nav caret>
                                 My Area
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem header>My Services</DropdownItem>
+                                <DropdownItem header>Worker</DropdownItem>
+                                <DropdownItem>My Services</DropdownItem>
                                 <DropdownItem>My Bookings</DropdownItem>
                                 <DropdownItem>My Clients</DropdownItem>
                                 <DropdownItem divider />
@@ -66,13 +76,9 @@ class Navbar extends React.Component {
                         <NavItem>
                             <NavLink to="/profile">Profile</NavLink>
                         </NavItem>
-                        <span>
-                            Welcome {this.props.loggedInUser.firstName}
-                        </span>
                         <NavItem>
                             <NavLink to="/" onClick = { () => this.logoutUser()}>Logout</NavLink>
                         </NavItem>
-
 
                     </> )}
                 </Nav>

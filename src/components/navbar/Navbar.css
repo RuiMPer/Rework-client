@@ -22,3 +22,8 @@ a:hover{
     color: rgb(235, 67, 0);
     text-decoration:underline;
 }
+
+a.dropdown-toggle.nav-link {
+    padding: 0;
+    margin: 0;
+}

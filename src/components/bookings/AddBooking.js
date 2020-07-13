@@ -18,7 +18,7 @@ class AddBooking extends Component {
         event.preventDefault();
         const { title, description, date, time } = this.state;
         const service = this.props.serviceId;
-        axios.post('https://rework-project.herokuapp.com/api/bookings', { title, description, service, date, time })
+        axios.post(`${process.env.REACT_APP_SERVER}/bookings`, { title, description, service, date, time })
             .then(() => {
                 this.props.getService();
                 this.setState({ title: '', description: '', date: "", time: "" });

@@ -18,10 +18,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 class App extends Component {
+  service = new AuthService();
   state = {
     loggedInUser: null
   }
-  service = new AuthService();
 
   setCurrentUser = (userObj) => {
     this.setState({
@@ -33,18 +33,17 @@ class App extends Component {
     this.fetchUser();
   }
 
+  componentDidUpdate() {
+    this.fetchUser();
+  }
 
-  // 1. save the user into the browser localstorage
-  // OR
-  // 2. check if the user is still loggedin by calling the backend
   fetchUser = () => {
     if(this.state.loggedInUser === null) {
       this.service.loggedin() 
       .then(response => {
+        console.log(response)
         if (response._id) {
-          // this.setState({
-          //   loggedInUser: response
-          // })}
+          localStorage.setItem("loggedin", true);
           this.setCurrentUser(response);
         } else {
           localStorage.clear();
@@ -66,13 +65,6 @@ class App extends Component {
           <Route exact path="/services" component={ServiceList} />
           <Route exact path="/services/:id" render={(props) => <ServiceDetails {...props} loggedInUser={this.state.loggedInUser} /> } />
           <Route exact path="/services/:id/edit" render={ (props) => {
-            // if (this.state.loggedInUser){
-            //   return <EditService {...props} />
-            // }
-            // else {
-            //   return <Redirect to="/login" />
-            // }
-            // }}/>
             if (localStorage.getItem("loggedin")) {
               return <EditService loggedInUser={this.state.loggedInUser} {...props} />
             } else {

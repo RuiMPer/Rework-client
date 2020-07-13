@@ -16,10 +16,10 @@ class AddService extends Component {
         const uploadData = new FormData()
         uploadData.append("photoPath", this.state.photoPath)
 
-        axios.post('https://rework-project.herokuapp.com/api/upload', uploadData)
+        axios.post(`${process.env.REACT_APP_SERVER}/upload`, uploadData)
             .then((response) => {
                 console.log('image uploaded', response);
-                axios.post('https://rework-project.herokuapp.com/api/services', { category, title, description, photoPath: response.data.photoPath })
+                axios.post(`${process.env.REACT_APP_SERVER}/services`, { category, title, description, photoPath: response.data.photoPath })
                     .then((response) => {
                         console.log('image created', response);
                         this.props.refreshServices();

@@ -18,7 +18,7 @@ class EditBooking extends Component {
 		event.preventDefault();
 		const { title, description, date, time } = this.state;
 
-		axios.put(`https://rework-project.herokuapp.com/api/bookings/${this.props.booking._id}`, { title, description, date, time })
+		axios.put(`${process.env.REACT_APP_SERVER}/bookings/${this.props.booking._id}`, { title, description, date, time })
 			.then(() => {
 				this.props.history.push('/services');
 			});
@@ -26,7 +26,7 @@ class EditBooking extends Component {
 
 	deleteBooking = () => {
 		const { params } = this.props.match;
-		axios.delete(`https://rework-project.herokuapp.com/api/services/${params.id}`)
+		axios.delete(`${process.env.REACT_APP_SERVER}/services/${params.id}`)
 			.then(() => {
 				//return <Redirect to='/services' />
 				this.props.history.push('/services');
