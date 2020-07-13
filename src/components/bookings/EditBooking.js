@@ -24,6 +24,17 @@ class EditBooking extends Component {
 			});
 	}
 
+	deleteBooking = () => {
+		const { params } = this.props.match;
+		axios.delete(`https://rework-project.herokuapp.com/api/services/${params.id}`)
+			.then(() => {
+				//return <Redirect to='/services' />
+				this.props.history.push('/services');
+			})
+	}
+
+
+
 	render() {
 		return (
 			<div>

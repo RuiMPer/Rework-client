@@ -87,11 +87,6 @@ class ServiceDetails extends Component {
                 <div>
                     <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />
                 </div>
-                {/* <div>
-                    {this.state.tasks && this.state.tasks.map(task => {
-                        return <div key={task._id}>{task.title}</div>
-                    })}
-                </div> */}
                 <div>
                     {this.state.bookings && this.state.bookings.map(booking => {
                         return (
@@ -102,10 +97,14 @@ class ServiceDetails extends Component {
                                     <li>{booking.date}</li>
                                     <li>{booking.time}</li>
                                     <li><button onClick={this.showForm}>Edit</button></li>
+                                    {/* <EditBooking bookingId={booking._id} /> */}
                                 </ul>
                             </div>
                         )
                     })}
+                </div>
+                <div>
+                    
                 </div>
             </div>
         )
