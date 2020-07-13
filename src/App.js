@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import AddService from './components/services/AddService';
 import ServiceList from './components/services/ServiceList';
 import ServiceDetails from './components/services/ServiceDetails';
 import EditService from './components/services/EditService';
@@ -14,6 +13,8 @@ import AuthService from './components/auth/auth-service';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 
 
 class App extends Component {
