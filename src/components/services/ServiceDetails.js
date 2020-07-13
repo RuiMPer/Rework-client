@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AddBooking from '../bookings/AddBooking';
+import EditBooking from '../bookings/EditBooking';
 
 class ServiceDetails extends Component {
     //1. Option one
@@ -17,7 +18,7 @@ class ServiceDetails extends Component {
     getSingleService = () => {
         //id of the service is on the url /services/1234567
         const { params } = this.props.match;
-        axios.get(`http://localhost:5000/api/services/${params.id}`)
+        axios.get(`https://rework-project.herokuapp.com/api/services/${params.id}`)
             .then(responseFromAPI => {
                 const service = responseFromAPI.data;
                 console.log('service found', service);
@@ -39,11 +40,19 @@ class ServiceDetails extends Component {
 
     deleteService = () => {
         const { params } = this.props.match;
-        axios.delete(`http://localhost:5000/api/services/${params.id}`)
+        axios.delete(`https://rework-project.herokuapp.com/api/services/${params.id}`)
             .then(() => {
                 //return <Redirect to='/services' />
                 this.props.history.push('/services');
             })
+    }
+
+    showForm = () => {
+        return(
+            <div>
+                2
+            </div>
+        )
     }
 
     // 1. Happens first
@@ -69,20 +78,35 @@ class ServiceDetails extends Component {
                         pathname: `/services/${params.id}/edit`,
                         state: {
                             title: this.state.title,
-                            description: this.state.description
+                            description: this.state.description,
+                            category: this.state.category
                         }
                     }}>Edit Service</Link>
                 </div>
                 <hr />
                 <div>
-                    <AddBooking getService={this.getSingleService} service={this.state._id} />
+                    <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />
                 </div>
                 {/* <div>
                     {this.state.tasks && this.state.tasks.map(task => {
                         return <div key={task._id}>{task.title}</div>
                     })}
                 </div> */}
-
+                <div>
+                    {this.state.bookings && this.state.bookings.map(booking => {
+                        return (
+                            <div key={booking._id}>
+                                <ul>
+                                    <li>{booking.title}</li>
+                                    <li>{booking.description}</li>
+                                    <li>{booking.date}</li>
+                                    <li>{booking.time}</li>
+                                    <li><button onClick={this.showForm}>Edit</button></li>
+                                </ul>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }

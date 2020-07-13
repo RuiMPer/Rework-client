@@ -16,11 +16,10 @@ class AddService extends Component {
         const uploadData = new FormData()
         uploadData.append("photoPath", this.state.photoPath)
 
-        axios.post('http://localhost:5000/api/upload', uploadData)
+        axios.post('https://rework-project.herokuapp.com/api/upload', uploadData)
             .then((response) => {
                 console.log('image uploaded', response);
-
-                axios.post('http://localhost:5000/api/services', { category, title, description, photoPath: response.data.secure_url })
+                axios.post('https://rework-project.herokuapp.com/api/services', { category, title, description, photoPath: response.data.photoPath })
                     .then((response) => {
                         console.log('image created', response);
                         this.props.refreshServices();
@@ -30,7 +29,8 @@ class AddService extends Component {
             })
 
 
-        // axios.post('http://localhost:5000/api/services', { category, title, description })
+
+        // axios.post('https://rework-project.herokuapp.com/api/services', { category, title, description })
         //     .then(() => {
         //         //1. Lift the state up and push new service into the state that lives on servicelist
         //         //2. Call the api to get all services again

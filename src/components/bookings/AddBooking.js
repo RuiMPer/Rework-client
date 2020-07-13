@@ -5,7 +5,7 @@ class AddBooking extends Component {
     state = {
         title: '',
         description: '',
-        date: Date,
+        date: "",
         time: ""
     }
 
@@ -18,7 +18,7 @@ class AddBooking extends Component {
         event.preventDefault();
         const { title, description, date, time } = this.state;
         const service = this.props.serviceId;
-        axios.post('http://localhost:5000/api/bookings', { title, description, service, date, time })
+        axios.post('https://rework-project.herokuapp.com/api/bookings', { title, description, service, date, time })
             .then(() => {
                 this.props.getService();
                 this.setState({ title: '', description: '', date: "", time: "" });
@@ -35,7 +35,7 @@ class AddBooking extends Component {
                     <label>Description</label>
                     <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
                     <label>Date</label>
-                    <input type="date" name="description" value={this.state.date} onChange={this.handleChange} />
+                    <input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
                     <label>Time</label>
                     <input type="text" name="time" value={this.state.time} onChange={this.handleChange} />
 
