@@ -61,7 +61,7 @@ class App extends Component {
 
         <section className="maincontent">
           <Switch>
-            <Route exact path="" render={(props) => <Home isLoggedIn={this.state.loggedInUser} {...props} /> } />
+            <Route exact path="/" render={(props) => <Home isLoggedIn={this.state.loggedInUser} {...props} /> } />
             <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} /> } />
             <Route path='/signup' render={(props) => <Signup setCurrentUser={this.setCurrentUser} {...props} /> } />
             <Route exact path="/images/add" component={AddImage} />

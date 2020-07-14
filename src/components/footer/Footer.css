@@ -1,5 +1,8 @@
 .footer{
     color:#fff;
+    position:absolute;
+    bottom:0;
+    width:100vw;
 }
 footer p{
     padding:0;

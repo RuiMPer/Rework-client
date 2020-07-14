@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import AuthService from './auth-service';
 import { Link } from 'react-router-dom';
+import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class Signup extends Component {
-    state = { username: '', password: '', firstName: '', lastName: '', email:'' };
+    state = { username: '', password: '', firstName: '', lastName: '', email:'',errorMessage: '' };
     service = new AuthService();
 
     handleFormSubmit = (event) => {
@@ -28,34 +29,63 @@ class Signup extends Component {
                 //redirecting to services on the browsers history
                 this.props.history.push("/services")
             })
-            .catch(error => console.log(error))
+            .catch((error) => {
+                this.setState({errorMessage: error.response.data.message});
+            })
     }
     handleChange = (event) => {  
         const {name, value} = event.target;
-        this.setState({[name]: value});
+        this.setState({[name]: value, errorMessage:''});
     }
     render(){
-        return(
-            <div>
-                <form onSubmit={this.handleFormSubmit}>
-                    <label>Email:</label>
-                    <input type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
-                    <label>Username:</label>
-                    <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
-                    
-                    <label>First Name:</label>
-                    <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange}/>
-                    <label>Last Name:</label>
-                    <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange}/>
-                    
-                    <label>Password:</label>
-                    <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
-                    <input type="submit" value="Signup" />
-                </form>
-                <p>Already have account? 
-                    <Link to={"/login"}> Login</Link>
-                </p>
-            </div>
+        return( <>
+            <Form onSubmit={this.handleFormSubmit}>
+                <Row form>
+                    <Col md={6}>
+                    <FormGroup>
+                        <Label for="username">Username:</Label>
+                        <Input type="text" name="username" value={this.state.username} onChange={this.handleChange} placeholder="Escreve o teu username aqui..." />
+                    </FormGroup>
+                    </Col>
+                    <Col md={6}>
+                        <FormGroup>
+                            <Label for="email">Email:</Label>
+                            <Input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Escreve o teu email aqui..." />
+                        </FormGroup>
+                    </Col>
+                </Row>
+
+                <Row form>
+                    <Col md={6}>
+                    <FormGroup>
+                        <Label for="username">First Name:</Label>
+                        <Input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} placeholder="Escreve o teu primeiro nome aqui..." />
+                    </FormGroup>
+                    </Col>
+                    <Col md={6}>
+                    <FormGroup>
+                        <Label for="password">Last Name::</Label>
+                        <Input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange}/>
+                    </FormGroup>
+                    </Col>
+                </Row>
+
+                <FormGroup>
+                    <Label for="password">Password:</Label>
+                    <Input name="password" type="password" value={this.state.password} onChange={this.handleChange} placeholder="&#9679; &#9679; &#9679; &#9679; &#9679;"/>
+                </FormGroup>
+
+                { this.state.errorMessage &&
+                <p className="error"> { this.state.errorMessage } </p> }
+
+                <Button>Sign up</Button>
+                <FormGroup style={{marginTop: "10px"}}>
+                    <p>Already have account? 
+                        <Link to={"/login"}> Login</Link>
+                    </p>
+                </FormGroup>
+            </Form>
+            </>
         )
     }
 }

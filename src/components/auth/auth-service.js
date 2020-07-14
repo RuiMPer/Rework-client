@@ -33,9 +33,11 @@ class AuthService {
 
     login = (username, password) => {
         return this.service.post('/login', { username, password })
-            .then(response => response.data)
+            .then((response) => {
+                return response.data
+            })
             .catch((err) => {
-                console.log(err)
+                return err;
             })
     }
 }
