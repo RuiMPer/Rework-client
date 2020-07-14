@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AddBooking from '../bookings/AddBooking';
 import EditBooking from '../bookings/EditBooking';
+import Example from './/Caroussel';
 
 class ServiceDetails extends Component {
     //1. Option one
@@ -66,6 +67,8 @@ class ServiceDetails extends Component {
                     <h3>Description</h3>
                     <p>{this.state.description}</p>
                 </div>
+
+                <Example/>
 
                 {this.props.loggedInUser &&
                     <div>

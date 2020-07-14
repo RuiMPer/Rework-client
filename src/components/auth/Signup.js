@@ -49,7 +49,7 @@ class Signup extends Component {
                     <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange}/>
                     
                     <label>Password:</label>
-                    <input name="password" value={this.state.password} onChange={this.handleChange} />
+                    <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
                     <input type="submit" value="Signup" />
                 </form>
                 <p>Already have account? 

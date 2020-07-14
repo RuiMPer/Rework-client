@@ -1,0 +1,40 @@
+.home h1, .home h3{
+    margin: 40px auto 20px;
+}
+
+.category-card{
+    max-width:33%;
+    height:auto;
+    max-height:300px;
+    overflow: hidden;
+    transition: all .5s ease;
+}
+
+.category-card.card img{
+    transition: all .5s ease;
+}
+
+.home .card-img-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.home .card-title {
+    margin-bottom: .75rem;
+    font-size: 2rem;
+    line-height: 1;
+    text-align: center;
+    font-weight: 900;
+}
+
+.category-card.card.text-white:hover {
+    opacity: 1;
+    background: #222;
+    cursor: pointer;
+    mix-blend-mode: multiply;
+}
+.category-card.card.text-white:hover img {
+    opacity:.5
+}

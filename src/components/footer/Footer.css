@@ -1,0 +1,9 @@
+.footer{
+    color:#fff;
+}
+footer p{
+    padding:0;
+    margin:0;
+    line-height: 100%;
+    font-size:10px;
+}

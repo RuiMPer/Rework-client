@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import AuthService from '../auth/auth-service';
 import {Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
+import { Badge, Button } from 'reactstrap';
 
 
 class Navbar extends React.Component {
@@ -29,7 +30,7 @@ class Navbar extends React.Component {
     render() {
         
         return (
-                <>
+            <nav className="navbar">
                 <Nav pills>
 
                         <NavItem>
@@ -58,6 +59,11 @@ class Navbar extends React.Component {
                             <span>
                                 Welcome, {this.props.loggedInUser.firstName}!
                             </span>
+                            <div>
+                                <Button color="primary" outline>
+                                    Bookings <Badge color="secondary">4</Badge>
+                                </Button>
+                            </div>
                             <Dropdown nav isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
                                 <DropdownToggle nav caret>
                                     My Area
@@ -87,7 +93,7 @@ class Navbar extends React.Component {
 
                     </> )}
                 </Nav>
-            </>
+            </nav>
         )
     }
 }
