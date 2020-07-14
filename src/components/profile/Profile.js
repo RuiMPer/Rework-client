@@ -36,6 +36,8 @@ class Profile extends React.Component {
             <>
                 <h1>Profile</h1>
 
+                {this.props.userId}
+
                 <Form>
                     <Row form>
                         <Col md={6}>

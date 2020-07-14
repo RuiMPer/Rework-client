@@ -11,6 +11,7 @@ import AddImage from './components/images/AddImage';
 import Profile from './components/profile/Profile';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
+import NotFound from './components/notfound/NotFound';
 import AuthService from './components/auth/auth-service';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -77,11 +78,12 @@ class App extends Component {
 
             <Route exact path="/profile/:userId" render={ (props) => {
               if (localStorage.getItem("loggedin")) {
-                return <Profile />
+                return <Profile {...props} userId={this.state.loggedInUser._id}/>
               } else {
                 return <Redirect to="/login" />
               }}}
             />
+            <Route path="*" component={() => <NotFound/>}/>
 
           </Switch>
         </section>

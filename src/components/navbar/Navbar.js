@@ -56,10 +56,10 @@ class Navbar extends React.Component {
                         
                         <div className="alignright">
 
-                            <span>
+                            <span className="nav-item">
                                 Welcome, {this.props.loggedInUser.firstName}!
                             </span>
-                            <div>
+                            <div className="nav-item">
                                 <Button color="primary" outline>
                                     Bookings <Badge color="secondary">4</Badge>
                                 </Button>
@@ -78,7 +78,7 @@ class Navbar extends React.Component {
                                     <DropdownItem>Settings</DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink to="/profile">Profile</NavLink>
+                                            <NavLink to="/profile/:userId">Profile</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem>
