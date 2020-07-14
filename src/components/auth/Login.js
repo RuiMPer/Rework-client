@@ -28,7 +28,7 @@ let error;
                 if (response.status == 401) { 
                     this.setState({errorMessage: "Combinação de credenciais errada. Tente novamente."});
                 } 
-                else if (response.status != 401 && response.status != 200) { 
+                else if (response.status != 401 && response.status < 200 || response.status > 200) { 
                     this.setState({errorMessage: "Os seus dados não estão registados. Faça signup ou tente novamente."});
                 }else{
                     //Set the whole application with the user that just logged in
