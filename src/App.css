@@ -17,3 +17,11 @@ form {
 .error{
   color:rgb(255, 81, 0);
 }
+
+@media only screen and (max-width: 780px) {
+  form {
+    margin: auto;
+    padding: 0 20px;
+    max-width: 400px;
+  }
+}

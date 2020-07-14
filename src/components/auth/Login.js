@@ -20,22 +20,21 @@ class Login extends Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        const { username, password } = this.state;
-let error;
+        const { username, password, errorMessage } = this.state;
 
         this.service.login(username, password)
             .then(response => {
-                if (response.status == 401) { 
+                if (response.status == 401 ) { 
                     this.setState({errorMessage: "Combinação de credenciais errada. Tente novamente."});
                 } 
                 else if (response.status != 401 && response.status < 200 || response.status > 200) { 
                     this.setState({errorMessage: "Os seus dados não estão registados. Faça signup ou tente novamente."});
-                }else{
+                } else if(response.status == 200){
                     //Set the whole application with the user that just logged in
                     this.props.setCurrentUser(response);
                     this.setState({ username: '', password: '', email: '' });
                     localStorage.setItem("loggedin", true);
-                    this.props.history.push('/profile');
+                    this.props.history.push('/');
                 }
             });
     }
