@@ -38,9 +38,9 @@ class Navbar extends React.Component {
                     
                     { !this.props.loggedInUser ? ( <>
 
-                        <NavItem active={window.location.hash === '/services'}>
+                        {/* <NavItem active={window.location.hash === '/services'}>
                             <NavLink to="/services">All Services</NavLink>
-                        </NavItem>
+                        </NavItem> */}
                         <NavItem>
                             <NavLink to="/search">Search</NavLink>
                         </NavItem>
@@ -52,33 +52,38 @@ class Navbar extends React.Component {
                         </NavItem>
                         
                     </> ) : ( <>
-
-                        <NavItem to='/services'>
-                            <NavLink to="/services">All Services</NavLink>
-                        </NavItem>
                         
-                        <span>
-                            Welcome, {this.props.loggedInUser.firstName}!
-                        </span>
-                        <Dropdown nav isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
-                            <DropdownToggle nav caret>
-                                My Area
-                            </DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem header>Worker</DropdownItem>
-                                <DropdownItem>My Services</DropdownItem>
-                                <DropdownItem>My Bookings</DropdownItem>
-                                <DropdownItem>My Clients</DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>Settings</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
-                        <NavItem>
-                            <NavLink to="/profile">Profile</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink to="/" onClick = { () => this.logoutUser()}>Logout</NavLink>
-                        </NavItem>
+                        <div className="alignright">
+
+                            <span>
+                                Welcome, {this.props.loggedInUser.firstName}!
+                            </span>
+                            <Dropdown nav isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
+                                <DropdownToggle nav caret>
+                                    My Area
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    {/* if user worker */}
+                                    <DropdownItem header>Worker</DropdownItem>
+                                    <DropdownItem>My Services</DropdownItem>
+                                    <DropdownItem>My Clients</DropdownItem>
+                                    <DropdownItem>My Bookings</DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem>Settings</DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/profile">Profile</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/" onClick = { () => this.logoutUser()}>Logout</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        
+                        </div>
 
                     </> )}
                 </Nav>

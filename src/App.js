@@ -19,8 +19,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   service = new AuthService();
+  
   state = {
-    loggedInUser: null
+    loggedInUser: null,
+    isLoggedIn:false
   }
 
   setCurrentUser = (userObj) => {
@@ -33,21 +35,28 @@ class App extends Component {
     this.fetchUser();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate() {console.log("ENTROUOUUU")
     this.fetchUser();
+    console.log(localStorage)
+    console.log(this.state.isLoggedIn)
   }
 
   fetchUser = () => {
     if(this.state.loggedInUser === null) {
       this.service.loggedin() 
       .then(response => {
-        console.log(response)
         if (response._id) {
-          localStorage.setItem("loggedin", true);
-          this.setCurrentUser(response);
+          localStorage.setItem("loggedin", true)
+          .then((response) => {
+            this.setCurrentUser(response)
+            this.setState({isLoggedIn: true});
+          })
+
+          
         } else {
           localStorage.clear();
         }
+
       })
     }
   }
@@ -71,8 +80,18 @@ class App extends Component {
               return <Redirect to="/login" />
             }}}
            />
-          
         </Switch>
+
+        {/* if user is logged in and is worker */}
+        {this.state.isLoggedIn &&
+            <>
+              <h3>Todos os Serviços da Empresa X</h3>
+              <h3>Calendário da Empresa X</h3>
+              <h3>Clientes da Empresa X</h3>
+            </>
+        }
+
+
       </div>
     );
   }
