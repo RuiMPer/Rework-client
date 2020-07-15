@@ -17,7 +17,7 @@ class EditService extends Component {
         event.preventDefault();
         const { title, category, description } = this.state;
         const { params } = this.props.match;
-        axios.put(`https://rework-project.herokuapp.com/api/services/${params.id}`, { title, category, description })
+        axios.put(`${process.env.REACT_APP_SERVER}/services/${params.id}`, { title, category, description })
             .then(() => {
                 this.props.history.push('/services');
             });

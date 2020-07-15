@@ -24,11 +24,11 @@ class AddImage extends Component {
         event.preventDefault();
         const uploadData = new FormData();
         uploadData.append("imageUrl", this.state.file);
-        axios.post('http://localhost:5000/api/upload', uploadData)
+        axios.post(`${process.env.BACKEND_URL}/upload`, uploadData)
             .then((response) => {
                 console.log('image uploaded', response);
                 
-                axios.post('http://localhost:5000/api/images/create', {
+                axios.post(`${process.env.BACKEND_URL}/images/create`, {
                     name: this.state.name,
                     description: this.state.description,
                     imageUrl: response.data.imageUrl

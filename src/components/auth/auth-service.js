@@ -4,7 +4,7 @@ import axios from 'axios';
 class AuthService {
     constructor() {
         let service = axios.create({
-            baseURL: 'https://rework-project.herokuapp.com/api',
+            baseURL: `${process.env.REACT_APP_SERVER}`,
             withCredentials: true
         });
         this.service = service;
@@ -33,9 +33,11 @@ class AuthService {
 
     login = (username, password) => {
         return this.service.post('/login', { username, password })
-            .then(response => response.data)
+            .then((response) => {
+                return response.data
+            })
             .catch((err) => {
-                console.log(err)
+                return err;
             })
     }
 }

@@ -3,17 +3,22 @@ import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import AuthService from '../auth/auth-service';
 import {Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
+import { Badge, Button } from 'reactstrap';
 
 
 class Navbar extends React.Component {
-
-    state= {
-        clickActive: '/'
-    }
-
     service =  new AuthService();
-    
 
+    state = {
+        dropdownOpen: false
+    };
+
+    toggle() {
+        this.setState({
+          dropdownOpen: !this.state.dropdownOpen
+        });
+    }
+    
     logoutUser = () => {
         this.service.logout()
         .then(() => {
@@ -25,7 +30,7 @@ class Navbar extends React.Component {
     render() {
         
         return (
-                <>
+            <nav className="navbar">
                 <Nav pills>
 
                         <NavItem>
@@ -34,9 +39,9 @@ class Navbar extends React.Component {
                     
                     { !this.props.loggedInUser ? ( <>
 
-                        <NavItem active={window.location.hash === '/services'}>
+                        {/* <NavItem active={window.location.hash === '/services'}>
                             <NavLink to="/services">All Services</NavLink>
-                        </NavItem>
+                        </NavItem> */}
                         <NavItem>
                             <NavLink to="/search">Search</NavLink>
                         </NavItem>
@@ -48,35 +53,47 @@ class Navbar extends React.Component {
                         </NavItem>
                         
                     </> ) : ( <>
+                        
+                        <div className="alignright">
 
-                        <NavItem to='/services'>Services
-                        </NavItem>
-                        <Dropdown nav onClick = { () => this.toggleActiveClass()} >
-                            <DropdownToggle nav caret>
-                                My Area
-                            </DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem header>My Services</DropdownItem>
-                                <DropdownItem>My Bookings</DropdownItem>
-                                <DropdownItem>My Clients</DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>Settings</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
-                        <NavItem>
-                            <NavLink to="/profile">Profile</NavLink>
-                        </NavItem>
-                        <span>
-                            Welcome {this.props.loggedInUser.firstName}
-                        </span>
-                        <NavItem>
-                            <NavLink to="/" onClick = { () => this.logoutUser()}>Logout</NavLink>
-                        </NavItem>
-
+                            <span className="nav-item">
+                                Welcome, {this.props.loggedInUser.firstName}!
+                            </span>
+                            <div className="nav-item">
+                                <Button color="primary" outline>
+                                    Bookings <Badge color="secondary">4</Badge>
+                                </Button>
+                            </div>
+                            <Dropdown nav isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
+                                <DropdownToggle nav caret>
+                                    My Area
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    {/* if user worker */}
+                                    <DropdownItem header>Worker</DropdownItem>
+                                    <DropdownItem>My Services</DropdownItem>
+                                    <DropdownItem>My Clients</DropdownItem>
+                                    <DropdownItem>My Bookings</DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem>Settings</DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/profile/:userId">Profile</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/" onClick = { () => this.logoutUser()}>Logout</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        
+                        </div>
 
                     </> )}
                 </Nav>
-            </>
+            </nav>
         )
     }
 }

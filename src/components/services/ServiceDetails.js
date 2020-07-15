@@ -5,9 +5,7 @@ import AddBooking from '../bookings/AddBooking';
 import EditBooking from '../bookings/EditBooking';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-
-
-
+import Example from './/Caroussel';
 
 class ServiceDetails extends Component {
     //1. Option one
@@ -28,7 +26,7 @@ class ServiceDetails extends Component {
     getSingleService = () => {
         //id of the service is on the url /services/1234567
         const { params } = this.props.match;
-        axios.get(`https://rework-project.herokuapp.com/api/services/${params.id}`)
+        axios.get(`${process.env.REACT_APP_SERVER}/services/${params.id}`)
             .then(responseFromAPI => {
                 const service = responseFromAPI.data;
                 console.log('service found', service);
@@ -50,7 +48,7 @@ class ServiceDetails extends Component {
 
     deleteService = () => {
         const { params } = this.props.match;
-        axios.delete(`https://rework-project.herokuapp.com/api/services/${params.id}`)
+        axios.delete(`${process.env.REACT_APP_SERVER}/services/${params.id}`)
             .then(() => {
                 //return <Redirect to='/services' />
                 this.props.history.push('/services');
@@ -128,6 +126,8 @@ class ServiceDetails extends Component {
                     <h3>Description</h3>
                     <p>{this.state.description}</p>
                 </div>
+
+                <Example/>
 
                 {this.props.loggedInUser &&
                     <div>
