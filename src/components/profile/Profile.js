@@ -32,36 +32,68 @@ class Profile extends React.Component {
 
 
     render() {
+        /* getting props with all info from user destructured */
+        const {userInfo} = this.props;
+
+
         return (
             <>
                 <h1>Profile</h1>
 
-                {this.props.userId}
 
                 <Form>
                     <Row form>
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="exampleEmail">Email</Label>
-                                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                                <Input type="email" name="email" id="exampleEmail" placeholder="Escreve o teu email aqui..." value={userInfo.email} onChange={this.handleChange}/>
                             </FormGroup>
                         </Col>
                         <Col md={6}>
                             <FormGroup>
+                                <Label for="username">Username</Label>
+                                <Input type="text" name="username" id="username" placeholder="Escreve o teu username aqui..." value={userInfo.username} onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row form>
+                        <Col md={12}>
+                            <FormGroup>
                                 <Label for="examplePassword">Password</Label>
-                                <Input type="password" name="password" id="examplePassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" disabled />
+                                <Input type="password" name="password" id="examplePassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" disabled value={userInfo.password} onChange={this.handleChange} />
                             </FormGroup>
                         </Col>
                     </Row>
 
+                    <Row form>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label>First Name</Label>
+                                <Input type="text" name="firstName" id="firstName" placeholder="Escreve o teu primeiro nome aqui..." value={userInfo.firstName} onChange={this.handleChange}/>
+                            </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label>Last Name</Label>
+                                <Input type="text" name="lastName" id="lastName" placeholder="Escreve o teu último nome aqui..." disabled value={userInfo.lastName} onChange={this.handleChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+
+        {/* phone:'',
+        type:'',
+        company:'',
+        birthday:'',
+        photoPath: */} 
+
                     
 
                     <FormGroup>
-                        <Label for="exampleSelect">Role</Label>
-                        <Input type="select" name="type" id="exampleSelect">
-                        <option value="worker">Providing services</option>
-                        <option value="client">Looking for services</option>
-                        <option value="combo">Both</option>
+                        <Label for="typeofuser">Role</Label>
+                        <Input type="select" name="type" id="typeofuser">
+                        <option id="worker" value={userInfo.lastName}>Providing services</option>
+                        <option id="client">Looking for services</option>
+                        <option id="combo">Both</option>
                         </Input>
                     </FormGroup>
                     <FormGroup>

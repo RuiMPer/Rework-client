@@ -32,21 +32,20 @@ class App extends Component {
     })
   }
 
-
   componentDidMount() {
     this.fetchUser();
   }
 
-
-
   fetchUser = () => {
     if(this.state.loggedInUser === null) {
       this.service.loggedin() 
-      .then(response => {
-        if (response._id) {console.log("entra")
+      .then(response => {console.log("response from fetch user", response);
+
+        if (response._id) {
+          console.log("COM SUCESSO");
           localStorage.setItem("loggedin", true)
           this.setCurrentUser(response)
-        } else {
+        } else {console.log("FAILURE");
           localStorage.clear();
         }
 
@@ -56,6 +55,8 @@ class App extends Component {
 
 
   render() {
+    //this.fetchUser(); console.log(this.state.loggedInUser)
+    
     return (
       <div className="App">
         <Navbar loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} />
@@ -78,7 +79,7 @@ class App extends Component {
 
             <Route exact path="/profile/:id" render={ (props) => {
               if (localStorage.getItem("loggedin")) {
-                return <Profile {...props} userId={this.state.loggedInUser._id}/>
+                return <Profile {...props} userInfo={this.state.loggedInUser}/>
               } else {
                 return <Redirect to="/login" />
               }}}
