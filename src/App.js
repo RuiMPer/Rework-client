@@ -67,7 +67,7 @@ class App extends Component {
             <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} /> } />
             <Route path='/signup' render={(props) => <Signup setCurrentUser={this.setCurrentUser} {...props} /> } />
             <Route exact path="/images/add" component={AddImage} />
-            <Route exact path="/services" component={ServiceList} />
+            <Route exact path="/services" render={(props) => <ServiceList loggedInUser={this.state.loggedInUser} {...props} />} />
             <Route exact path="/services/:id" render={(props) => <ServiceDetails {...props} loggedInUser={this.state.loggedInUser} /> } />
             <Route exact path="/services/:id/edit" render={ (props) => {
               if (localStorage.getItem("loggedin")) {
