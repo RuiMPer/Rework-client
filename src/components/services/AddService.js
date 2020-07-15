@@ -49,7 +49,7 @@ class AddService extends Component {
                     <input type="text" name="category" value={this.state.category} onChange={this.handleChange} />
                     <label>Description</label>
                     <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-                    <input type="file" onChange={this.handleFileChange} />
+                    <input type="file" name="file" onChange={this.handleFileChange} />
 
                     <input type="submit" value="Submit" />
                 </form>
