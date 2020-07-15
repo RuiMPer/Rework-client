@@ -27,16 +27,6 @@ class AddService extends Component {
                         toast('Service created!');
                     })
             })
-        // axios.post('https://rework-project.herokuapp.com/api/services', { category, title, description })
-        //     .then(() => {
-        //         //1. Lift the state up and push new service into the state that lives on servicelist
-        //         //2. Call the api to get all services again
-        //         this.props.refreshServices();
-        //         this.setState({ category: "", title: '', description: '' });
-
-        //         //giving feedback
-        //         toast('Service created!');
-        //     })
     }
 
 

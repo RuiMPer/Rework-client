@@ -19,9 +19,9 @@ class ServiceDetails extends Component {
         showForm: false,
         showInfo: false,
         showBooking: false,
-        showClient: false
+        showClient: false,
+        showEditBooking: false
     }
-
 
     getSingleService = () => {
         //id of the service is on the url /services/1234567
@@ -55,19 +55,30 @@ class ServiceDetails extends Component {
             })
     }
 
-    showForm = () => {
-        this.state.showForm ? this.setState({ showForm: false }) : this.setState({ showForm: true })
+    showAddBooking = () => {
+        const { showForm, showInfo, showClient, showEditBooking } = this.state
+
+        this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showForm: false, showInfo: false, showClient: false, showEditBooking: false })
     }
     showInfo = () => {
-        this.state.showInfo ? this.setState({ showInfo: false }) : this.setState({ showInfo: true })
+        const { showForm, showBooking, showClient, showEditBooking } = this.state
+
+        this.state.showInfo ? this.setState({ showInfo: false }) : this.setState({ showInfo: true, showForm: false, showBooking: false, showClient: false, showEditBooking: false })
     }
     showBooking = () => {
-        this.state.showBooking ? this.setState({ showBooking: false }) : this.setState({ showBooking: true })
+        const { showForm, showInfo, showClient, showEditBooking } = this.state
 
-        console.log(this.state.showBooking)
+        this.state.showBooking ? this.setState({ showBooking: false }) : this.setState({ showBooking: true, showForm: false, showInfo: false, showClient: false, showEditBooking: false })
     }
     showClient = () => {
-        this.state.showClient ? this.setState({ showClient: false }) : this.setState({ showClient: true })
+        const { showForm, showInfo, showBooking, showEditBooking } = this.state
+
+        this.state.showClient ? this.setState({ showClient: false }) : this.setState({ showClient: true, showForm: false, showInfo: false, showBooking: false, showEditBooking: false })
+    }
+    showEditBooking = () => {
+        const { showForm, showInfo, showBooking, showClient } = this.state
+
+        this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showForm: false, showInfo: false, showBooking: false, showClient: false })
     }
 
 
@@ -99,6 +110,7 @@ class ServiceDetails extends Component {
           </NavLink>
                     </NavItem>
                 </Nav> */}
+
                 <div>
                     <a href="/services">Back</a>
                     <p>{this.state.title}</p>
@@ -109,57 +121,48 @@ class ServiceDetails extends Component {
                         state: {
                             title: this.state.title,
                             description: this.state.description,
-                            category: this.state.category
+                            category: this.state.category,
+                            photoPath: this.state.photoPath
                         }
                     }}>Edit Service</Link>
-                    
-                    <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />
+                    <a onClick={() => this.showAddBooking()} href="#">Add Booking</a>
+                    {this.state.showAddBooking && <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />}
+
                 </div>
                 <div>
                     <a onClick={() => this.showInfo()} href="#">Information</a>
                     <a onClick={() => this.showBooking()} href="#">Bookings</a>
                     <a onClick={() => this.showClient()} href="#">Clients</a>
                 </div>
-                <div>
+
+                {this.state.showInfo && <div>
+                    <img src={this.state.photoPath} />
                     <h3>Category</h3>
                     <p>{this.state.category}</p>
                     <h3>Description</h3>
                     <p>{this.state.description}</p>
-                </div>
-
-                <Example/>
+                </div>}
+                {/* <Example/> */}
 
                 {this.props.loggedInUser &&
                     <div>
                         <button onClick={() => this.deleteService()}>Delete Service</button>
                     </div>
                 }
-                <div>
-                    <Link to={{
-                        pathname: `/services/${params.id}/edit`,
-                        state: {
-                            title: this.state.title,
-                            description: this.state.description,
-                            category: this.state.category
-                        }
-                    }}>Edit Service</Link>
-                </div>
                 <hr />
-                <div>
-                    <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />
-                </div>
                 <div>
                     {this.state.showBooking && this.state.bookings.map(booking => {
                         return (
                             <div key={booking._id}>
                                 <ul>
-                                    <li>{booking.title}</li>
-                                    <li>{booking.description}</li>
-                                    <li>{booking.date}</li>
-                                    <li>{booking.time}</li>
-                                    <li><button onClick={this.showForm}>Edit</button></li>
+                                    <li>Title: {booking.title}</li>
+                                    <li>Description: {booking.description}</li>
+                                    <li>Date: {booking.date}</li>
+                                    <li>Time: {booking.time}</li>
+                                    <li>Client: {booking.client}</li>
+                                    <li><button onClick={this.showEditBooking}>Edit</button></li>
                                     {/* {this.state.showForm && <EditBooking booking={booking} {...this.props} />} */}
-                                    <EditBooking booking={booking} {...this.props} />
+                                    {this.state.showEditBooking && <EditBooking booking={booking} {...this.props} />}
                                 </ul>
                             </div>
                         )

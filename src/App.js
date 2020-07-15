@@ -76,7 +76,7 @@ class App extends Component {
               }}}
             />
 
-            <Route exact path="/profile/:userId" render={ (props) => {
+            <Route exact path="/profile/:id" render={ (props) => {
               if (localStorage.getItem("loggedin")) {
                 return <Profile {...props} userId={this.state.loggedInUser._id}/>
               } else {
