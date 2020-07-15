@@ -78,7 +78,7 @@ class Navbar extends React.Component {
                                     <DropdownItem>Settings</DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink to="/profile/:userId">Profile</NavLink>
+                                                <NavLink to={`/profile/${this.props.loggedInUser._id}`}>Profile</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem>
