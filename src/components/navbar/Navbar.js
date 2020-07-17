@@ -2,12 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import AuthService from '../auth/auth-service';
-import {Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
+import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
 import { Badge, Button } from 'reactstrap';
 
 
 class Navbar extends React.Component {
-    service =  new AuthService();
+    service = new AuthService();
 
     state = {
         dropdownOpen: false
@@ -15,29 +15,29 @@ class Navbar extends React.Component {
 
     toggle() {
         this.setState({
-          dropdownOpen: !this.state.dropdownOpen
+            dropdownOpen: !this.state.dropdownOpen
         });
     }
-    
+
     logoutUser = () => {
         this.service.logout()
-        .then(() => {
-            this.props.setCurrentUser(null);
-            localStorage.clear();
-        })
+            .then(() => {
+                this.props.setCurrentUser(null);
+                localStorage.clear();
+            })
     }
 
     render() {
-        
+
         return (
             <nav className="navbar">
                 <Nav pills>
 
-                        <NavItem>
-                            <NavLink exact to="/">Home</NavLink>
-                        </NavItem>
-                    
-                    { !this.props.loggedInUser ? ( <>
+                    <NavItem>
+                        <NavLink exact to="/">Home</NavLink>
+                    </NavItem>
+
+                    {!this.props.loggedInUser ? (<>
 
                         {/* <NavItem active={window.location.hash === '/services'}>
                             <NavLink to="/services">All Services</NavLink>
@@ -51,9 +51,9 @@ class Navbar extends React.Component {
                         <NavItem>
                             <NavLink to='/signup'>Signup</NavLink>
                         </NavItem>
-                        
-                    </> ) : ( <>
-                        
+
+                    </>) : (<>
+
                         <div className="alignright">
 
                             <span className="nav-item">
@@ -71,27 +71,31 @@ class Navbar extends React.Component {
                                 <DropdownMenu>
                                     {/* if user worker */}
                                     <DropdownItem header>Worker</DropdownItem>
-                                    <DropdownItem>My Services</DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/services">Services</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
                                     <DropdownItem>My Clients</DropdownItem>
                                     <DropdownItem>My Bookings</DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>Settings</DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
-                                                <NavLink to={`/profile/${this.props.loggedInUser._id}`}>Profile</NavLink>
+                                            <NavLink to={`/profile/${this.props.loggedInUser._id}`}>Profile</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink to="/" onClick = { () => this.logoutUser()}>Logout</NavLink>
+                                            <NavLink to="/" onClick={() => this.logoutUser()}>Logout</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
-                        
+
                         </div>
 
-                    </> )}
+                    </>)}
                 </Nav>
             </nav>
         )

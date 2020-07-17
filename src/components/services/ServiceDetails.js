@@ -100,17 +100,27 @@ class ServiceDetails extends Component {
         const { params } = this.props.match;
         return (
             <div>
-                <div>
-                    <a href="/services">Back</a>
-                    <p>{this.state.title}</p>
-                </div>
+                <Row>
+                    <Col ><a href="/services">Back</a></Col>
+                    <Col >{this.state.title}</Col>
+                    <Col ><a onClick={() => this.showAddBooking()} href="#">Add Booking</a></Col>
+                    <Col >
+                        <Link to={{
+                            pathname: `/services/${params.id}/edit`,
+                            state: {
+                                title: this.state.title,
+                                description: this.state.description,
+                                category: this.state.category,
+                                photoPath: this.state.photoPath
+                            }
+                        }}>Edit Service</Link>
+                    </Col>
+                </Row>
                 {this.props.loggedInUser &&
                     <div>
                         <button onClick={() => this.deleteService()}>Delete Service</button>
                     </div>
                 }
-                <a onClick={() => this.showAddBooking()} href="#">Add Booking</a>
-                {this.state.showAddBooking && <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />}
                 <div>
                     <Link to={{
                         pathname: `/services/${params.id}/edit`,
@@ -151,13 +161,21 @@ class ServiceDetails extends Component {
                     </Nav>
                     <TabContent activeTab={this.state.activeTab}>
                         <TabPane tabId="1">
-                            {this.state.activeTab == 1 ? <div>
-                                <img src={this.state.photoPath} />
-                                <h3>Category</h3>
-                                <p>{this.state.category}</p>
-                                <h3>Description</h3>
-                                <p>{this.state.description}</p>
-                            </div> : null}
+                            {this.state.activeTab == 1 ?
+                                <div>
+                                    <Row>
+                                        <Col>Service Photo</Col>
+                                        <Col>Category</Col>
+                                        <Col>Description</Col>
+
+                                    </Row>
+                                    <Row>
+                                        <Col><img src={this.state.photoPath} /></Col>
+                                        <Col><p>{this.state.category}</p></Col>
+                                        <Col><p>{this.state.description}</p></Col>
+                                    </Row>
+                                </div>
+                                : null}
                         </TabPane>
                         <TabPane tabId="2">
                             {this.state.activeTab == 2 ? <div>
@@ -198,8 +216,8 @@ class ServiceDetails extends Component {
                     <p>{this.state.description}</p>
                 </div>} */}
                 {/* <Example/> */}
-
-                <div>
+                {this.state.showAddBooking && <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />}
+                {/* <div>
                     {this.state.showBooking && this.state.bookings.map(booking => {
                         return (
                             <div key={booking._id}>
@@ -210,13 +228,13 @@ class ServiceDetails extends Component {
                                     <li>Time: {booking.time}</li>
                                     <li>Client: {booking.client}</li>
                                     <li><button onClick={this.showEditBooking}>Edit</button></li>
-                                    {/* {this.state.showForm && <EditBooking booking={booking} {...this.props} />} */}
+                                    {this.state.showForm && <EditBooking booking={booking} {...this.props} />}
                                     {this.state.showEditBooking && <EditBooking booking={booking} {...this.props} />}
                                 </ul>
                             </div>
                         )
                     })}
-                </div>
+                </div> */}
             </div>
         )
     }
