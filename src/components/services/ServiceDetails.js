@@ -20,7 +20,8 @@ class ServiceDetails extends Component {
         showInfo: false,
         showBooking: false,
         showClient: false,
-        showEditBooking: false
+        showEditBooking: false,
+        showAddBooking: false
     }
 
     getSingleService = () => {
@@ -63,7 +64,7 @@ class ServiceDetails extends Component {
     showInfo = () => {
         const { showForm, showBooking, showClient, showEditBooking } = this.state
 
-        this.state.showInfo ? this.setState({ showInfo: false }) : this.setState({ showInfo: true, showForm: false, showBooking: false, showClient: false, showEditBooking: false })
+        this.state.showInfo ? this.setState({ showInfo: false }) : this.setState({ showInfo: true, showAddBooking: false, showForm: false, showBooking: false, showClient: false, showEditBooking: false })
     }
     showBooking = () => {
         const { showForm, showInfo, showClient, showEditBooking } = this.state
