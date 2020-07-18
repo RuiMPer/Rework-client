@@ -6,6 +6,7 @@ import EditBooking from '../bookings/EditBooking';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import Example from './/Caroussel';
+import "./ServiceDetails.css";
 
 class ServiceDetails extends Component {
     //1. Option one
@@ -100,11 +101,10 @@ class ServiceDetails extends Component {
         const { params } = this.props.match;
         return (
             <div>
-                <Row>
-                    <Col ><a href="/services">Back</a></Col>
-                    <Col >{this.state.title}</Col>
-                    <Col ><a onClick={() => this.showAddBooking()} href="#">Add Booking</a></Col>
-                    <Col >
+                <Row >
+                    <Col xs="1"><a href="/services">Back</a></Col>
+                    <Col xs="6">{this.state.title}</Col>
+                    <Col xs="2">
                         <Link to={{
                             pathname: `/services/${params.id}/edit`,
                             state: {
@@ -115,32 +115,22 @@ class ServiceDetails extends Component {
                             }
                         }}>Edit Service</Link>
                     </Col>
+                    <Col ><a onClick={() => this.showAddBooking()} href="#">Add Booking</a></Col>
                 </Row>
                 {this.props.loggedInUser &&
                     <div>
-                        <button onClick={() => this.deleteService()}>Delete Service</button>
+                        <Button onClick={() => this.deleteService()}>Delete Service</Button>
                     </div>
                 }
                 <div>
-                    <Link to={{
-                        pathname: `/services/${params.id}/edit`,
-                        state: {
-                            title: this.state.title,
-                            description: this.state.description,
-                            category: this.state.category,
-                            photoPath: this.state.photoPath
-                        }
-                    }}>Edit Service</Link>
-                </div>
-                <div>
-                    <Nav tabs>
+                    <Nav tabs >
                         <NavItem>
                             <NavLink
                                 className={classnames({ active: this.state.activeTab === '1' })}
                                 onClick={() => { this.toggle('1'); }}
                             >
                                 Information
-                        </NavLink>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink
@@ -148,7 +138,7 @@ class ServiceDetails extends Component {
                                 onClick={() => { this.toggle('2'); }}
                             >
                                 Bookings
-                        </NavLink>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink
@@ -156,7 +146,7 @@ class ServiceDetails extends Component {
                                 onClick={() => { this.toggle('3'); }}
                             >
                                 Clients
-                        </NavLink>
+                            </NavLink>
                         </NavItem>
                     </Nav>
                     <TabContent activeTab={this.state.activeTab}>
@@ -170,7 +160,7 @@ class ServiceDetails extends Component {
 
                                     </Row>
                                     <Row>
-                                        <Col><img src={this.state.photoPath} /></Col>
+                                        <Col><img src={this.state.photoPath} alt={this.state.photoName} /></Col>
                                         <Col><p>{this.state.category}</p></Col>
                                         <Col><p>{this.state.description}</p></Col>
                                     </Row>

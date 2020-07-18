@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 import './Navbar.css';
 import AuthService from '../auth/auth-service';
 import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
@@ -10,7 +11,8 @@ class Navbar extends React.Component {
     service = new AuthService();
 
     state = {
-        dropdownOpen: false
+        dropdownOpen: false,
+        listOfServices: []
     };
 
     toggle() {
@@ -26,6 +28,18 @@ class Navbar extends React.Component {
                 localStorage.clear();
             })
     }
+    // getAllServices = () => {
+    //     axios.get(`${process.env.REACT_APP_SERVER}/services`)
+    //         .then(responseFromAPI => {
+    //             this.setState({
+    //                 listOfServices: responseFromAPI.data
+    //             })
+    //         });
+    // }
+
+    // countAllBookings = () => {
+
+    // }
 
     render() {
 

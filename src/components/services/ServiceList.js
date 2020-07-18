@@ -13,10 +13,12 @@ class ServiceList extends Component {
         // Get list of service from the API we just built
         axios.get(`${process.env.REACT_APP_SERVER}/services`)
             .then(responseFromAPI => {
+                
                 this.setState({
                     listOfServices: responseFromAPI.data
                 })
             });
+            
     }
 
     componentDidMount() {
@@ -39,7 +41,7 @@ class ServiceList extends Component {
                     })}
                 </div>
                 <div style={{ width: '40%', float: 'right' }}>
-                    <AddService refreshServices={this.getAllServices} />
+                    <AddService loggedInUser={this.props.loggedInUser} refreshServices={this.getAllServices} />
                 </div>
             </div>
         )
