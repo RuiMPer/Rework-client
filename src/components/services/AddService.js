@@ -15,26 +15,15 @@ class AddService extends Component {
     handleFormSubmit = (event) => {
         event.preventDefault();
         const { category, title, description } = this.state
-<<<<<<< HEAD
-        const loggedInUser = this.props;
-        const uploadData = new FormData();
-=======
         const userId = this.props.userId
         const uploadData = new FormData()
->>>>>>> 92d23c5e686cb8b480302cc0616a3d527d83a576
         uploadData.append("photoPath", this.state.photoPath)
 
         axios.post(`${process.env.REACT_APP_SERVER}/upload`, uploadData)
             .then((response) => {
-<<<<<<< HEAD
-                console.log(loggedInUser);
-                console.log('image uploaded', response);
-                axios.post(`${process.env.REACT_APP_SERVER}/services`, { category, title, description, photoPath: response.data.photoPath, author: loggedInUser._id })
-=======
                 console.log("USer", userId)
                 console.log('image uploaded', response);
                 axios.post(`${process.env.REACT_APP_SERVER}/services`, { category, title, description, photoPath: response.data.photoPath, author: userId })
->>>>>>> 92d23c5e686cb8b480302cc0616a3d527d83a576
                     .then((response) => {
                         console.log('service created', response);
                         this.props.refreshServices();
