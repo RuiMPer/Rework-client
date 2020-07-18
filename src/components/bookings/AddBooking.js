@@ -24,6 +24,7 @@ class AddBooking extends Component {
             .then(() => {
                 this.props.getService();
                 this.setState({ title: '', description: '', date: "", time: "" });
+                toast('Booking created!');
             })
     }
 

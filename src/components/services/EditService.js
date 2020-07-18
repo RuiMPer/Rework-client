@@ -33,10 +33,6 @@ class EditService extends Component {
                         this.props.history.push('/services')
                     })
             })
-        // axios.put(`${process.env.REACT_APP_SERVER}/services/${params.id}`, { title, category, description })
-        //     .then(() => {
-        //         this.props.history.push('/services');
-        //     });
     }
 
     handleFileChange = (event) => {

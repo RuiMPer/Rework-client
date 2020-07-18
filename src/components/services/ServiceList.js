@@ -6,29 +6,35 @@ import AddService from './AddService';
 class ServiceList extends Component {
 
     state = {
-        listOfServices: []
+        listOfServices: [],
+        showAddService: false
     }
 
     getAllServices = () => {
         // Get list of service from the API we just built
         axios.get(`${process.env.REACT_APP_SERVER}/services`)
             .then(responseFromAPI => {
-                
+
                 this.setState({
                     listOfServices: responseFromAPI.data
                 })
             });
-            
+
     }
 
     componentDidMount() {
         this.getAllServices();
     }
 
+    showAddService = () => {
+        const { showEditBooking } = this.state
+
+        this.state.showAddService ? this.setState({ showAddService: false }) : this.setState({ showAddService: true })
+    }
     render() {
         return (
             <div>
-                <div style={{ width: '60%', float: 'left' }}>
+                <div style={{ width: '50%', float: 'left' }}>
                     {this.state.listOfServices.map(service => {
                         return (
                             <div key={service._id}>
@@ -40,9 +46,10 @@ class ServiceList extends Component {
                         )
                     })}
                 </div>
-                <div style={{ width: '40%', float: 'right' }}>
-                    <AddService loggedInUser={this.props.loggedInUser} refreshServices={this.getAllServices} />
-                </div>
+                <a onClick={() => this.showAddService()} href="#">Add Service</a>
+                {this.state.showAddService && <div style={{ width: '50%', float: 'right' }}>
+                    <AddService userId={this.props.loggedInUser._id} refreshServices={this.getAllServices} />
+                </div>}
             </div>
         )
     }
