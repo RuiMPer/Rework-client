@@ -17,10 +17,6 @@ class ServiceDetails extends Component {
 
     //2. Option two
     state = {
-        showForm: false,
-        showInfo: false,
-        showBooking: false,
-        showClient: false,
         showEditBooking: false,
         showAddBooking: false
     }
@@ -44,13 +40,6 @@ class ServiceDetails extends Component {
             .then(responseFromAPI => {
                 const service = responseFromAPI.data;
                 console.log('service found', service);
-                //1. Option one
-                /* this.setState({
-                    title: service.title,
-                    description: service.description
-                })*/
-
-                //2. Option two
                 this.setState(service);
             })
     }
@@ -64,38 +53,24 @@ class ServiceDetails extends Component {
         const { params } = this.props.match;
         axios.delete(`${process.env.REACT_APP_SERVER}/services/${params.id}`)
             .then(() => {
-                //return <Redirect to='/services' />
                 this.props.history.push('/services');
             })
     }
 
     showAddBooking = () => {
-        const { showForm, showInfo, showClient, showEditBooking } = this.state
+        const { showEditBooking } = this.state
 
-        this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showBooking: false, showForm: false, showInfo: false, showClient: false, showEditBooking: false })
+        this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false })
     }
-    // showInfo = () => {
-    //     const { showForm, showBooking, showClient, showEditBooking } = this.state
-
-    //     this.state.showInfo ? this.setState({ showInfo: false }) : this.setState({ showInfo: true, showAddBooking: false, showForm: false, showBooking: false, showClient: false, showEditBooking: false })
-    // }
-    // showBooking = () => {
-    //     const { showForm, showInfo, showClient, showEditBooking } = this.state
-
-    //     this.state.showBooking ? this.setState({ showBooking: false }) : this.setState({ showBooking: true, showAddBooking: false, showForm: false, showInfo: false, showClient: false, showEditBooking: false })
-    // }
-    // showClient = () => {
-    //     const { showForm, showInfo, showBooking, showEditBooking } = this.state
-
-    //     this.state.showClient ? this.setState({ showClient: false }) : this.setState({ showClient: true, showForm: false, showAddBooking: false, showInfo: false, showBooking: false, showEditBooking: false })
-    // }
     showEditBooking = () => {
-        const { showForm, showInfo, showBooking, showClient } = this.state
+        const { showAddBooking } = this.state
 
-        this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showAddBooking: false, showForm: false, showInfo: false, showBooking: false, showClient: false })
+        this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showAddBooking: false })
     }
-
-
+    closeOptions = () => {
+        const { showEditBooking, showAddBooking } = this.state
+        this.setState({ showEditBooking: false, showAddBooking: false })
+    }
     // 1. Happens first
     render() {
         const { params } = this.props.match;
@@ -127,7 +102,7 @@ class ServiceDetails extends Component {
                         <NavItem>
                             <NavLink
                                 className={classnames({ active: this.state.activeTab === '1' })}
-                                onClick={() => { this.toggle('1'); }}
+                                onClick={() => { this.toggle('1'); this.closeOptions() }}
                             >
                                 Information
                             </NavLink>
@@ -135,7 +110,7 @@ class ServiceDetails extends Component {
                         <NavItem>
                             <NavLink
                                 className={classnames({ active: this.state.activeTab === '2' })}
-                                onClick={() => { this.toggle('2'); }}
+                                onClick={() => { this.toggle('2'); this.closeOptions() }}
                             >
                                 Bookings
                             </NavLink>
@@ -143,7 +118,7 @@ class ServiceDetails extends Component {
                         <NavItem>
                             <NavLink
                                 className={classnames({ active: this.state.activeTab === '3' })}
-                                onClick={() => { this.toggle('3'); }}
+                                onClick={() => { this.toggle('3'); this.closeOptions() }}
                             >
                                 Clients
                             </NavLink>
@@ -157,7 +132,6 @@ class ServiceDetails extends Component {
                                         <Col>Service Photo</Col>
                                         <Col>Category</Col>
                                         <Col>Description</Col>
-
                                     </Row>
                                     <Row>
                                         <Col><img src={this.state.photoPath} alt={this.state.photoName} /></Col>
@@ -179,7 +153,6 @@ class ServiceDetails extends Component {
                                                 <li>Time: {booking.time}</li>
                                                 <li>Client: {booking.client}</li>
                                                 <li><button onClick={this.showEditBooking}>Edit</button></li>
-                                                {/* {this.state.showForm && <EditBooking booking={booking} {...this.props} />} */}
                                                 {this.state.showEditBooking && <EditBooking booking={booking} {...this.props} />}
                                             </ul>
                                         </div>
@@ -188,7 +161,7 @@ class ServiceDetails extends Component {
                             </div> : null}
                         </TabPane>
                         <TabPane tabId="3">
-                            {this.state.activeTab == 3 ? <h4>Tab 3 Contents</h4> : null}
+                            {this.state.activeTab == 3 ? <h4>Available in future Update</h4> : null}
                         </TabPane>
                     </TabContent>
                 </div>
