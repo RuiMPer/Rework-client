@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Loading from './components/loading/Loading';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
 import ServiceList from './components/services/ServiceList';
 import ServiceDetails from './components/services/ServiceDetails';
 import EditService from './components/services/EditService';
 import Navbar from './components/navbar/Navbar';
+import Company from './components/company/Company';
 import AddImage from './components/images/AddImage';
 import Profile from './components/profile/Profile';
 import Login from './components/auth/Login';
@@ -24,6 +26,7 @@ class App extends Component {
 
   state = {
     loggedInUser: null,
+    loading:true
   }
 
   setCurrentUser = (userObj) => {
@@ -34,6 +37,7 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchUser();
+    this.setState({loading: false});
   }
 
   fetchUser = () => {
@@ -62,9 +66,13 @@ class App extends Component {
     
     return (
       <div className="App">
+
         <Navbar loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} />
 
         <section className="maincontent">
+
+        {this.state.loading && <Loading/>}
+        
           <Switch>
             <Route exact path="/" render={(props) => <Home isLoggedIn={this.state.loggedInUser} {...props} /> } />
             <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} /> } />
@@ -87,12 +95,21 @@ class App extends Component {
                 return <Redirect to="/login" />
               }}}
             />
+
+            <Route exact path="/company" render={ (props) => {
+              if (localStorage.getItem("loggedin")) {
+                return <Company loggedInUser={this.state.loggedInUser} {...props} />
+              }}}
+            />
+
+            {/* Not found route */}
             <Route path="*" component={() => <NotFound/>}/>
 
           </Switch>
         </section>
 
         <Footer/>
+
       </div>
     );
   }

@@ -69,7 +69,9 @@ class Navbar extends React.Component {
                                 </DropdownToggle>
                                 <DropdownMenu>
                                     {/* if user worker */}
-                                    {this.props.loggedInUser.type === "worker" ? ( <DropdownItem header>Worker</DropdownItem> ):(<DropdownItem header>Client</DropdownItem>)}
+                                    {this.props.loggedInUser.type === "worker" ? ( 
+                                    <>
+                                    <DropdownItem header>Worker</DropdownItem> 
                                     <DropdownItem>
                                         <NavItem>
                                             <NavLink to="/services">My Services</NavLink>
@@ -80,6 +82,16 @@ class Navbar extends React.Component {
                                             <NavLink to="/clients">My Clients</NavLink>
                                         </NavItem>
                                     </DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/company">My Company</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                    </>
+                                    ):(
+                                    <DropdownItem header>Client</DropdownItem>
+                                    )}
+                                    
                                     <DropdownItem>
                                         <NavItem>
                                             <NavLink to="/bookings">My Bookings</NavLink>
