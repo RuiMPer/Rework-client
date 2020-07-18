@@ -39,13 +39,16 @@ class App extends Component {
   fetchUser = () => {
     if(this.state.loggedInUser === null) {
       this.service.loggedin() 
-      .then(response => {console.log("response from fetch user", response);
+      .then(response => {
+      console.log("response from fetch user", response);
 
         if (response._id) {
           console.log("COM SUCESSO");
           localStorage.setItem("loggedin", true)
           this.setCurrentUser(response)
-        } else {console.log("FAILURE");
+
+        } else {
+          console.log("FAILURE");
           localStorage.clear();
         }
 
@@ -77,9 +80,9 @@ class App extends Component {
               }}}
             />
 
-            <Route exact path="/profile/:id" render={ (props) => {
+            <Route exact path="/profile/:userId" render={ (props) => {
               if (localStorage.getItem("loggedin")) {
-                return <Profile {...props} userInfo={this.state.loggedInUser}/>
+                return <Profile {...props}/>
               } else {
                 return <Redirect to="/login" />
               }}}

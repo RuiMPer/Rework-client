@@ -7,6 +7,10 @@ form {
   max-width: 980px;
 }
 
+Button{
+  min-width:80px;
+}
+
 .maincontent{
   padding:3rem 0 4rem;
   max-width:980px;
