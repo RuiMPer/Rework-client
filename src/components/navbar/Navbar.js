@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import './Navbar.css';
 import AuthService from '../auth/auth-service';
 import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
@@ -11,9 +10,9 @@ class Navbar extends React.Component {
     service = new AuthService();
 
     state = {
-        dropdownOpen: false,
-        listOfServices: []
+        dropdownOpen: false
     };
+
 
     toggle() {
         this.setState({
@@ -28,20 +27,9 @@ class Navbar extends React.Component {
                 localStorage.clear();
             })
     }
-    // getAllServices = () => {
-    //     axios.get(`${process.env.REACT_APP_SERVER}/services`)
-    //         .then(responseFromAPI => {
-    //             this.setState({
-    //                 listOfServices: responseFromAPI.data
-    //             })
-    //         });
-    // }
-
-    // countAllBookings = () => {
-
-    // }
 
     render() {
+        console.log(this.props.loggedInUser)
 
         return (
             <nav className="navbar">
@@ -51,11 +39,8 @@ class Navbar extends React.Component {
                         <NavLink exact to="/">Home</NavLink>
                     </NavItem>
 
-                    {!this.props.loggedInUser ? (<>
-
-                        {/* <NavItem active={window.location.hash === '/services'}>
-                            <NavLink to="/services">All Services</NavLink>
-                        </NavItem> */}
+                    {!this.props.loggedInUser ? (
+                        <>
                         <NavItem>
                             <NavLink to="/search">Search</NavLink>
                         </NavItem>
@@ -65,9 +50,9 @@ class Navbar extends React.Component {
                         <NavItem>
                             <NavLink to='/signup'>Signup</NavLink>
                         </NavItem>
-
-                    </>) : (<>
-
+                        </>
+                    ) : (
+                        <>
                         <div className="alignright">
 
                             <span className="nav-item">
@@ -84,16 +69,30 @@ class Navbar extends React.Component {
                                 </DropdownToggle>
                                 <DropdownMenu>
                                     {/* if user worker */}
-                                    <DropdownItem header>Worker</DropdownItem>
+                                    {this.props.loggedInUser.type === "worker" ? ( <DropdownItem header>Worker</DropdownItem> ):(<DropdownItem header>Client</DropdownItem>)}
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink to="/services">Services</NavLink>
+                                            <NavLink to="/services">My Services</NavLink>
                                         </NavItem>
                                     </DropdownItem>
-                                    <DropdownItem>My Clients</DropdownItem>
-                                    <DropdownItem>My Bookings</DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/clients">My Clients</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/bookings">My Bookings</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+
                                     <DropdownItem divider />
-                                    <DropdownItem>Settings</DropdownItem>
+
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink to="/settings">Settings</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
                                             <NavLink to={`/profile/${this.props.loggedInUser._id}`}>Profile</NavLink>

@@ -1,11 +1,23 @@
-.App {
-  text-align: center;
+*{
+  text-align:left;
+}
+
+.header{
+  margin: 0 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.margin-content{
+  margin: 0 2rem;
 }
 
 form {
   margin: auto 2rem;
   max-width: 980px;
 }
+
 
 Button{
   min-width:80px;
