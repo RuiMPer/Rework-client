@@ -99,30 +99,35 @@ class ServiceDetails extends Component {
                 }
                 <div>
                     <Nav tabs >
-                        <NavItem>
-                            <NavLink
-                                className={classnames({ active: this.state.activeTab === '1' })}
-                                onClick={() => { this.toggle('1'); this.closeOptions() }}
-                            >
-                                Information
+                        <div>
+                            <NavItem>
+                                <NavLink
+                                    className={classnames({ active: this.state.activeTab === '1' })}
+                                    onClick={() => { this.toggle('1'); this.closeOptions() }}
+                                >
+                                    Information
                             </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink
-                                className={classnames({ active: this.state.activeTab === '2' })}
-                                onClick={() => { this.toggle('2'); this.closeOptions() }}
-                            >
-                                Bookings
+                            </NavItem>
+                            <NavItem>
+                                <NavLink
+                                    className={classnames({ active: this.state.activeTab === '2' })}
+                                    onClick={() => { this.toggle('2'); this.closeOptions() }}
+                                >
+                                    Bookings
                             </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink
-                                className={classnames({ active: this.state.activeTab === '3' })}
-                                onClick={() => { this.toggle('3'); this.closeOptions() }}
-                            >
-                                Clients
+                            </NavItem>
+                            <NavItem>
+                                <NavLink
+                                    className={classnames({ active: this.state.activeTab === '3' })}
+                                    onClick={() => { this.toggle('3'); this.closeOptions() }}
+                                >
+                                    Clients
                             </NavLink>
-                        </NavItem>
+                            </NavItem>
+                        </div>
+                        <div>
+                            <p>Vista</p>
+                        </div>
                     </Nav>
                     <TabContent activeTab={this.state.activeTab}>
                         <TabPane tabId="1">

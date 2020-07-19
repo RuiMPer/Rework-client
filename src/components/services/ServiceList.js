@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AddService from './AddService';
+import AddNotification from '../notifications/AddNotification';
 
 class ServiceList extends Component {
 
@@ -50,6 +51,7 @@ class ServiceList extends Component {
                 {this.state.showAddService && <div style={{ width: '50%', float: 'right' }}>
                     <AddService userId={this.props.loggedInUser._id} refreshServices={this.getAllServices} />
                 </div>}
+                <AddNotification />
             </div>
         )
     }

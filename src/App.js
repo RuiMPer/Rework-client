@@ -16,6 +16,7 @@ import AuthService from './components/auth/auth-service';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import { Notifications } from "react-push-notification"
 
 
 
@@ -37,62 +38,65 @@ class App extends Component {
   }
 
   fetchUser = () => {
-    if(this.state.loggedInUser === null) {
-      this.service.loggedin() 
-      .then(response => {
-      console.log("response from fetch user", response);
+    if (this.state.loggedInUser === null) {
+      this.service.loggedin()
+        .then(response => {
+          console.log("response from fetch user", response);
 
-        if (response._id) {
-          console.log("COM SUCESSO");
-          localStorage.setItem("loggedin", true)
-          this.setCurrentUser(response)
+          if (response._id) {
+            console.log("COM SUCESSO");
+            localStorage.setItem("loggedin", true)
+            this.setCurrentUser(response)
 
-        } else {
-          console.log("FAILURE");
-          localStorage.clear();
-        }
+          } else {
+            console.log("FAILURE");
+            localStorage.clear();
+          }
 
-      });
+        });
     }
   }
 
 
   render() {
     //this.fetchUser(); console.log(this.state.loggedInUser)
-    
+
     return (
       <div className="App">
+        <Notifications />
         <Navbar loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} />
 
         <section className="maincontent">
           <Switch>
-            <Route exact path="/" render={(props) => <Home isLoggedIn={this.state.loggedInUser} {...props} /> } />
-            <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} /> } />
-            <Route path='/signup' render={(props) => <Signup setCurrentUser={this.setCurrentUser} {...props} /> } />
+            <Route exact path="/" render={(props) => <Home isLoggedIn={this.state.loggedInUser} {...props} />} />
+            <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} />} />
+            <Route path='/signup' render={(props) => <Signup setCurrentUser={this.setCurrentUser} {...props} />} />
             <Route exact path="/images/add" component={AddImage} />
             <Route exact path="/services" render={(props) => <ServiceList loggedInUser={this.state.loggedInUser} {...props} />} />
-            <Route exact path="/services/:id" render={(props) => <ServiceDetails {...props} loggedInUser={this.state.loggedInUser} /> } />
-            <Route exact path="/services/:id/edit" render={ (props) => {
+            <Route exact path="/services/:id" render={(props) => <ServiceDetails {...props} loggedInUser={this.state.loggedInUser} />} />
+            <Route exact path="/services/:id/edit" render={(props) => {
               if (localStorage.getItem("loggedin")) {
                 return <EditService loggedInUser={this.state.loggedInUser} {...props} />
               } else {
                 return <Redirect to="/login" />
-              }}}
+              }
+            }}
             />
 
-            <Route exact path="/profile/:userId" render={ (props) => {
+            <Route exact path="/profile/:userId" render={(props) => {
               if (localStorage.getItem("loggedin")) {
-                return <Profile {...props}/>
+                return <Profile {...props} />
               } else {
                 return <Redirect to="/login" />
-              }}}
+              }
+            }}
             />
-            <Route path="*" component={() => <NotFound/>}/>
+            <Route path="*" component={() => <NotFound />} />
 
           </Switch>
         </section>
 
-        <Footer/>
+        <Footer />
       </div>
     );
   }
