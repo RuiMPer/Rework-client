@@ -1,12 +1,14 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
+import "./css/ServiceDetails.css";
 import { Link } from 'react-router-dom';
 import AddBooking from '../bookings/AddBooking';
 import EditBooking from '../bookings/EditBooking';
+
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-import Example from './/Caroussel';
-import "./ServiceDetails.css";
+import Example from './Caroussel';
+
 
 class ServiceDetails extends Component {
     //1. Option one
@@ -71,6 +73,8 @@ class ServiceDetails extends Component {
         const { showEditBooking, showAddBooking } = this.state
         this.setState({ showEditBooking: false, showAddBooking: false })
     }
+
+    
     // 1. Happens first
     render() {
         const { params } = this.props.match;

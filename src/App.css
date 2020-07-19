@@ -1,10 +1,37 @@
-.App {
-  text-align: center;
+*{
+  text-align:left;
+  -webkit-font-smoothing: antialiased;
+}
+
+.App{
+  padding-top: 80px;
+}
+
+.header{
+  margin: 0 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h5{
+  margin: 1rem 0 20px;
+}
+
+.margin-content{
+  margin: 0 2rem;
 }
 
 form {
   margin: auto 2rem;
   max-width: 980px;
+}
+.label{
+  display: inline-block;
+  margin-bottom: .5rem;
+  padding: 0;
+  margin: 10px 0 5px;
+  font-weight: 300;
 }
 
 Button{
@@ -20,6 +47,14 @@ Button{
 
 .error{
   color:rgb(255, 81, 0);
+}
+
+input[type=file] {
+  background: #fafafa;
+  width: auto;
+  padding: 1rem;
+  border: 1px solid #ced4da;
+  width: 100%;
 }
 
 @media only screen and (max-width: 780px) {
