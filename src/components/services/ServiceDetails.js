@@ -63,18 +63,22 @@ class ServiceDetails extends Component {
         this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false })
     }
     showEditBooking = () => {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showAddBooking: false })
     }
     closeOptions = () => {
         this.setState({ showEditBooking: false, showAddBooking: false })
     }
 
-    
+
     // 1. Happens first
     render() {
         const { params } = this.props.match;
         return (
-            <div>
+            <>
                 <Row >
                     <Col xs="1"><a href="/services">Back</a></Col>
                     <Col xs="6">{this.state.title}</Col>
@@ -202,7 +206,7 @@ class ServiceDetails extends Component {
                         )
                     })}
                 </div> */}
-            </div>
+            </>
         )
     }
 }

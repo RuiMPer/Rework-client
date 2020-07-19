@@ -42,8 +42,8 @@ class ServiceList extends Component {
 
                 <header className="header">
                     <h1>My Services</h1> 
-                    <Button onClick={() => this.showAddService()}>
-                        Add Service
+                    <Button onClick={() => this.showAddService()} className={showAddService ? 'openAdd' : null} >
+                        {showAddService ? "Cancelar" : "Add Service" }
                     </Button>
                 </header>
 
