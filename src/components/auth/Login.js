@@ -20,7 +20,7 @@ class Login extends Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        const { username, password, errorMessage } = this.state;
+        const { username, password } = this.state;
 
         this.service.login(username, password)
             .then(response => { 

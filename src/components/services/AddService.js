@@ -45,7 +45,7 @@ class AddService extends Component {
 
     render() {
         return (
-            <div>
+            <div><ToastContainer />
                 {/* <form onSubmit={this.handleFormSubmit}>
                     <label>Title</label>
                     <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
@@ -85,7 +85,6 @@ class AddService extends Component {
                     </FormGroup>
                     <Button>Submit</Button>
                 </Form>
-                <ToastContainer />
             </div>
         )
     }

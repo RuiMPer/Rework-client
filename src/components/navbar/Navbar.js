@@ -29,7 +29,7 @@ class Navbar extends React.Component {
     }
 
     render() {
-        console.log(this.props.loggedInUser)
+        //console.log(this.props.loggedInUser)
 
         return (
             <nav className="navbar">
@@ -68,7 +68,7 @@ class Navbar extends React.Component {
                                     My Area
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                    {/* if user worker */}
+
                                     {this.props.loggedInUser.type === "worker" ? ( 
                                     <>
                                     <DropdownItem header>Worker</DropdownItem> 

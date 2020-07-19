@@ -45,14 +45,14 @@ class Company extends React.Component {
                 .then((response) => {
                     let { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof } = response.data;
                     this.setState({
-                        title:response.data,
-                        logoPath:response.data,
-                        logoName:response.data,
-                        locationPin:response.data,
-                        phone:response.data,
-                        admins:response.data,
-                        verified:response.data, 
-                        companyProof: response.data
+                        title,
+                        logoPath,
+                        logoName,
+                        locationPin,
+                        phone,
+                        admins,
+                        verified, 
+                        companyProof
                     });
                 })
             .catch((err) => {
@@ -97,7 +97,7 @@ class Company extends React.Component {
         console.log("render")
         /* getting props/state with all info from user destructured */
         //const {userInfo} = this.state;
-        let { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof } = this.state;
+        let { title, logoPath, locationPin, phone, admins, verified, companyProof } = this.state;
 
         return (
             <>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import { withRouter} from 'react-router-dom';
 import Loading from './components/loading/Loading';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
@@ -37,10 +37,10 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchUser();
-    this.setState({loading: false});
+    {this.setState({loading: false})}
   }
 
-  fetchUser = () => {
+  fetchUser = (props) => {
     if(this.state.loggedInUser === null) {
       this.service.loggedin() 
       .then(response => {
@@ -52,8 +52,10 @@ class App extends Component {
           this.setCurrentUser(response)
 
         } else {
+          
           console.log("FAILURE");
           localStorage.clear();
+          this.props.history.push("/");
         }
 
       });
@@ -109,10 +111,11 @@ class App extends Component {
         </section>
 
         <Footer/>
-
+        
       </div>
     );
   }
+  
 }
 
-export default App;
+export default withRouter(App);
