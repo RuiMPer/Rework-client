@@ -12,6 +12,13 @@ class AddService extends Component {
         author: ""
     }
 
+    handleChange = (event) => {
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+    }
+    handleFileChange = (event) => {
+        this.setState({ photoPath: event.target.files[0] });
+    }
     handleFormSubmit = (event) => {
         event.preventDefault();
         const { category, title, description } = this.state
@@ -34,14 +41,9 @@ class AddService extends Component {
     }
 
 
-    handleChange = (event) => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
-    }
 
-    handleFileChange = (event) => {
-        this.setState({ photoPath: event.target.files[0] });
-    }
+
+
 
     render() {
         return (

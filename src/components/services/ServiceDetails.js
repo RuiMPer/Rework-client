@@ -60,17 +60,12 @@ class ServiceDetails extends Component {
     }
 
     showAddBooking = () => {
-        const { showEditBooking } = this.state
-
         this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false })
     }
     showEditBooking = () => {
-        const { showAddBooking } = this.state
-
         this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showAddBooking: false })
     }
     closeOptions = () => {
-        const { showEditBooking, showAddBooking } = this.state
         this.setState({ showEditBooking: false, showAddBooking: false })
     }
 
