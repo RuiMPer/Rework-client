@@ -23,10 +23,12 @@ class Company extends React.Component {
 
         title: '',
         logoPath: '',
+        tempPhotoPath:'',
         logoName: `${this.state}'s logo`,
         locationPin: '',
         phone: '',
-        admins:'',
+        admins:[],
+        workers:[],
         verified:'',
         companyProof:''
     }
@@ -40,10 +42,9 @@ class Company extends React.Component {
             });
 
         return (
-        
             service.get(`/company`)
                 .then((response) => {
-                    let { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof } = response.data;
+                    let { title, logoPath, logoName, locationPin, phone, admins, workers, verified, companyProof } = response.data;
                     this.setState({
                         title,
                         logoPath,
@@ -51,6 +52,7 @@ class Company extends React.Component {
                         locationPin,
                         phone,
                         admins,
+                        workers,
                         verified, 
                         companyProof
                     });
@@ -63,9 +65,13 @@ class Company extends React.Component {
     }
 
     handleChange = (event) => {
-        console.log("change handle")
+        console.log("change handle");
         const { name, value } = event.target;
         this.setState({ [name]: value });
+    }
+
+    handleFileChange = (event) => {
+        this.setState({ tempPhotoPath: event.target.files[0] });
     }
 
     handleFormSubmit = (event) => {
@@ -78,7 +84,7 @@ class Company extends React.Component {
         });
 
         let { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof } = this.state;
-        service.post(`/company`, { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof} )
+        service.post(`/company`, { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof}, { withCredentials: true } )
             .then((response) => {
                 console.log("success", response)
                 toast('Company created!');
@@ -103,10 +109,13 @@ class Company extends React.Component {
             <>
                 <header className="header">
                     <h1>My Company</h1> 
-                    <Button 
-                        onClick={()=>this.makeEdit()}>
-                        {this.state.isBeingEdited ? "View Mode" : "Edit" }
-                    </Button>
+                    <div className="toTheRight">
+                        <Button color="primary" onClick={this.handleFormSubmit} >Save</Button>
+                        <Button
+                            onClick={() => this.makeEdit()}>
+                            {this.state.isBeingEdited ? "View Mode" : "Edit"}
+                        </Button>
+                    </div>
                 </header>
                 
 
@@ -180,9 +189,6 @@ class Company extends React.Component {
                             
                     </Row>
 
-                    
-
-                    <Button>Save</Button>
                 </Form>         
 
             </>

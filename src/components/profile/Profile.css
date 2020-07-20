@@ -3,3 +3,13 @@
     outline: none;
     box-shadow: none;
 }
+
+.profile img{
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+}
+
+.header .toTheRight .btn {
+    margin:0 0 0 10px;
+}

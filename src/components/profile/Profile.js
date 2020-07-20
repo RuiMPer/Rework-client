@@ -34,7 +34,7 @@ class Profile extends React.Component {
         let userId = this.props.match.params.userId;
         let service = axios.create({
             baseURL: `${process.env.REACT_APP_SERVER}`,
-            withCredentials: true
+            withCredentials: true //to get user info from axios on call
         });
 
         return (
@@ -54,11 +54,12 @@ class Profile extends React.Component {
                         company: company,
                         birthday: birthday,
                         photoPath: photoPath,
+                        tempPhotoPath: '',
 
                         loading: false
                     });
                     console.log(response.data)
-                    console.log("PHOTO PATH COMING FROM SERBVER", photoPath);
+                    console.log("PHOTO PATH COMING FROM SERVER", photoPath);
 
                 })
                 .catch((err) => {
@@ -75,38 +76,58 @@ class Profile extends React.Component {
     }
 
     handleFileChange = (event) => {
-        this.setState({ photoPath: event.target.files[0] });
+        this.setState({ tempPhotoPath: event.target.files[0] });
     }
 
     handleFormSubmit = (event) => {
         event.preventDefault();
+        console.log("EVENT TARGET FILES", event.target.files)
         let userId = this.props.match.params.userId;
-        let { firstName, lastName, username, password, email, company, phone, type, birthday, photoPath } = this.state;
-        console.log("PHOTO PATH COMING FROM STATE", photoPath);
+        let { firstName, lastName, username, password, email, company, phone, type, birthday, tempPhotoPath, photoPath } = this.state;
+        console.log("PHOTO PATH COMING FROM STATE", tempPhotoPath);
+        
 
+        if(event.target.files===undefined){
+            return axios.post(`${process.env.REACT_APP_SERVER}/profile/${userId}`, { firstName, lastName, username, password, email, company, phone, type, birthday, photoPath:this.state.photoPath })
+            .then(response => {
+                    console.log("success", response);
+
+                    //notification success
+                    toast('Profile was updated!');
+                    //return no view mode
+                    this.setState({
+                        isBeingEdited:false
+                    });
+            });
+        }
+        else{
         // upload profile pic
         const uploadData = new FormData();
-        uploadData.append("photoPath", this.state.photoPath);
+        uploadData.append("photoPath", this.state.tempPhotoPath);
 
-        // save in cloudinary
-        axios.post(`${process.env.REACT_APP_SERVER}/upload`, uploadData)
+            // save in cloudinary
+            axios.post(`${process.env.REACT_APP_SERVER}/upload`, uploadData)
             .then((response) => {
                 console.log('image uploaded', response);
                 //until here the photo is correct
+                this.setState({photoPath: response.data.photoPath });
 
-                axios.post(`${process.env.REACT_APP_SERVER}/profile/${userId}`, { firstName, lastName, username, password, email, company, phone, type, birthday, photoPath: response.data.photoPath })
-                    .then((response) => {
-                        console.log("success", response);
+                return axios.post(`${process.env.REACT_APP_SERVER}/profile/${userId}`, { firstName, lastName, username, password, email, company, phone, type, birthday, photoPath:response.data.photoPath })
+                    .then(response => {
+                            console.log("success", response);
 
-                        //notification success
-                        toast('Profile was updated!');
-                        //return no view mode
-                        this.setState({
-                            isBeingEdited: false
-                        });
-                    })
-            })
-    }
+                            //notification success
+                            toast('Profile was updated!');
+                            //return no view mode
+                            this.setState({
+                                isBeingEdited:false
+                            });
+                    });
+            });
+        }
+
+        }  //end of form submit
+        
 
     // Button to toggle edit mode
     makeEdit() {
@@ -129,14 +150,17 @@ class Profile extends React.Component {
 
                 <header className="header">
                     <h1>Profile</h1>
-                    <Button
-                        onClick={() => this.makeEdit()}>
-                        {isBeingEdited ? "View Mode" : "Edit"}
-                    </Button>
+                    <div className="toTheRight">
+                        <Button color="primary" onClick={this.handleFormSubmit} >Save</Button>
+                        <Button
+                            onClick={() => this.makeEdit()}>
+                            {isBeingEdited ? "View Mode" : "Edit"}
+                        </Button>
+                    </div>
                 </header>
 
                 <ToastContainer
-                    position="top-right"
+                    position="bottom-right"
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}
@@ -146,7 +170,7 @@ class Profile extends React.Component {
                     draggable
                     pauseOnHover
                 />
-                <Form onSubmit={this.handleFormSubmit}>
+                <Form onSubmit={this.handleFormSubmit} className="profile">
                     <Row form>
                         <Col md={3}>
                             <img src={photoPath} alt="profile user" width="300" style={{ borderRadius: '50%' }} />
@@ -231,7 +255,6 @@ class Profile extends React.Component {
                         </FormText>
                     </FormGroup>
 
-                    <Button>Save</Button>
                 </Form>
 
             </>

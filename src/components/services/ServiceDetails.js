@@ -63,10 +63,6 @@ class ServiceDetails extends Component {
         this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false })
     }
     showEditBooking = () => {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showAddBooking: false })
     }
     closeOptions = () => {

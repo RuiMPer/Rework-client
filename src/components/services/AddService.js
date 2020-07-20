@@ -47,7 +47,15 @@ class AddService extends Component {
 
     render() {
         return (
-            <div><ToastContainer />
+            <div><ToastContainer position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover/>
                 {/* <form onSubmit={this.handleFormSubmit}>
                     <label>Title</label>
                     <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
