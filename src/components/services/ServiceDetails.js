@@ -8,6 +8,7 @@ import EditBooking from '../bookings/EditBooking';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import Example from './Caroussel';
+import moment from 'moment';
 
 
 class ServiceDetails extends Component {
@@ -68,8 +69,39 @@ class ServiceDetails extends Component {
     closeOptions = () => {
         this.setState({ showEditBooking: false, showAddBooking: false })
     }
+    deleteBooking = (booking) => {
+        const { params } = this.props.match;
+        console.log(booking)
+        axios.delete(`${process.env.REACT_APP_SERVER}/bookings/${booking._id}`)
+            .then(() => {
+                //return <Redirect to='/services' />
+                this.props.history.push(`/services`);
+            })
+    }
 
-    
+    handleDate = (date) => {
+        const newDate = moment(date).format("DD/MM/YYYY")
+        return newDate
+    }
+
+    handleNotification = (booking) => {
+
+        let today = moment().format("DD/MM/YYYY")
+        let bookingdate = moment(booking.date)
+        let notificationDay = moment(booking.date._i).subtract(1, "days").format("DD/MM/YYYY")
+        // let dayBefore = (moment.duration(notificationDay.diff(today)).asDays())
+        // console.log(today)
+
+        console.log(moment(booking.date).toString())
+        console.log(bookingdate)
+        console.log(today)
+        console.log(notificationDay)
+        // console.log(dayBefore)
+        if (today === notificationDay) {
+            return <div>Hello</div>
+        }
+
+    }
     // 1. Happens first
     render() {
         const { params } = this.props.match;
@@ -153,10 +185,12 @@ class ServiceDetails extends Component {
                                             <ul>
                                                 <li>Title: {booking.title}</li>
                                                 <li>Description: {booking.description}</li>
-                                                <li>Date: {booking.date}</li>
+                                                <li>Date: {this.handleDate(booking.date)}</li>
                                                 <li>Time: {booking.time}</li>
                                                 <li>Client: {booking.client}</li>
+                                                <li><button onClick={() => { this.handleNotification(booking) }}>TESTE:</button></li>
                                                 <li><button onClick={this.showEditBooking}>Edit</button></li>
+                                                <li><button onClick={() => { this.deleteBooking(booking) }}>Delete</button></li>
                                                 {this.state.showEditBooking && <EditBooking booking={booking} {...this.props} />}
                                             </ul>
                                         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class EditBooking extends Component {
 	state = {
@@ -39,17 +40,31 @@ class EditBooking extends Component {
 		return (
 			<div>
 				<h3>Edit Form</h3>
-				<form onSubmit={this.handleFormSubmit}>
-					<label>Title</label>
-					<input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
-					<label>Description</label>
-					<input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-					<label>Date</label>
-					<input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
-					<label>Time</label>
-					<input type="text" name="time" value={this.state.time} onChange={this.handleChange} />
-					<input type="submit" value="submit" />
-				</form>
+				<Form onSubmit={this.handleFormSubmit}>
+					<Row form>
+						<Col md={6}>
+							<FormGroup>
+								<Label for="title">Title</Label>
+								<Input type="text" name="title" id="title" value={this.state.title} onChange={this.handleChange} />
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<Label for="date">Date</Label>
+								<Input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
+							</FormGroup>
+						</Col>
+					</Row>
+					<FormGroup>
+						<Label for="time">Time</Label>
+						<Input type="time" name="time" value={this.state.time} onChange={this.handleChange} />
+					</FormGroup>
+					<FormGroup>
+						<Label for="description">Description</Label>
+						<Input type="textarea" name="description" value={this.state.description} onChange={this.handleChange} />
+					</FormGroup>
+					<Button>Submit</Button>
+				</Form>
 			</div>
 		)
 	}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
+
 class AddBooking extends Component {
     state = {
         title: '',
@@ -28,6 +29,7 @@ class AddBooking extends Component {
             })
     }
 
+
     render() {
         return (
             <div>
@@ -47,6 +49,10 @@ class AddBooking extends Component {
                             </FormGroup>
                         </Col>
                     </Row>
+                    <FormGroup>
+                        <Label for="time">Time</Label>
+                        <Input type="time" name="time" value={this.state.time} onChange={this.handleChange} />
+                    </FormGroup>
                     <FormGroup>
                         <Label for="description">Description</Label>
                         <Input type="textarea" name="description" value={this.state.description} onChange={this.handleChange} />
