@@ -16,3 +16,8 @@
     border-radius: 0;
     width: 100%;
 }
+
+.openAdd, .openAdd:focus, .openAdd:active{
+    background-color:rgb(195 73 73);
+    border-color:rgb(195 73 73);
+}

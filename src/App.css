@@ -64,3 +64,7 @@ input[type=file] {
     max-width: 400px;
   }
 }
+
+button.Toastify__close-button.Toastify__close-button--default {
+  min-width: unset;
+}

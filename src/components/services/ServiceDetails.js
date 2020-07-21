@@ -106,7 +106,7 @@ class ServiceDetails extends Component {
     render() {
         const { params } = this.props.match;
         return (
-            <div>
+            <>
                 <Row >
                     <Col xs="1"><a href="/services">Back</a></Col>
                     <Col xs="6">{this.state.title}</Col>
@@ -236,7 +236,7 @@ class ServiceDetails extends Component {
                         )
                     })}
                 </div> */}
-            </div>
+            </>
         )
     }
 }
