@@ -24,7 +24,7 @@ class Profile extends React.Component {
         company: '',
         birthday: '',
         photoPath: '',
-
+        tempPhotoPath:'',
         loading: true
     }
 
@@ -54,8 +54,6 @@ class Profile extends React.Component {
                         company: company,
                         birthday: birthday,
                         photoPath: photoPath,
-                        tempPhotoPath: '',
-
                         loading: false
                     });
                     console.log(response.data)
@@ -77,6 +75,7 @@ class Profile extends React.Component {
 
     handleFileChange = (event) => {
         this.setState({ tempPhotoPath: event.target.files[0] });
+        console.log(this.state.tempPhotoPath);
     }
 
     handleFormSubmit = (event) => {
@@ -87,7 +86,7 @@ class Profile extends React.Component {
         console.log("PHOTO PATH COMING FROM STATE", tempPhotoPath);
         
 
-        if(event.target.files===undefined){
+        if(this.state.tempPhotoPath===""){
             return axios.post(`${process.env.REACT_APP_SERVER}/profile/${userId}`, { firstName, lastName, username, password, email, company, phone, type, birthday, photoPath:this.state.photoPath })
             .then(response => {
                     console.log("success", response);

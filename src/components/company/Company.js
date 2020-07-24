@@ -21,6 +21,7 @@ class Company extends React.Component {
     state = {
         isBeingEdited:false,
 
+        isAdmin:'',
         title: '',
         logoPath: '',
         tempPhotoPath:'',
@@ -35,6 +36,7 @@ class Company extends React.Component {
 
     componentDidMount(){
         console.log("component did mount");
+        console.log('PROPSSSSS',this.props.loggedInUser)
 
         let service = axios.create({
             baseURL: `${process.env.REACT_APP_SERVER}`,
@@ -83,8 +85,8 @@ class Company extends React.Component {
             withCredentials: true
         });
 
-        let { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof } = this.state;
-        service.post(`/company`, { title, logoPath, logoName, locationPin, phone, admins, verified, companyProof}, { withCredentials: true } )
+        let { title, logoPath, logoName, locationPin, phone, verified, companyProof, isAdmin } = this.state;
+        service.post(`/company`, { title, logoPath, logoName, locationPin, phone, verified, companyProof, isAdmin} )
             .then((response) => {
                 console.log("success", response)
                 toast('Company created!');
@@ -139,9 +141,9 @@ class Company extends React.Component {
                         <Col md={6}>
                             <FormGroup>
                                 <Label>Admin of this Company</Label>
-                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="select" name="type" id="admins" value={admins} onChange={this.handleChange}>
+                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="select" name="isAdmin" id="isAdmin" value={this.state.isAdmin} onChange={this.handleChange}>
                                     <option value="" disabled >Responsável pela tua empresa</option>
-                                    <option value={this.props.loggedInUser}>Eu próprio</option>
+                                    <option>Eu próprio</option>
                                     <option>Outro</option>
                                 </Input>
                             </FormGroup>
@@ -155,6 +157,9 @@ class Company extends React.Component {
                     </Row>
 
                     <Row form>
+                        <Col md={3}>
+                            <img src={logoPath} alt="company logo" width="300" style={{ borderRadius: '50%' }} />
+                        </Col>
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="logo">Logo</Label>
