@@ -12,7 +12,7 @@
 import React from 'react';
 import './Company.css';
 import axios from 'axios';
-import {toast}  from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
@@ -24,13 +24,13 @@ class Company extends React.Component {
         isAdmin:'',
         title: '',
         tempLogoPath: '',
-        logoPath:'https://www.childhood.org.au/app/uploads/2017/07/ACF-logo-placeholder.png',
-        logoName: `${this.state}'s logo`,
+        logoPath:'',
+        logoName: `${this.title}'s logo`,
         locationPin: '',
         phone: '',
         admins:[],
         workers:[],
-        verified:'',
+        verified:false,
         companyProof:''
     }
 
@@ -38,18 +38,20 @@ class Company extends React.Component {
         console.log("component did mount");
         console.log('PROPSSSSS',this.props.loggedInUser)
 
-        if(this.props.match.params.userId){
-            let companyId = this.props.match.params.userId;
+        let companyId = this.props.match.params.id;
+        console.log("pre", this.props.match.params.id)
 
+        if(this.props.match.params.id){
+            console.log("ENTROUUUUU", this.props.match.params.id)
             let service = axios.create({
                 baseURL: `${process.env.REACT_APP_SERVER}`,
                 withCredentials: true
-                });
+            });
 
             return (
                 service.get(`/company/${companyId}`)
                     .then((response) => {
-                        let { title, logoPath, logoName, locationPin, phone, admins, workers, verified, companyProof } = response.data;
+                        let { title, logoPath, logoName, locationPin, phone, admins, workers, isAdmin, verified, companyProof } = response.data;
                         this.setState({
                             title,
                             logoPath,
@@ -59,7 +61,8 @@ class Company extends React.Component {
                             admins,
                             workers,
                             verified, 
-                            companyProof
+                            companyProof,
+                            isAdmin
                         });
                     })
                 .catch((err) => {
@@ -85,17 +88,67 @@ class Company extends React.Component {
         event.preventDefault();
         
         //save edit to bd
-        let service = axios.create({
-            baseURL: `${process.env.REACT_APP_SERVER}`,
-            withCredentials: true
-        });
+        // let service = axios.create({
+        //     baseURL: `${process.env.REACT_APP_SERVER}`,
+        //     withCredentials: true
+        // });
 
         let { title, logoPath, logoName, locationPin, phone, verified, companyProof, isAdmin } = this.state;
-        service.post(`/company`, { title, logoPath, logoName, locationPin, phone, verified, companyProof, isAdmin} )
+
+        if(this.state.tempLogoPath===""){
+            let service = axios.create({
+                baseURL: `${process.env.REACT_APP_SERVER}`,
+                withCredentials: true
+            });
+
+            return service.post(`${process.env.REACT_APP_SERVER}/company`, { title, logoName, locationPin, phone, verified, companyProof, isAdmin, logoPath:this.state.tempLogoPath })
+            .then(response => {
+                console.log("success without photo", response);
+
+                //notification success
+                toast('Company was updated!');
+                //return no view mode
+                this.setState({
+                    isBeingEdited:false
+                });
+
+                let id=response.data.response._id;
+                this.props.history.push(`/company/${id}`);
+            });
+        }
+        else{
+            const uploadData = new FormData();
+            uploadData.append("photoPath", this.state.tempLogoPath);
+    
+            // save in cloudinary
+            axios.post(`${process.env.REACT_APP_SERVER}/upload`, uploadData)
             .then((response) => {
-                console.log("success", response)
-                toast('Company created!');
-            })
+                console.log("goes to cloudinary", response)
+                this.setState({logoPath: response.data.photoPath });
+                
+                let service = axios.create({
+                    baseURL: `${process.env.REACT_APP_SERVER}`,
+                    withCredentials: true
+                });
+
+                return service.post(`${process.env.REACT_APP_SERVER}/company`, { title, logoPath, logoName, locationPin, phone, verified, companyProof, isAdmin, logoPath:this.state.logoPath })
+                .then(response => {
+                            console.log("success with photo", response);
+
+                            //notification success
+                            toast('Profile was updated!');
+                            //return no view mode
+                            this.setState({
+                                isBeingEdited:false
+                            });
+
+                            let id=response.data.response._id;
+
+                            this.props.history.push(`/company/${id}`);
+                    });
+            });
+        }
+
     }
 
     // Button to toggle edit mode
@@ -125,7 +178,17 @@ class Company extends React.Component {
                     </div>
                 </header>
                 
-
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
                 <Form onSubmit={this.handleFormSubmit} className="mycompany">
                     <Row form>
                         <Col md={6}>
@@ -167,8 +230,8 @@ class Company extends React.Component {
                         </Col>
                         <Col md={6}>
                             <FormGroup>
-                                <Label for="logo">Logo</Label>
-                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="file" name="file" id="logoPath" value={this.state.tempLogoPath} onChange={this.handleFileChange}/>
+                                <Label>Logo</Label>
+                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="file" name="file" id="logoPath" onChange={this.handleFileChange}/>
                                 <FormText color="muted">
                                     Insert your company logo here.
                                 </FormText>
@@ -179,7 +242,7 @@ class Company extends React.Component {
                     <Row form>
                         <Col md={6}>
                             <FormGroup>
-                                <h5 for="verified">Is your company verified?</h5>
+                                <h5 >Is your company verified?</h5>
                                 <FormGroup check>
                                     <Label check>
                                     <Input type="checkbox" value={verified} onChange={this.handleChange}/>{' '}

@@ -117,6 +117,12 @@ class App extends Component {
             }}
             />
 
+            <Route exact path="/company/:id" render={ (props) => {
+              if (localStorage.getItem("loggedin")) {
+                return <Company loggedInUser={this.state.loggedInUser} {...props} />
+              }}}
+            />
+
             {/* Not found route */}
             <Route path="*" component={() => <NotFound />} />
 
