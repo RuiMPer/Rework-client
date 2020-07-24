@@ -59,6 +59,7 @@ class Navbar extends React.Component {
             })
         )
     }
+
     countBookings = () => {
         // this.getUserServices()
         let total = 0
@@ -72,6 +73,7 @@ class Navbar extends React.Component {
         })
         console.log("total", total)
     }
+    
     render() {
         //console.log(this.props.loggedInUser)
         console.log("navbar", this.state.listOfServices)
