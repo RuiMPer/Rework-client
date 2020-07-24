@@ -1,3 +1,11 @@
+section.home {
+    position: relative;
+    display: block;
+    clear: both;
+    float: left;
+    padding-bottom: 3rem;
+}
+
 .home h1, .home h3{
     margin: 40px auto 20px;
 }
@@ -8,6 +16,8 @@
     max-height:300px;
     overflow: hidden;
     transition: all .5s ease;
+    float: left;
+    width: 33%;
 }
 
 .category-card.card img{

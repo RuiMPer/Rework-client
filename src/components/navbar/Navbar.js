@@ -41,8 +41,8 @@ class Navbar extends React.Component {
 
                     {!this.props.loggedInUser ? (
                         <>
-                        <NavItem>
-                            <NavLink to="/search">Search</NavLink>
+                        <NavItem className="search">
+                            <NavLink to="/search" >Search</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink to='/login'>Login</NavLink>
