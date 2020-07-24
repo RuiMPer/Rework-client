@@ -118,7 +118,7 @@ class Login extends Component {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <button onClick={() => { this.handleNotification() }}>TESTE:</button>
+                    {/* <button onClick={() => { this.handleNotification() }}>TESTE:</button> */}
                     {this.state.errorMessage &&
                         <p className="error"> {this.state.errorMessage} </p>}
 
