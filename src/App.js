@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Loading from './components/loading/Loading';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
@@ -15,6 +15,7 @@ import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import NotFound from './components/notfound/NotFound';
 import AuthService from './components/auth/auth-service';
+import BookingListClient from './components/bookings/BookingListClient';
 import moment from 'moment';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -28,7 +29,7 @@ class App extends Component {
 
   state = {
     loggedInUser: null,
-    loading:true
+    loading: true
   }
 
   setCurrentUser = (userObj) => {
@@ -39,32 +40,32 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchUser();
-    {this.setState({loading: false})}
+    { this.setState({ loading: false }) }
   }
 
   fetchUser = (props) => {
-    if(this.state.loggedInUser === null) {
-      this.service.loggedin() 
-      .then(response => {
-      console.log("response from fetch user", response);
+    if (this.state.loggedInUser === null) {
+      this.service.loggedin()
+        .then(response => {
+          console.log("response from fetch user", response);
 
-        if (response._id) {
-          console.log("COM SUCESSO");
-          localStorage.setItem("loggedin", true)
-          this.setCurrentUser(response)
+          if (response._id) {
+            console.log("COM SUCESSO");
+            localStorage.setItem("loggedin", true)
+            this.setCurrentUser(response)
 
-        } else {
-          
-          console.log("FAILURE");
-          localStorage.clear();
-          this.props.history.push("/");
-        }
+          } else {
 
-      });
+            console.log("FAILURE");
+            localStorage.clear();
+            this.props.history.push("/");
+          }
+
+        });
     }
   }
 
-  
+
   render() {
     //this.fetchUser(); console.log(this.state.loggedInUser)
 
@@ -75,8 +76,8 @@ class App extends Component {
 
         <section className="maincontent">
 
-        {this.state.loading && <Loading/>}
-        
+          {this.state.loading && <Loading />}
+
           <Switch>
             <Route exact path="/" render={(props) => <Home isLoggedIn={this.state.loggedInUser} {...props} />} />
             <Route path='/login' render={(props) => <Login setCurrentUser={this.setCurrentUser} {...props} />} />
@@ -101,25 +102,33 @@ class App extends Component {
               }
             }}
             />
-
-            <Route exact path="/company" render={ (props) => {
+            <Route exact path="/bookings" render={(props) => {
+              if (localStorage.getItem("loggedin")) {
+                return <BookingListClient loggedInUser={this.state.loggedInUser} {...props} />
+              } else {
+                return <Redirect to="/login" />
+              }
+            }}
+            />
+            <Route exact path="/company" render={(props) => {
               if (localStorage.getItem("loggedin")) {
                 return <Company loggedInUser={this.state.loggedInUser} {...props} />
-              }}}
+              }
+            }}
             />
 
             {/* Not found route */}
-            <Route path="*" component={() => <NotFound/>}/>
+            <Route path="*" component={() => <NotFound />} />
 
           </Switch>
         </section>
 
-        <Footer/>
-        
+        <Footer />
+
       </div>
     );
   }
-  
+
 }
 
 export default withRouter(App)

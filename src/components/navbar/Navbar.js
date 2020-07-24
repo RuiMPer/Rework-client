@@ -122,7 +122,7 @@ class Navbar extends React.Component {
                                                         </NavItem>
                                                     </DropdownItem>
                                                     <DropdownItem>
-                                                        <NavItem>
+                                                        <NavItem className="clients">
                                                             <NavLink to="/clients">My Clients</NavLink>
                                                         </NavItem>
                                                     </DropdownItem>
@@ -145,7 +145,7 @@ class Navbar extends React.Component {
                                             <DropdownItem divider />
 
                                             <DropdownItem>
-                                                <NavItem>
+                                                <NavItem className="settings">
                                                     <NavLink to="/settings">Settings</NavLink>
                                                 </NavItem>
                                             </DropdownItem>
