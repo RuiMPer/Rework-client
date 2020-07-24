@@ -7,10 +7,16 @@ import {
 
 class BookingListClient extends Component {
 
-	state = {}
+	state = {
+		listOfServices: []
+	}
 
 	componentDidMount() {
-		this.getUserServices();
+		this.getUserServices()
+			.then(() => {
+				console.log("lista", this.state.listOfServices)
+			})
+
 	}
 	getUserServices = () => {
 		// Get list of service from the API we just built
@@ -20,7 +26,7 @@ class BookingListClient extends Component {
 		});
 		return (service.get(`/services`)
 			.then(responseFromAPI => {
-				// console.log(responseFromAPI)
+				console.log("response", responseFromAPI)
 				// console.log("ISTO", responseFromAPI.data)
 				// console.log(this.props)
 				this.setState({
@@ -30,7 +36,7 @@ class BookingListClient extends Component {
 		)
 	}
 	render() {
-		this.getUserServices()
+
 		return (
 			<>
 

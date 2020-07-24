@@ -73,10 +73,10 @@ class Navbar extends React.Component {
         })
         console.log("total", total)
     }
-    
+
     render() {
         //console.log(this.props.loggedInUser)
-        console.log("navbar", this.state.listOfServices)
+        // console.log("navbar", this.state.listOfServices)
         return (
             < nav className="navbar" >
                 <Nav pills>
@@ -87,15 +87,15 @@ class Navbar extends React.Component {
                     {this.state.countBookings}
                     {!this.props.loggedInUser ? (
                         <>
-                        <NavItem className="search">
-                            <NavLink to="/search" >Search</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink to='/login'>Login</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink to='/signup'>Signup</NavLink>
-                        </NavItem>
+                            <NavItem className="search">
+                                <NavLink to="/search" >Search</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink to='/login'>Login</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink to='/signup'>Signup</NavLink>
+                            </NavItem>
                         </>
                     ) : (
                             <>
@@ -125,7 +125,7 @@ class Navbar extends React.Component {
                                                     </DropdownItem>
                                                     <DropdownItem>
                                                         <NavItem className="clients">
-                                                            <NavLink to="/clients">My Clients</NavLink>
+                                                            <NavLink to="#">My Clients</NavLink>
                                                         </NavItem>
                                                     </DropdownItem>
                                                     <DropdownItem>
@@ -148,7 +148,7 @@ class Navbar extends React.Component {
 
                                             <DropdownItem>
                                                 <NavItem className="settings">
-                                                    <NavLink to="/settings">Settings</NavLink>
+                                                    <NavLink to="#">Settings</NavLink>
                                                 </NavItem>
                                             </DropdownItem>
                                             <DropdownItem>

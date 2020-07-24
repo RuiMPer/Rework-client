@@ -94,7 +94,7 @@ class Signup extends Component {
                                 <option value="" disabled >Select your user type...</option>
                                 <option value="worker" id="worker" >Providing services</option>
                                 <option value="client" id="client" >Looking for services</option>
-                                <option value="both" id="combo" >Both</option>
+                                {/* <option value="both" id="combo" >Both</option> */}
                             </Input>
                         </FormGroup>
                     </Col>
