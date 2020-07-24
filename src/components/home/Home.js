@@ -89,11 +89,11 @@ class Home extends Component {
                 theme: 'darkblue',
                 native: true // when using native, your OS will handle theming.
             });
-            console.log("olhaeste", this.props)
+            console.log("olhaeste ", this.props)
         }
 
-        return (
-            <div className="page">
+        return ( 
+            <div  className="page">
                 {buttonClick()}
             </div>)
     }
