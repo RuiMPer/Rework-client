@@ -13,7 +13,9 @@ class AddNotification extends Component {
 				theme: 'darkblue',
 				native: true // when using native, your OS will handle theming.
 			});
+			console.log("olhaeste", this.props)
 		}
+
 		return (
 			<div className="page">
 				<button onClick={buttonClick} className="button">

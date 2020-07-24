@@ -4,11 +4,13 @@ import "./css/ServiceDetails.css";
 import { Link } from 'react-router-dom';
 import AddBooking from '../bookings/AddBooking';
 import EditBooking from '../bookings/EditBooking';
+import AddToCalendar from 'react-add-to-calendar';
 
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import Example from './Caroussel';
 import moment from 'moment';
+
 
 
 class ServiceDetails extends Component {
@@ -21,7 +23,14 @@ class ServiceDetails extends Component {
     //2. Option two
     state = {
         showEditBooking: false,
-        showAddBooking: false
+        showAddBooking: false,
+        event: {
+            title: "",
+            description: "",
+            location: "",
+            startTime: "",
+            endTime: ""
+        }
     }
 
     constructor(props) {
@@ -83,27 +92,16 @@ class ServiceDetails extends Component {
         const newDate = moment(date).format("DD/MM/YYYY")
         return newDate
     }
+    handleCalendarDate = (date, time) => {
+        let dateTime = moment(date + ' ' + time, 'DD/MM/YYYY HH:mm');
 
-    handleNotification = (booking) => {
-
-        let today = moment().format("DD/MM/YYYY")
-        let bookingdate = moment(booking.date)
-        let notificationDay = moment(booking.date._i).subtract(1, "days").format("DD/MM/YYYY")
-        // let dayBefore = (moment.duration(notificationDay.diff(today)).asDays())
-        // console.log(today)
-
-        console.log(moment(booking.date).toString())
-        console.log(bookingdate)
-        console.log(today)
-        console.log(notificationDay)
-        // console.log(dayBefore)
-        if (today === notificationDay) {
-            return <div>Hello</div>
-        }
-
+        return dateTime
     }
+
+
     // 1. Happens first
     render() {
+        let icon = { textOnly: 'none' }
         const { params } = this.props.match;
         return (
             <>
@@ -188,10 +186,11 @@ class ServiceDetails extends Component {
                                                 <li>Date: {this.handleDate(booking.date)}</li>
                                                 <li>Time: {booking.time}</li>
                                                 <li>Client: {booking.client}</li>
-                                                <li><button onClick={() => { this.handleNotification(booking) }}>TESTE:</button></li>
+                                                {/* <li><button onClick={() => { this.handleNotification(booking) }}>TESTE:</button></li> */}
                                                 <li><button onClick={this.showEditBooking}>Edit</button></li>
                                                 <li><button onClick={() => { this.deleteBooking(booking) }}>Delete</button></li>
                                                 {this.state.showEditBooking && <EditBooking booking={booking} {...this.props} />}
+                                                <AddToCalendar event={{ title: booking.title, description: booking.description, startTime: this.handleCalendarDate(this.handleDate(booking.date), booking.time), endTime: this.handleCalendarDate(this.handleDate(booking.date), booking.time) }} buttonTemplate={icon} />
                                             </ul>
                                         </div>
                                     )
@@ -199,43 +198,11 @@ class ServiceDetails extends Component {
                             </div> : null}
                         </TabPane>
                         <TabPane tabId="3">
-                            {this.state.activeTab == 3 ? <h4>Available in future Update</h4> : null}
+                            {this.state.activeTab == 3 ? <h4>Coming soon...</h4> : null}
                         </TabPane>
                     </TabContent>
                 </div>
-                {/* <div>
-                    <a onClick={() => this.showInfo()} href="#">Information</a>
-                    <a onClick={() => this.showBooking()} href="#">Bookings</a>
-                    <a onClick={() => this.showClient()} href="#">Clients</a>
-                </div> */}
-
-                {/* {this.state.showInfo && <div>
-                    <img src={this.state.photoPath} />
-                    <h3>Category</h3>
-                    <p>{this.state.category}</p>
-                    <h3>Description</h3>
-                    <p>{this.state.description}</p>
-                </div>} */}
-                {/* <Example/> */}
                 {this.state.showAddBooking && <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />}
-                {/* <div>
-                    {this.state.showBooking && this.state.bookings.map(booking => {
-                        return (
-                            <div key={booking._id}>
-                                <ul>
-                                    <li>Title: {booking.title}</li>
-                                    <li>Description: {booking.description}</li>
-                                    <li>Date: {booking.date}</li>
-                                    <li>Time: {booking.time}</li>
-                                    <li>Client: {booking.client}</li>
-                                    <li><button onClick={this.showEditBooking}>Edit</button></li>
-                                    {this.state.showForm && <EditBooking booking={booking} {...this.props} />}
-                                    {this.state.showEditBooking && <EditBooking booking={booking} {...this.props} />}
-                                </ul>
-                            </div>
-                        )
-                    })}
-                </div> */}
             </>
         )
     }

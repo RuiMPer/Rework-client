@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 
 import { Link } from 'react-router-dom';
 import AddService from './AddService';
 import AddNotification from '../notifications/AddNotification';
 import './css/ServiceList.css';
-import { Card, CardImg, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle, Button } from 'reactstrap';
+import {
+    Card, CardImg, CardText, CardBody, CardLink,
+    CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 
 class ServiceList extends Component {
 
@@ -16,7 +19,25 @@ class ServiceList extends Component {
     }
 
     componentDidMount() {
-        this.getAllServices();
+        this.getUserServices();
+    }
+    getUserServices = () => {
+        // Get list of service from the API we just built
+        let service = axios.create({
+            baseURL: `${process.env.REACT_APP_SERVER}`,
+            withCredentials: true
+        });
+        return (service.get(`/services`)
+            .then(responseFromAPI => {
+                // console.log(responseFromAPI)
+                // console.log("ISTO", responseFromAPI.data)
+                // console.log(this.props)
+                this.setState({
+                    listOfServices: responseFromAPI.data
+                })
+            })
+        )
+
     }
 
     getAllServices = () => {
@@ -41,9 +62,9 @@ class ServiceList extends Component {
             <>
 
                 <header className="header">
-                    <h1>My Services</h1> 
+                    <h1>My Services</h1>
                     <Button onClick={() => this.showAddService()} className={showAddService ? 'openAdd' : null} >
-                        {showAddService ? "Cancelar" : "Add Service" }
+                        {showAddService ? "Cancelar" : "Add Service"}
                     </Button>
                 </header>
 
@@ -55,17 +76,17 @@ class ServiceList extends Component {
                     {this.state.listOfServices.map(service => {
                         return (
                             <div key={service._id}>
-                                    <Card to={`/services/${service._id}`}>
-                                        <CardBody>
-                                            <CardTitle>{service.title}</CardTitle>
-                                            <CardSubtitle>CATEGORY</CardSubtitle>
-                                        </CardBody>
-                                            <img width="100%" src={(service.photoPath!='unknown'||service.photoPath!='')?(service.photoPath):('https://picsum.photos/200')} alt="Card image cap" />
-                                        <CardBody>
-                                            <CardLink href="#">Book now</CardLink>
-                                            <CardLink href={`/services/${service._id}`}>Know more</CardLink>
-                                        </CardBody>
-                                    </Card>
+                                <Card to={`/services/${service._id}`}>
+                                    <CardBody>
+                                        <CardTitle>{service.title}</CardTitle>
+                                        <CardSubtitle>CATEGORY</CardSubtitle>
+                                    </CardBody>
+                                    <img width="100%" src={(service.photoPath != 'unknown' || service.photoPath != '') ? (service.photoPath) : ('https://picsum.photos/200')} alt="Card image cap" />
+                                    <CardBody>
+                                        <CardLink href="#">Book now</CardLink>
+                                        <CardLink href={`/services/${service._id}`}>Know more</CardLink>
+                                    </CardBody>
+                                </Card>
                             </div>
                         );
                     })}
