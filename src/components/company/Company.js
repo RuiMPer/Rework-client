@@ -23,8 +23,8 @@ class Company extends React.Component {
 
         isAdmin:'',
         title: '',
-        logoPath: '',
-        tempPhotoPath:'',
+        tempLogoPath: '',
+        logoPath:'https://www.childhood.org.au/app/uploads/2017/07/ACF-logo-placeholder.png',
         logoName: `${this.state}'s logo`,
         locationPin: '',
         phone: '',
@@ -38,31 +38,35 @@ class Company extends React.Component {
         console.log("component did mount");
         console.log('PROPSSSSS',this.props.loggedInUser)
 
-        let service = axios.create({
-            baseURL: `${process.env.REACT_APP_SERVER}`,
-            withCredentials: true
-            });
+        if(this.props.match.params.userId){
+            let companyId = this.props.match.params.userId;
 
-        return (
-            service.get(`/company`)
-                .then((response) => {
-                    let { title, logoPath, logoName, locationPin, phone, admins, workers, verified, companyProof } = response.data;
-                    this.setState({
-                        title,
-                        logoPath,
-                        logoName,
-                        locationPin,
-                        phone,
-                        admins,
-                        workers,
-                        verified, 
-                        companyProof
-                    });
+            let service = axios.create({
+                baseURL: `${process.env.REACT_APP_SERVER}`,
+                withCredentials: true
+                });
+
+            return (
+                service.get(`/company/${companyId}`)
+                    .then((response) => {
+                        let { title, logoPath, logoName, locationPin, phone, admins, workers, verified, companyProof } = response.data;
+                        this.setState({
+                            title,
+                            logoPath,
+                            logoName,
+                            locationPin,
+                            phone,
+                            admins,
+                            workers,
+                            verified, 
+                            companyProof
+                        });
+                    })
+                .catch((err) => {
+                    return err;
                 })
-            .catch((err) => {
-                return err;
-            })
-        );
+            );
+        }
 
     }
 
@@ -73,7 +77,8 @@ class Company extends React.Component {
     }
 
     handleFileChange = (event) => {
-        this.setState({ tempPhotoPath: event.target.files[0] });
+        this.setState({ tempLogoPath: event.target.files[0] });
+        console.log(this.state.tempLogoPath);
     }
 
     handleFormSubmit = (event) => {
@@ -105,7 +110,7 @@ class Company extends React.Component {
         console.log("render")
         /* getting props/state with all info from user destructured */
         //const {userInfo} = this.state;
-        let { title, logoPath, locationPin, phone, admins, verified, companyProof } = this.state;
+        let { title, logoPath, locationPin, phone, verified, companyProof } = this.state;
 
         return (
             <>
@@ -121,7 +126,7 @@ class Company extends React.Component {
                 </header>
                 
 
-                <Form onSubmit={this.handleFormSubmit}>
+                <Form onSubmit={this.handleFormSubmit} className="mycompany">
                     <Row form>
                         <Col md={6}>
                             <FormGroup>
@@ -158,12 +163,12 @@ class Company extends React.Component {
 
                     <Row form>
                         <Col md={3}>
-                            <img src={logoPath} alt="company logo" width="300" style={{ borderRadius: '50%' }} />
+                            <img src={this.state.logoPath} alt="company logo" width="300" style={{ borderRadius: '50%' }} />
                         </Col>
                         <Col md={6}>
                             <FormGroup>
                                 <Label for="logo">Logo</Label>
-                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="file" name="file" id="logoPath" value={logoPath}/>
+                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="file" name="file" id="logoPath" value={this.state.tempLogoPath} onChange={this.handleFileChange}/>
                                 <FormText color="muted">
                                     Insert your company logo here.
                                 </FormText>
@@ -177,14 +182,14 @@ class Company extends React.Component {
                                 <h5 for="verified">Is your company verified?</h5>
                                 <FormGroup check>
                                     <Label check>
-                                    <Input type="checkbox" value={verified}/>{' '}
+                                    <Input type="checkbox" value={verified} onChange={this.handleChange}/>{' '}
                                     Verify Company
                                     </Label>
                                 </FormGroup>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="certificate">Certificate Document</Label>
-                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="file" name="file" id="companyProof" value={companyProof}/>
+                                <Input disabled={(!this.state.isBeingEdited) ? "disabled" : "" } type="file" name="file" id="companyProof" value={companyProof} onChange={this.handleFileChange}/>
                                 <FormText color="muted">
                                     Insert your company proof document here.
                                 </FormText>
