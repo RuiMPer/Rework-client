@@ -67,19 +67,21 @@ class Home extends Component {
                                 console.log("no notification")
                             }
 
-                        })
-                })
+                        });
+                });
             }
-        })
+        });
+
         if (eachBooking.length >= 1) {
             console.log("OUTRO", eachBooking)
 
             eachBooking.map(response => {
                 console.log("DATAS", response.date)
                 let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
-            })
+            });
         }
     }
+
     Page = () => {
         const buttonClick = (date, time) => {
             addNotification({
@@ -105,8 +107,8 @@ class Home extends Component {
         return (
             <section className="home">
                 {/* <h1>Welcome to Re-work!</h1> */}
-                <button onClick={() => { this.handleNotification() }}>TESTE:</button>
-                <button onClick={this.getUserServices}>Services</button>
+                {/* <button onClick={() => { this.handleNotification() }}>TESTE:</button>
+                <button onClick={this.getUserServices}>Services</button> */}
                 {this.props.isLoggedIn &&
                     <>
                         <h3>Todos os Serviços da Empresa X</h3>
@@ -117,7 +119,7 @@ class Home extends Component {
                                 </div>
                             )
                         })}
-                        <h3>Calendário da Empresa X</h3>
+                        {/* <h3>Calendário da Empresa X</h3> */}
                         {/* {this.state.newBookings.map(booking => {
                             return (
                                 <div key={booking._id}>
@@ -125,27 +127,76 @@ class Home extends Component {
                                 </div>
                             )
                         })} */}
-                        <h3>Clientes da Empresa X</h3>
+                        {/* <h3>Clientes da Empresa X</h3> */}
                     </>
                 }
 
 
-                <h3>About us</h3>
+                <h3>How things work at Rework:</h3>
                 <Jumbotron>
-                    <h1 className="display-8">Um detaque sobre serviços ou categorias....</h1>
-                    <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <span className="lead">1 - </span><span>Advertise your services and manage booking.</span>
                     <hr className="my-2" />
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                    <span className="lead">2 - </span><span>Look for what you need.</span>
+                    <hr className="my-2" />
+                    <span className="lead">3 - </span><span>Get notified about upcoming appointments.</span>
+                    <hr className="my-2" />
+                    
                     <p className="lead">
-                        <Button color="primary">Learn More</Button>
+                        <Button color="primary">Start Now!</Button>
                     </p>
                 </Jumbotron>
 
                 <h3>All our categories</h3>
                 <Card inverse className="category-card">
-                    <CardImg width="100%" src="https://picsum.photos/200" alt="Card image cap" />
+                    <CardImg width="100%" src="https://picsum.photos/id/10/200" alt="Card image cap" />
                     <CardImgOverlay>
-                        <CardTitle>TÍTULO GOES HERE</CardTitle>
+                        <CardTitle>HEALTH</CardTitle>
+                        <CardText>
+                            <small>Know more +</small>
+                        </CardText>
+                    </CardImgOverlay>
+                </Card>
+
+                <Card inverse className="category-card">
+                    <CardImg width="100%" src="https://picsum.photos/id/1013/200" alt="Card image cap" />
+                        <CardImgOverlay>
+                            <CardTitle>TECHNOLOGY</CardTitle>
+                            <CardText>
+                                <small>Know more +</small>
+                            </CardText>
+                        </CardImgOverlay>
+                </Card>
+                <Card inverse className="category-card">
+                    <CardImg width="100%" src="https://picsum.photos/id/1027/200" alt="Card image cap" />
+                    <CardImgOverlay>
+                        <CardTitle>BEAUTY & PERSONAL CARE</CardTitle>
+                        <CardText>
+                            <small>Know more +</small>
+                        </CardText>
+                    </CardImgOverlay>
+                </Card>
+                <Card inverse className="category-card">
+                    <CardImg width="100%" src="https://picsum.photos/id/145/200" alt="Card image cap" />
+                    <CardImgOverlay>
+                        <CardTitle>HOME REPAIRS</CardTitle>
+                        <CardText>
+                            <small>Know more +</small>
+                        </CardText>
+                    </CardImgOverlay>
+                </Card>
+                <Card inverse className="category-card">
+                    <CardImg width="100%" src="https://picsum.photos/id/1060/200" alt="Card image cap" />
+                    <CardImgOverlay>
+                        <CardTitle>COOKING</CardTitle>
+                        <CardText>
+                            <small>Know more +</small>
+                        </CardText>
+                    </CardImgOverlay>
+                </Card>
+                <Card inverse className="category-card">
+                    <CardImg width="100%" src="https://picsum.photos/id/1/200" alt="Card image cap" />
+                    <CardImgOverlay>
+                        <CardTitle>EDUCATION</CardTitle>
                         <CardText>
                             <small>Know more +</small>
                         </CardText>

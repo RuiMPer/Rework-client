@@ -85,15 +85,15 @@ class Navbar extends React.Component {
                     {this.state.countBookings}
                     {!this.props.loggedInUser ? (
                         <>
-                            <NavItem>
-                                <NavLink to="/search">Search</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink to='/login'>Login</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink to='/signup'>Signup</NavLink>
-                            </NavItem>
+                        <NavItem className="search">
+                            <NavLink to="/search" >Search</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink to='/login'>Login</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink to='/signup'>Signup</NavLink>
+                        </NavItem>
                         </>
                     ) : (
                             <>
