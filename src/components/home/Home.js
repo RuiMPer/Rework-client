@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
-import { Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import { CardHeader,CardBody,  Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
 import moment from 'moment';
 import axios from 'axios';
 import AddNotification from '../notifications/AddNotification';
@@ -111,14 +111,19 @@ class Home extends Component {
                 <button onClick={this.getUserServices}>Services</button> */}
                 {this.props.isLoggedIn &&
                     <>
-                        <h3>Todos os Serviços da Empresa X</h3>
-                        {this.state.listOfServices.map(services => {
-                            return (
-                                <div key={services._id}>
-                                    <p>{services.title}</p>
-                                </div>
-                            )
-                        })}
+                        <h3>My Services</h3>
+                        <section className="servicesnahome">
+                            {this.state.listOfServices.map(services => {
+                                return (
+                                        <>
+                                            <Card key={services._id}>
+                                                <CardHeader tag="h3">{services.title}</CardHeader>
+                                                <Button>+</Button>
+                                            </Card>
+                                        </>
+                                    )
+                            })}
+                         </section>
                         {/* <h3>Calendário da Empresa X</h3> */}
                         {/* {this.state.newBookings.map(booking => {
                             return (
@@ -128,10 +133,11 @@ class Home extends Component {
                             )
                         })} */}
                         {/* <h3>Clientes da Empresa X</h3> */}
+                        <hr/>
                     </>
                 }
 
-
+                <div className="clearfix"></div>
                 <h3>How things work at Rework:</h3>
                 <Jumbotron>
                     <span className="lead">1 - </span><span>Advertise your services and manage booking.</span>

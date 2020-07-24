@@ -68,3 +68,9 @@ input[type=file] {
 button.Toastify__close-button.Toastify__close-button--default {
   min-width: unset;
 }
+
+.clearfix {
+  display: block;
+  clear: both;
+  position: relative;
+}
