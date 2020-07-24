@@ -40,16 +40,16 @@ class ServiceList extends Component {
 
     }
 
-    getAllServices = () => {
-        // Get list of service from the API we just built
-        axios.get(`${process.env.REACT_APP_SERVER}/services`)
-            .then(responseFromAPI => {
+    // getAllServices = () => {
+    //     // Get list of service from the API we just built
+    //     axios.get(`${process.env.REACT_APP_SERVER}/services`)
+    //         .then(responseFromAPI => {
 
-                this.setState({
-                    listOfServices: responseFromAPI.data
-                })
-            });
-    }
+    //             this.setState({
+    //                 listOfServices: responseFromAPI.data
+    //             })
+    //         });
+    // }
 
     showAddService = () => {
         const { showAddService } = this.state;
@@ -69,7 +69,7 @@ class ServiceList extends Component {
                 </header>
 
                 {showAddService && <>
-                    <AddService userId={this.props.loggedInUser._id} refreshServices={this.getAllServices} />
+                    <AddService userId={this.props.loggedInUser._id} refreshServices={this.getUserServices} />
                 </>}
 
                 <section className="maincontent servicelist">
@@ -90,11 +90,7 @@ class ServiceList extends Component {
                             </div>
                         );
                     })}
-                    <a onClick={() => this.showAddService()} href="#">Add Service</a>
-                    {this.state.showAddService && <div style={{ width: '50%', float: 'right' }}>
-                        <AddService userId={this.props.loggedInUser._id} refreshServices={this.getAllServices} />
-                    </div>}
-                    <AddNotification />
+                    {/* <AddNotification /> */}
                 </section>
             </>
         )

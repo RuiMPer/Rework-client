@@ -84,8 +84,8 @@ class Home extends Component {
         const buttonClick = (date, time) => {
             addNotification({
                 title: 'New Booking',
-                subtitle: date,
-                message: time,
+                subtitle: "Sadas",
+                message: "asdasd",
                 theme: 'darkblue',
                 native: true // when using native, your OS will handle theming.
             });
