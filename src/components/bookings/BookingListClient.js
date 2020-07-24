@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {
-	Card, CardImg, CardText, CardBody, CardLink,
-	CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import "./css/BookingListClient.css"
+import moment from 'moment';
+import { CardHeader, CardBody, Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
 
 class BookingListClient extends Component {
 
@@ -12,10 +11,7 @@ class BookingListClient extends Component {
 	}
 
 	componentDidMount() {
-		this.getUserServices()
-			.then(() => {
-				console.log("lista", this.state.listOfServices)
-			})
+		this.getUserBookings()
 
 	}
 	getUserServices = () => {
@@ -35,19 +31,46 @@ class BookingListClient extends Component {
 			})
 		)
 	}
+	getUserBookings = () => {
+		this.getUserServices()
+
+		let today = moment().format("DD/MM/YYYY")
+		let eachBooking = []
+		this.state.listOfServices.map(response => {
+			if (response.bookings.length >= 1) {
+				response.bookings.map(response => {
+					console.log("ESTE", response)
+					let eachBook = axios.create({
+						baseURL: `${process.env.REACT_APP_SERVER}`,
+						withCredentials: true
+					});
+					eachBook.get(`/bookings/${response}`)
+						.then(response => {
+							console.log(response)
+						});
+				});
+			}
+		});
+
+	}
 	render() {
 
 		return (
 			<>
-
-				<header className="header">
-					<h1>My Bookings</h1>
-				</header>
-
-
-				<section className="maincontent servicelist">
+				<h1>My Bookings</h1>
+				<section className="bookinglist">
 					{this.state.listOfServices.map(response => {
-						console.log(response)
+						
+						return (
+							<>
+								<Card key={response._id}>
+									<CardHeader tag="h3">{response.title}</CardHeader>
+									<CardHeader tag="h4">{response.date}</CardHeader>
+									<CardHeader tag="h4">{response.time}</CardHeader>
+									<Button>+</Button>
+								</Card>
+							</>
+						)
 					})}
 				</section>
 			</>

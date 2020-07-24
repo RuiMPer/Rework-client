@@ -65,13 +65,13 @@ class Navbar extends React.Component {
         let total = 0
         this.state.listOfServices.map(response => {
             let objNumber = response.bookings.length
-            console.log("count", objNumber)
+            // console.log("count", objNumber)
             total += objNumber
         })
         this.setState({
             totalBookings: total
         })
-        console.log("total", total)
+        // console.log("total", total)
     }
 
     render() {

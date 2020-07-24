@@ -1,0 +1,30 @@
+section.bookinglist {
+    position: relative;
+    float: left;
+    display: block;
+}
+.bookinglist .card {
+    display: flex;
+    flex-direction: revert;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5f5f5;
+    margin: 10px;
+    float: left;
+    width: 33%;
+    padding: .3rem;
+    border: none;
+}
+.home .card  h3.card-header {
+    padding: 0;
+    margin: 0;
+    flex: 1 1;
+    background: none;
+    border: none;
+    font-size: 18px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+}
+.bookinglist button.btn.btn-secondary {
+    min-width: fit-content;
+}
