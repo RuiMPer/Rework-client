@@ -30,7 +30,7 @@ class App extends Component {
   state = {
     loggedInUser: null,
     loading: true,
-    hasCompany:false
+    hasCompany: false
   }
 
   setCurrentUser = (userObj) => {
@@ -125,14 +125,14 @@ class App extends Component {
               />
             }
 
-            {/* {this.state.hasCompany &&
-              <Route exact path="/company/:id" render={ (props) => {
-                if (localStorage.getItem("loggedin")) {
-                  return <Company loggedInUser={this.state.loggedInUser} {...props} />
-                }}}
-              />
-            } */}
-            
+
+            <Route exact path="/company/:id" render={(props) => {
+              if (localStorage.getItem("loggedin")) {
+                return <Company loggedInUser={this.state.loggedInUser} {...props} />
+              }
+            }}
+            />
+
 
             {/* Not found route */}
             <Route path="*" component={() => <NotFound />} />
