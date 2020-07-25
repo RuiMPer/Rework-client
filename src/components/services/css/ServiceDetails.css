@@ -1,4 +1,4 @@
-img {
+.servicedetails img {
 	border-radius: 8px;
 	width: 10rem;
 }
@@ -7,4 +7,20 @@ img {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+
+.servicedetails p.noresults {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.servicedetails .noresultswrap {
+    margin-top: 50px;
+}
+.servicedetails .noresultswrap p.noresults {
+    align-items: flex-start;
+    justify-content: center;
 }
