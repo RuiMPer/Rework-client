@@ -1,6 +1,10 @@
 .servicedetails img {
-	border-radius: 8px;
-	width: 10rem;
+    border-radius: 2px;
+    width: 50vw;
+    max-height: 50vh;
+    margin: 2rem;
+    border: 1px solid #047bfe;
+    padding: 10px;
 }
 
 .toTheLeft {
@@ -18,9 +22,25 @@
 }
 
 .servicedetails .noresultswrap {
-    margin-top: 50px;
+    padding-top: 50px;
+    min-height: calc(100vh - 380px);
 }
 .servicedetails .noresultswrap p.noresults {
     align-items: flex-start;
     justify-content: center;
+}
+
+
+.serviceinfodetails{
+    display: flex;
+    align-items: center;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+.serviceinfodetails label{
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #ccc;
+    font-weight: 700;
 }
