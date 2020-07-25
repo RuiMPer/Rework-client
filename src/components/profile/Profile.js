@@ -82,7 +82,7 @@ class Profile extends React.Component {
         event.preventDefault();
         console.log("EVENT TARGET FILES", event.target.files)
         let userId = this.props.match.params.userId;
-        let { firstName, lastName, username, password, email, company, phone, type, birthday, tempPhotoPath, photoPath } = this.state;
+        let { firstName, lastName, username, password, email, company, phone, type, birthday, tempPhotoPath } = this.state;
         console.log("PHOTO PATH COMING FROM STATE", tempPhotoPath);
         
 
@@ -190,7 +190,7 @@ class Profile extends React.Component {
                         <Col md={12}>
                             <FormGroup>
                                 <Label for="examplePassword">Password</Label>
-                                <Input disabled={(!isBeingEdited) ? "disabled" : ""} type="password" name="password" id="examplePassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" disabled /* value={userInfo.password} */ onChange={this.handleChange} />
+                                <Input type="password" name="password" id="examplePassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" disabled /* value={userInfo.password} */ onChange={this.handleChange} />
                             </FormGroup>
                         </Col>
                     </Row>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import "./css/BookingListClient.css"
 import moment from 'moment';
-import { CardHeader, CardBody, Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import { CardHeader, CardBody, Button, Card } from 'reactstrap';
 
 class BookingListClient extends Component {
 
@@ -34,10 +34,10 @@ class BookingListClient extends Component {
 	}
 	getUserBookings = () => {
 		this.getUserServices()
-		.then(()=>{
+		.then(() => {
 			console.log("list of servicessssss",this.state.listOfServices)
-			let today = moment().format("DD/MM/YYYY")
-			let eachBooking = []
+			// let today = moment().format("DD/MM/YYYY")
+			// let eachBooking = []
 
 			this.state.listOfServices.map(response => {
 				if (response.bookings.length >= 1) {
@@ -48,8 +48,9 @@ class BookingListClient extends Component {
 							baseURL: `${process.env.REACT_APP_SERVER}`,
 							withCredentials: true
 						});
-						eachBook.get(`/bookings/${response}`)
-							.then(response => {console.log("OLHAAAA",response.data.date)
+						return eachBook.get(`/bookings/${response}`)
+							.then(response => {
+								console.log("OLHAAAA",response.data.date)
 								console.log("FESTAAAAAAA", response)
 								console.log("OLHAAA2", moment.utc(response.data.date).utc().format('MM/DD/YYYY'))
 								let date = moment.utc(response.data.date).utc().format('MM/DD/YYYY');
@@ -64,10 +65,12 @@ class BookingListClient extends Component {
 								// this.setState({
 								// 		bookings:[response.data]
 								// });
+								return;
 							});
-					});
-				}
+					}); 
+				} 
 			});
+			
 		})
 		
 

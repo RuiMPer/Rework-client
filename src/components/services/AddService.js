@@ -9,22 +9,32 @@ class AddService extends Component {
         title: '',
         description: '',
         photoPath: [],
-        author: ""
+        author: "",
+        errorMessage: '',
     }
 
     handleChange = (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
     }
+
     handleFileChange = (event) => {
         this.setState({ photoPath: event.target.files[0] });
     }
+
     handleFormSubmit = (event) => {
         event.preventDefault();
-        const { category, title, description } = this.state
+        const { category, title, description, photoPath } = this.state
         const userId = this.props.userId
         const uploadData = new FormData()
-        uploadData.append("photoPath", this.state.photoPath)
+        uploadData.append("photoPath", photoPath)
+
+        if (!category || !title || !description || !photoPath) {
+            this.setState({ errorMessage: "All fields are compulsory! Complete your form, please." });
+        }
+        else{
+            this.setState({ errorMessage:''});
+        }
 
         axios.post(`${process.env.REACT_APP_SERVER}/upload`, uploadData)
             .then((response) => {
@@ -35,27 +45,24 @@ class AddService extends Component {
                         console.log('service created', response);
                         this.props.refreshServices();
                         this.setState({ category: [], title: '', description: "", photoPath: [], author: "" });
-                        toast('Service created!');
+                        toast('Service created with super success!');
                     })
             })
     }
 
 
-
-
-
-
     render() {
         return (
-            <div><ToastContainer position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover/>
+            <div>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover/>
                 {/* <form onSubmit={this.handleFormSubmit}>
                     <label>Title</label>
                     <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
@@ -89,11 +96,12 @@ class AddService extends Component {
                         <Label for="file">File</Label>
                         <Input type="file" name="file" onChange={this.handleFileChange} />
                         <FormText color="muted">
-                            This is some placeholder block-level help text for the above input.
-                            It's a bit lighter and easily wraps to a new line.
+                            Add relevant photos to illustrate the services you provide.
                         </FormText>
                     </FormGroup>
                     <Button>Submit</Button>
+                    {this.state.errorMessage &&
+                        <p className="error" style={{marginTop:"10px"}}> {this.state.errorMessage} </p>}
                 </Form>
             </div>
         )

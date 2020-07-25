@@ -93,7 +93,7 @@ class Company extends React.Component {
         //     withCredentials: true
         // });
 
-        let { title, logoPath, logoName, locationPin, phone, verified, companyProof, isAdmin } = this.state;
+        let { title, logoName, locationPin, phone, verified, companyProof, isAdmin } = this.state;
 
         if(this.state.tempLogoPath===""){
             let service = axios.create({
@@ -131,7 +131,7 @@ class Company extends React.Component {
                     withCredentials: true
                 });
 
-                return service.post(`${process.env.REACT_APP_SERVER}/company`, { title, logoPath, logoName, locationPin, phone, verified, companyProof, isAdmin, logoPath:this.state.logoPath })
+                return service.post(`${process.env.REACT_APP_SERVER}/company`, { title, logoName, locationPin, phone, verified, companyProof, isAdmin, logoPath:this.state.logoPath })
                 .then(response => {
                             console.log("success with photo", response);
 
@@ -163,7 +163,7 @@ class Company extends React.Component {
         console.log("render")
         /* getting props/state with all info from user destructured */
         //const {userInfo} = this.state;
-        let { title, logoPath, locationPin, phone, verified, companyProof } = this.state;
+        let { title, locationPin, phone, verified, companyProof } = this.state;
 
         return (
             <>

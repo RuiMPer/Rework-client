@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AuthService from './auth-service';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import moment from 'moment';
+//import moment from 'moment';
 import axios from 'axios';
 
 
@@ -59,8 +59,8 @@ class Login extends Component {
     handleNotification = () => {
         this.getUserServices()
 
-        let today = moment().format("DD/MM/YYYY")
-        let eachBooking = []
+        // let today = moment().format("DD/MM/YYYY")
+        // let eachBooking = []
         this.state.listOfServices.map(response => {
             if (response.bookings.length >= 1) {
                 response.bookings.map(response => {
@@ -69,7 +69,7 @@ class Login extends Component {
                         baseURL: `${process.env.REACT_APP_SERVER}`,
                         withCredentials: true
                     });
-                    eachBook.get(`/bookings/${response}`)
+                    return eachBook.get(`/bookings/${response}`)
                         .then(response => {
                             console.log("IDSDAA", response)
                             let bookingInfo = response.data
@@ -88,7 +88,7 @@ class Login extends Component {
 
                         })
                 })
-            }
+            } return;
         })
         // if (eachBooking.length >= 1) {
         //     console.log("OUTRO", eachBooking)

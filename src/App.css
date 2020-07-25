@@ -3,6 +3,26 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.noresultswrap svg{
+  max-height: 100px;
+  fill: #e0e0e0;
+  margin: 10px;
+}
+.noresults{
+  margin-top: 10px;
+    margin-left: 2rem;
+    margin-bottom: .75rem;
+    font-size: 2rem;
+    line-height: 1;
+    text-align: center;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #e0e0e0;
+    max-width: 280px;
+    margin: 20px auto;
+    font-size: 18px;
+}
+
 .App{
   padding-top: 80px;
 }

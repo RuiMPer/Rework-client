@@ -16,7 +16,7 @@ import Signup from './components/auth/Signup';
 import NotFound from './components/notfound/NotFound';
 import AuthService from './components/auth/auth-service';
 import BookingListClient from './components/bookings/BookingListClient';
-import moment from 'moment';
+//import moment from 'moment';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
@@ -35,12 +35,12 @@ class App extends Component {
   setCurrentUser = (userObj) => {
     this.setState({
       loggedInUser: userObj
-    })
+    });
   }
 
   componentDidMount() {
     this.fetchUser();
-    { this.setState({ loading: false }) }
+    this.setState({ loading: false });
   }
 
   fetchUser = (props) => {

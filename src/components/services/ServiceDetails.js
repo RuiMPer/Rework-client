@@ -8,10 +8,8 @@ import AddToCalendar from 'react-add-to-calendar';
 
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-import Example from './Caroussel';
+//import Example from './Caroussel';
 import moment from 'moment';
-
-
 
 class ServiceDetails extends Component {
     //1. Option one

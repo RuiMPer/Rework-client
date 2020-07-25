@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './Home.css';
-import { CardHeader,CardBody,  Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import { CardHeader,  Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
-import AddNotification from '../notifications/AddNotification';
+//import AddNotification from '../notifications/AddNotification';
 import addNotification from 'react-push-notification';
 
 class Home extends Component {
@@ -11,12 +12,9 @@ class Home extends Component {
         listOfServices: []
     }
 
-
     componentDidMount() {
         this.getUserServices();
     }
-
-
 
     getUserServices = () => {
         let service = axios.create({
@@ -37,11 +35,11 @@ class Home extends Component {
 
 
     handleNotification = () => {
-        this.getUserServices()
-
-        let today = moment().format("DD/MM/YYYY")
-        let eachBooking = []
-        this.state.listOfServices.map(response => {
+        this.getUserServices();
+        let today = moment().format("DD/MM/YYYY");
+        let eachBooking = [];
+        
+        this.state.listOfServices.map((response) => {
             if (response.bookings.length >= 1) {
                 response.bookings.map(response => {
                     console.log("ESTE", response)
@@ -49,7 +47,8 @@ class Home extends Component {
                         baseURL: `${process.env.REACT_APP_SERVER}`,
                         withCredentials: true
                     });
-                    eachBook.get(`/bookings/${response}`)
+                    return (
+                        eachBook.get(`/bookings/${response}`)
                         .then(response => {
                             console.log("IDSDAA", response)
                             let bookingInfo = response.data
@@ -57,28 +56,29 @@ class Home extends Component {
                             console.log(bookingInfo.date)
                             // eachBooking.push(bookingInfo)
                             let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
-                            let dateNot = moment(response.date).format("DD/MM/YYYY")
+                            //let dateNot = moment(response.date).format("DD/MM/YYYY")
                             console.log(response.date)
                             console.log("hoje", today)
                             console.log("dia notificação", notificationDay)
-                            if (today === notificationDay) {
-                                console.log("finally")
-                            } else {
-                                console.log("no notification")
-                            }
+                            // if (today === notificationDay) {
+                            //     console.log("finally")
+                            // } else {
+                            //     console.log("no notification")
+                            // }
 
-                        });
+                        })
+                    )
                 });
-            }
+            } 
         });
 
         if (eachBooking.length >= 1) {
             console.log("OUTRO", eachBooking)
 
-            eachBooking.map(response => {
-                console.log("DATAS", response.date)
-                let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
-            });
+            //eachBooking.map(response => {
+                //console.log("DATAS", response.date)
+                //let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
+            //});
         }
     }
 
@@ -113,16 +113,22 @@ class Home extends Component {
                     <>
                         <h3>My Services</h3>
                         <section className="servicesnahome">
+                        {this.state.listOfServices.length === 0 && <> <p style={{marginTop:"10px"}}>There is still no services to show.</p></>}
+                        {this.state.listOfServices.length > 0 && <>
                             {this.state.listOfServices.map(services => {
                                 return (
                                         <>
-                                            <Card key={services._id}>
-                                                <CardHeader tag="h3">{services.title}</CardHeader>
-                                                <Button>+</Button>
-                                            </Card>
+                                            <Link to={`/services/${services._id}`}>
+                                                <Card key={services._id}>
+                                                    <CardHeader tag="h3">{services.title}</CardHeader>
+                                                    <Button>+</Button>
+                                                </Card>
+                                            </Link>
                                         </>
                                     )
                             })}
+                        </>}
+                            
                          </section>
                         {/* <h3>Calendário da Empresa X</h3> */}
                         {/* {this.state.newBookings.map(booking => {
