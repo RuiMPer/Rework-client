@@ -61,17 +61,17 @@ class ServiceDetails extends Component {
     }
 
     showAddBooking = () => {
-        this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false })
+        this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false });
     }
     showEditBooking = () => {
-        this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showAddBooking: false })
+        this.state.showEditBooking ? this.setState({ showEditBooking: false }) : this.setState({ showEditBooking: true, showAddBooking: false });
     }
     closeOptions = () => {
-        this.setState({ showEditBooking: false, showAddBooking: false })
+        this.setState({ showEditBooking: false, showAddBooking: false });
     }
     deleteBooking = (booking) => {
         //const { params } = this.props.match;
-        console.log(booking)
+        console.log(booking);
         axios.delete(`${process.env.REACT_APP_SERVER}/bookings/${booking._id}`)
             .then(() => {
                 //return <Redirect to='/services' />
@@ -81,12 +81,11 @@ class ServiceDetails extends Component {
 
     handleDate = (date) => {
         const newDate = moment(date).format("DD/MM/YYYY")
-        return newDate
+        return newDate;
     }
     handleCalendarDate = (date, time) => {
         let dateTime = moment(date + ' ' + time, 'DD/MM/YYYY HH:mm');
-
-        return dateTime
+        return dateTime;
     }
 
 
@@ -94,9 +93,38 @@ class ServiceDetails extends Component {
     render() {
         let icon = { textOnly: 'none' }
         const { params } = this.props.match;
+
         return (
-            <>
-                <Row >
+            <div className="servicedetails">
+                <header className="header">
+                        <div className="toTheLeft">
+                            <Link to={"/services"}><Button color="link" style={{marginRight:"10px"}}>Back</Button></Link>
+                            <h1>Details about <span style={{fontWeight:"100"}}>{this.state.title}</span></h1>
+                        </div>
+                        
+                        <div className="toTheRight">
+                            {this.props.loggedInUser && <>
+                                <Button color="danger" onClick={() => this.deleteService()}>Delete Service</Button>
+                            </>}
+                            
+                            <Link to={{
+                                pathname: `/services/${params.id}/edit`,
+                                state: {
+                                    title: this.state.title,
+                                    description: this.state.description,
+                                    category: this.state.category,
+                                    photoPath: this.state.photoPath
+                                }
+                            }}><Button color="info" >Edit Service</Button></Link>
+
+                            <Button color="primary" onClick={this.showAddBooking} >Add Booking</Button>
+
+                            
+
+                        </div>
+                </header>
+
+                {/* <Row >
                     <Col xs="1"><a href="/services">Back</a></Col>
                     <Col xs="6">{this.state.title}</Col>
                     <Col xs="2">
@@ -111,13 +139,9 @@ class ServiceDetails extends Component {
                         }}>Edit Service</Link>
                     </Col>
                     <Col ><div onClick={() => this.showAddBooking()}>Add Booking</div></Col>
-                </Row>
-                {this.props.loggedInUser &&
-                    <div>
-                        <Button onClick={() => this.deleteService()}>Delete Service</Button>
-                    </div>
-                }
-                <div>
+                </Row> */}
+                
+                {/* <div> */}
                     <Nav tabs >
                         <div>
                             <NavItem>
@@ -192,9 +216,9 @@ class ServiceDetails extends Component {
                             {this.state.activeTab === 3 ? <h4>Coming soon...</h4> : null}
                         </TabPane>
                     </TabContent>
-                </div>
+                {/* </div> */}
                 {this.state.showAddBooking && <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />}
-            </>
+            </div>
         )
     }
 }

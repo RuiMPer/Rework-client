@@ -2,3 +2,9 @@ img {
 	border-radius: 8px;
 	width: 10rem;
 }
+
+.toTheLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
