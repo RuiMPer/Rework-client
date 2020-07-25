@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
-import { CardHeader,  Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import { CardHeader, Jumbotron, Button, Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
@@ -38,7 +38,7 @@ class Home extends Component {
         this.getUserServices();
         let today = moment().format("DD/MM/YYYY");
         let eachBooking = [];
-        
+
         this.state.listOfServices.map((response) => {
             if (response.bookings.length >= 1) {
                 response.bookings.map(response => {
@@ -49,35 +49,35 @@ class Home extends Component {
                     });
                     return (
                         eachBook.get(`/bookings/${response}`)
-                        .then(response => {
-                            console.log("IDSDAA", response)
-                            let bookingInfo = response.data
-                            console.log(bookingInfo)
-                            console.log(bookingInfo.date)
-                            // eachBooking.push(bookingInfo)
-                            let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
-                            //let dateNot = moment(response.date).format("DD/MM/YYYY")
-                            console.log(response.date)
-                            console.log("hoje", today)
-                            console.log("dia notificação", notificationDay)
-                            // if (today === notificationDay) {
-                            //     console.log("finally")
-                            // } else {
-                            //     console.log("no notification")
-                            // }
+                            .then(response => {
+                                console.log("IDSDAA", response)
+                                let bookingInfo = response.data
+                                console.log(bookingInfo)
+                                console.log(bookingInfo.date)
+                                // eachBooking.push(bookingInfo)
+                                let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
+                                //let dateNot = moment(response.date).format("DD/MM/YYYY")
+                                console.log(response.date)
+                                console.log("hoje", today)
+                                console.log("dia notificação", notificationDay)
+                                // if (today === notificationDay) {
+                                //     console.log("finally")
+                                // } else {
+                                //     console.log("no notification")
+                                // }
 
-                        })
+                            })
                     )
                 });
-            } 
+            }
         });
 
         if (eachBooking.length >= 1) {
             console.log("OUTRO", eachBooking)
 
             //eachBooking.map(response => {
-                //console.log("DATAS", response.date)
-                //let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
+            //console.log("DATAS", response.date)
+            //let notificationDay = moment(response.date).subtract(1, "days").format("DD/MM/YYYY")
             //});
         }
     }
@@ -94,8 +94,8 @@ class Home extends Component {
             console.log("olhaeste ", this.props)
         }
 
-        return ( 
-            <div  className="page">
+        return (
+            <div className="page">
                 {buttonClick()}
             </div>)
     }
@@ -113,10 +113,10 @@ class Home extends Component {
                     <>
                         <h3>My Services</h3>
                         <section className="servicesnahome">
-                        {this.state.listOfServices.length === 0 && <> <p style={{marginTop:"10px"}}>There is still no services to show.</p></>}
-                        {this.state.listOfServices.length > 0 && <>
-                            {this.state.listOfServices.map(services => {
-                                return (
+                            {this.state.listOfServices.length === 0 && <> <p style={{ marginTop: "10px" }}>There is still no services to show.</p></>}
+                            {this.state.listOfServices.length > 0 && <>
+                                {this.state.listOfServices.map(services => {
+                                    return (
                                         <>
                                             <Link to={`/services/${services._id}`}>
                                                 <Card key={services._id}>
@@ -126,10 +126,10 @@ class Home extends Component {
                                             </Link>
                                         </>
                                     )
-                            })}
-                        </>}
-                            
-                         </section>
+                                })}
+                            </>}
+
+                        </section>
                         {/* <h3>Calendário da Empresa X</h3> */}
                         {/* {this.state.newBookings.map(booking => {
                             return (
@@ -139,7 +139,7 @@ class Home extends Component {
                             )
                         })} */}
                         {/* <h3>Clientes da Empresa X</h3> */}
-                        <hr/>
+                        <hr />
                     </>
                 }
 
@@ -152,7 +152,7 @@ class Home extends Component {
                     <hr className="my-2" />
                     <span className="lead">3 - </span><span>Get notified about upcoming appointments.</span>
                     <hr className="my-2" />
-                    
+
                     <p className="lead">
                         <Button color="primary">Start Now!</Button>
                     </p>
@@ -164,26 +164,26 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>HEALTH</CardTitle>
                         <CardText>
-                            <small>Know more +</small>
+                            <small>Coming Soon...</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
 
                 <Card inverse className="category-card">
                     <CardImg width="100%" src="https://source.unsplash.com/1600x900/?technology" alt="Card cap" />
-                        <CardImgOverlay>
-                            <CardTitle>TECHNOLOGY</CardTitle>
-                            <CardText>
-                                <small>Know more +</small>
-                            </CardText>
-                        </CardImgOverlay>
+                    <CardImgOverlay>
+                        <CardTitle>TECHNOLOGY</CardTitle>
+                        <CardText>
+                            <small>Coming Soon</small>
+                        </CardText>
+                    </CardImgOverlay>
                 </Card>
                 <Card inverse className="category-card">
                     <CardImg width="100%" src="https://source.unsplash.com/1600x900/?beauty,aesthetics" alt="Card cap" />
                     <CardImgOverlay>
                         <CardTitle>BEAUTY & PERSONAL CARE</CardTitle>
                         <CardText>
-                            <small>Know more +</small>
+                            <small>Coming Soon</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
@@ -192,7 +192,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>HOME REPAIRS</CardTitle>
                         <CardText>
-                            <small>Know more +</small>
+                            <small>Coming Soon</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
@@ -201,7 +201,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>COOKING</CardTitle>
                         <CardText>
-                            <small>Know more +</small>
+                            <small>Coming Soon</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
@@ -210,7 +210,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>EDUCATION</CardTitle>
                         <CardText>
-                            <small>Know more +</small>
+                            <small>Coming Soon</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
