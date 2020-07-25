@@ -160,7 +160,7 @@ class Home extends Component {
 
                 <h3>All our categories</h3>
                 <Card inverse className="category-card">
-                    <CardImg width="100%" src="https://picsum.photos/id/10/200" alt="Card image cap" />
+                    <CardImg width="100%" src="https://source.unsplash.com/1600x900/?health,human" alt="Card cap" />
                     <CardImgOverlay>
                         <CardTitle>HEALTH</CardTitle>
                         <CardText>
@@ -170,7 +170,7 @@ class Home extends Component {
                 </Card>
 
                 <Card inverse className="category-card">
-                    <CardImg width="100%" src="https://picsum.photos/id/1013/200" alt="Card image cap" />
+                    <CardImg width="100%" src="https://source.unsplash.com/1600x900/?technology" alt="Card cap" />
                         <CardImgOverlay>
                             <CardTitle>TECHNOLOGY</CardTitle>
                             <CardText>
@@ -179,7 +179,7 @@ class Home extends Component {
                         </CardImgOverlay>
                 </Card>
                 <Card inverse className="category-card">
-                    <CardImg width="100%" src="https://picsum.photos/id/1027/200" alt="Card image cap" />
+                    <CardImg width="100%" src="https://source.unsplash.com/1600x900/?beauty,aesthetics" alt="Card cap" />
                     <CardImgOverlay>
                         <CardTitle>BEAUTY & PERSONAL CARE</CardTitle>
                         <CardText>
@@ -188,7 +188,7 @@ class Home extends Component {
                     </CardImgOverlay>
                 </Card>
                 <Card inverse className="category-card">
-                    <CardImg width="100%" src="https://picsum.photos/id/145/200" alt="Card image cap" />
+                    <CardImg width="100%" src="https://source.unsplash.com/1600x900/?dyi,repairs,handy" alt="Card cap" />
                     <CardImgOverlay>
                         <CardTitle>HOME REPAIRS</CardTitle>
                         <CardText>
@@ -197,7 +197,7 @@ class Home extends Component {
                     </CardImgOverlay>
                 </Card>
                 <Card inverse className="category-card">
-                    <CardImg width="100%" src="https://picsum.photos/id/1060/200" alt="Card image cap" />
+                    <CardImg width="100%" src="https://source.unsplash.com/1600x900/?cooking" alt="Card cap" />
                     <CardImgOverlay>
                         <CardTitle>COOKING</CardTitle>
                         <CardText>
@@ -206,7 +206,7 @@ class Home extends Component {
                     </CardImgOverlay>
                 </Card>
                 <Card inverse className="category-card">
-                    <CardImg width="100%" src="https://picsum.photos/id/1/200" alt="Card image cap" />
+                    <CardImg width="100%" src="https://source.unsplash.com/1600x900/?education" alt="Card image cap" />
                     <CardImgOverlay>
                         <CardTitle>EDUCATION</CardTitle>
                         <CardText>

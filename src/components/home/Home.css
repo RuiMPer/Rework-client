@@ -20,6 +20,10 @@ section.home {
     width: 33%;
 }
 
+.home .category-card{
+    height:300px;
+}
+
 .category-card.card img{
     transition: all .5s ease;
 }
@@ -81,4 +85,9 @@ section.servicesnahome {
 }
 .servicesnahome button.btn.btn-secondary {
     min-width: fit-content;
+}
+
+.home .category-card.card img {
+    height: 100%;
+    object-fit: cover;
 }
