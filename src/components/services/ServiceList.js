@@ -86,7 +86,7 @@ class ServiceList extends Component {
                                 <Card to={`/services/${service._id}`}>
                                     <CardBody>
                                         <CardTitle>{service.title}</CardTitle>
-                                        <CardSubtitle>CATEGORY</CardSubtitle>
+                                        <CardSubtitle>CATEGORY: {service.category}</CardSubtitle>
                                     </CardBody>
                                     <img width="100%" src={(service.photoPath !== 'unknown' || service.photoPath !== '') ? (service.photoPath) : ('https://picsum.photos/200')} alt="Card cap" />
                                     <CardBody>

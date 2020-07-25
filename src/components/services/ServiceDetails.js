@@ -6,19 +6,12 @@ import AddBooking from '../bookings/AddBooking';
 import EditBooking from '../bookings/EditBooking';
 import AddToCalendar from 'react-add-to-calendar';
 
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 //import Example from './Caroussel';
 import moment from 'moment';
 
 class ServiceDetails extends Component {
-    //1. Option one
-    /*state = {
-        title: '',
-        description: ''
-    }*/
-
-    //2. Option two
     state = {
         showEditBooking: false,
         showAddBooking: false,
@@ -77,7 +70,7 @@ class ServiceDetails extends Component {
         this.setState({ showEditBooking: false, showAddBooking: false })
     }
     deleteBooking = (booking) => {
-        const { params } = this.props.match;
+        //const { params } = this.props.match;
         console.log(booking)
         axios.delete(`${process.env.REACT_APP_SERVER}/bookings/${booking._id}`)
             .then(() => {
@@ -117,7 +110,7 @@ class ServiceDetails extends Component {
                             }
                         }}>Edit Service</Link>
                     </Col>
-                    <Col ><a onClick={() => this.showAddBooking()} href="#">Add Booking</a></Col>
+                    <Col ><div onClick={() => this.showAddBooking()}>Add Booking</div></Col>
                 </Row>
                 {this.props.loggedInUser &&
                     <div>
@@ -158,7 +151,7 @@ class ServiceDetails extends Component {
                     </Nav>
                     <TabContent activeTab={this.state.activeTab}>
                         <TabPane tabId="1">
-                            {this.state.activeTab == 1 ?
+                            {this.state.activeTab === 1 ?
                                 <div>
                                     <Row>
                                         <Col>Service Photo</Col>
@@ -174,7 +167,7 @@ class ServiceDetails extends Component {
                                 : null}
                         </TabPane>
                         <TabPane tabId="2">
-                            {this.state.activeTab == 2 ? <div>
+                            {this.state.activeTab === 2 ? <div>
                                 {this.state.bookings.map(booking => {
                                     return (
                                         <div key={booking._id}>
@@ -196,7 +189,7 @@ class ServiceDetails extends Component {
                             </div> : null}
                         </TabPane>
                         <TabPane tabId="3">
-                            {this.state.activeTab == 3 ? <h4>Coming soon...</h4> : null}
+                            {this.state.activeTab === 3 ? <h4>Coming soon...</h4> : null}
                         </TabPane>
                     </TabContent>
                 </div>
