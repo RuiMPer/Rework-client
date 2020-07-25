@@ -174,7 +174,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>TECHNOLOGY</CardTitle>
                         <CardText>
-                            <small>Coming Soon</small>
+                            <small>Coming Soon...</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
@@ -183,7 +183,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>BEAUTY & PERSONAL CARE</CardTitle>
                         <CardText>
-                            <small>Coming Soon</small>
+                            <small>Coming Soon...</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
@@ -192,7 +192,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>HOME REPAIRS</CardTitle>
                         <CardText>
-                            <small>Coming Soon</small>
+                            <small>Coming Soon...</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
@@ -201,7 +201,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>COOKING</CardTitle>
                         <CardText>
-                            <small>Coming Soon</small>
+                            <small>Coming Soon...</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
@@ -210,7 +210,7 @@ class Home extends Component {
                     <CardImgOverlay>
                         <CardTitle>EDUCATION</CardTitle>
                         <CardText>
-                            <small>Coming Soon</small>
+                            <small>Coming Soon...</small>
                         </CardText>
                     </CardImgOverlay>
                 </Card>
