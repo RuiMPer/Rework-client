@@ -44,3 +44,21 @@
     color: #ccc;
     font-weight: 700;
 }
+
+.closepopup{
+
+    z-index: 900000;
+    display: block;
+    position: relative;
+    pointer-events: all;
+    cursor: pointer;
+    content: "Close";
+    font-size: 20px;
+    text-align: center;
+    color: white;
+
+}    
+
+span.closepopup:before {
+    content: "Close";
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import "./css/AddBooking.css"
 
 
 class AddBooking extends Component {
@@ -32,7 +33,9 @@ class AddBooking extends Component {
 
     render() {
         return (
-            <div>
+            <div className="addbooking">
+            <div className="overlay"></div>
+            <div className="realdeal">
                 <h3>Add Booking</h3>
                 <Form onSubmit={this.handleFormSubmit}>
                     <Row form>
@@ -68,6 +71,7 @@ class AddBooking extends Component {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover/>
+                </div>
             </div>
         )
     }

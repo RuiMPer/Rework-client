@@ -63,7 +63,8 @@ class ServiceDetails extends Component {
     }
 
     showAddBooking = () => {
-        this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false });
+            this.state.showAddBooking ? this.setState({ showAddBooking: false }) : this.setState({ showAddBooking: true, showEditBooking: false });
+        
     }
 
     showEditBooking = () => {
@@ -198,7 +199,10 @@ class ServiceDetails extends Component {
                             </div>}
                         </TabPane>
                     </TabContent>
-                {this.state.showAddBooking && <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />}
+                {this.state.showAddBooking && <>
+                    <span className="closepopup" onClick={this.showAddBooking}></span>
+                    <AddBooking getService={this.getSingleService} serviceId={this.props.match.params.id} />
+                </>}
             </div>
         )
     }
