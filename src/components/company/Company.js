@@ -51,6 +51,7 @@ class Company extends React.Component {
             return (
                 service.get(`/company/${companyId}`)
                     .then((response) => {
+                        console.log("RESPONSEEE", response)
                         let { title, logoPath, logoName, locationPin, phone, admins, workers, isAdmin, verified, companyProof } = response.data;
                         this.setState({
                             title,
@@ -226,7 +227,7 @@ class Company extends React.Component {
 
                     <Row form>
                         <Col md={3}>
-                            <img src={this.state.logoPath} alt="company logo" width="300" style={{ borderRadius: '50%' }} />
+                            <img src={this.state.logoPath} alt="company logo" width="180" height="180" style={{ borderRadius: '50%' }} />
                         </Col>
                         <Col md={6}>
                             <FormGroup>
