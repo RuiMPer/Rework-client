@@ -8,7 +8,7 @@ class AddService extends Component {
         category: [],
         title: '',
         description: '',
-        photoPath: [],
+        photoPath: null,
         author: "",
         errorMessage: '',
     }
@@ -18,8 +18,11 @@ class AddService extends Component {
         this.setState({ [name]: value });
     }
 
-    handleFileChange = (event) => {
-        this.setState({ photoPath: event.target.files[0] });
+    handleFileChange = (e) => {
+        this.setState({ photoPath: e.target.files[0] });
+        // let files = e.target.files;
+        // this.setState({ 'photoPath': files })
+        //this.setState({ photoPath: event.target.files[0] });
     }
 
     handleFormSubmit = (event) => {
@@ -28,6 +31,18 @@ class AddService extends Component {
         const userId = this.props.userId
         const uploadData = new FormData()
         uploadData.append("photoPath", photoPath)
+        // const { category, title, description, photoPath } = this.state;
+        // const userId = this.props.userId;
+        // const uploadData = new FormData();
+
+        // let files = this.state.photoPath;
+        // console.log(files)
+        // for (let i = 0; i < files.length; i++) {
+        //     uploadData.append("photoPath", files[i], files[i].name);
+        // }
+
+        
+        //uploadData.append("photoPath", photoPath);
 
         if (!category || !title || !description || !photoPath) {
             this.setState({ errorMessage: "All fields are compulsory! Complete your form, please." });
@@ -36,6 +51,7 @@ class AddService extends Component {
             this.setState({ errorMessage:''});
         }
 
+        // axios.post(`${process.env.REACT_APP_SERVER}/uploadMultiple`, uploadData)
         axios.post(`${process.env.REACT_APP_SERVER}/upload`, uploadData)
             .then((response) => {
                 console.log("USer", userId)
@@ -94,7 +110,7 @@ class AddService extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label for="file">File</Label>
-                        <Input type="file" name="file" onChange={this.handleFileChange} />
+                        <Input type="file" name="file" onChange={this.handleFileChange} multiple/>
                         <FormText color="muted">
                             Add relevant photos to illustrate the services you provide.
                         </FormText>

@@ -29,7 +29,8 @@ class App extends Component {
 
   state = {
     loggedInUser: null,
-    loading: true
+    loading: true,
+    hasCompany:false
   }
 
   setCurrentUser = (userObj) => {
@@ -48,6 +49,10 @@ class App extends Component {
       this.service.loggedin()
         .then(response => {
           console.log("response from fetch user", response);
+          // console.log("COMPANY LENGTHHHH", response.company.length)
+          // if(response.company.length!==0){
+          //   this.setState({ hasCompany: true });
+          // }
 
           if (response._id) {
             console.log("COM SUCESSO");
@@ -110,18 +115,24 @@ class App extends Component {
               }
             }}
             />
-            <Route exact path="/company" render={(props) => {
-              if (localStorage.getItem("loggedin")) {
-                return <Company loggedInUser={this.state.loggedInUser} {...props} />
-              }
-            }}
-            />
 
-            <Route exact path="/company/:id" render={ (props) => {
-              if (localStorage.getItem("loggedin")) {
-                return <Company loggedInUser={this.state.loggedInUser} {...props} />
-              }}}
-            />
+            {!this.state.hasCompany &&
+              <Route exact path="/company" render={(props) => {
+                if (localStorage.getItem("loggedin")) {
+                  return <Company loggedInUser={this.state.loggedInUser} {...props} />
+                }
+              }}
+              />
+            }
+
+            {/* {this.state.hasCompany &&
+              <Route exact path="/company/:id" render={ (props) => {
+                if (localStorage.getItem("loggedin")) {
+                  return <Company loggedInUser={this.state.loggedInUser} {...props} />
+                }}}
+              />
+            } */}
+            
 
             {/* Not found route */}
             <Route path="*" component={() => <NotFound />} />
