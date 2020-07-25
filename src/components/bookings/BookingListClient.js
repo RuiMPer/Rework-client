@@ -38,6 +38,7 @@ class BookingListClient extends Component {
 			console.log("list of servicessssss",this.state.listOfServices)
 			let today = moment().format("DD/MM/YYYY")
 			let eachBooking = []
+
 			this.state.listOfServices.map(response => {
 				if (response.bookings.length >= 1) {
 					console.log("responseeeeeeeee",response.bookings)
@@ -58,7 +59,7 @@ class BookingListClient extends Component {
 									title} = response.data
 
 								this.setState({
-									bookings:[{confirmationStatus,date:date, logStatus, time, title}]
+									bookings:[ ...this.state.bookings,{confirmationStatus,date:date, logStatus, time, title}]
 								});
 								// this.setState({
 								// 		bookings:[response.data]
@@ -85,7 +86,7 @@ class BookingListClient extends Component {
 								<Card key={response._id}>
 									<span>
 										<CardHeader><strong>{response.title}</strong></CardHeader>
-										<CardBody>{response.date} | {response.time}</CardBody>
+										<CardBody><strong>Date:</strong>  {response.date}  |  <strong>Time:</strong>  {response.time}</CardBody>
 									</span>
 									<Button>+</Button>
 								</Card>

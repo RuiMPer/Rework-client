@@ -2,6 +2,7 @@ section.bookinglist {
     position: relative;
     float: left;
     display: block;
+    width:100% ;
 }
 .bookinglist .card {
     display: flex;
@@ -13,6 +14,9 @@ section.bookinglist {
     width: 33%;
     padding: .3rem;
     border: none;
+}
+.bookinglist .card span {
+    width: 100%;
 }
 .home .card  h3.card-header {
     padding: 0;
