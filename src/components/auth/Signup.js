@@ -14,24 +14,24 @@ class Signup extends Component {
 
         this.service.signup(username, password, firstName, lastName, email, type)
             .then(response => {
-                this.setState({
-                    username: '',
-                    password: '',
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    type: ''
-                });
+                    this.setState({
+                        username: '',
+                        password: '',
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        type: ''
+                    });
 
-                this.props.setCurrentUser(response)
-                localStorage.setItem("loggedin", true);
+                    this.props.setCurrentUser(response)
+                    localStorage.setItem("loggedin", true);
 
-                //redirecting to services on the browsers history
-                this.props.history.push("/")
+                    //redirecting to services on the browsers history
+                    this.props.history.push("/")
             })
             .catch((error) => {
-                console.log(error.message)
-                // this.setState({ errorMessage: error.response.data.message });
+                console.log("Deu erro no catch", error.response.data)
+                this.setState({ errorMessage: error.response.data.message });
             })
     }
 
