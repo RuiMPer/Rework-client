@@ -24,7 +24,7 @@ class Company extends React.Component {
         isAdmin:'',
         title: '',
         tempLogoPath: '',
-        logoPath:'',
+        logoPath:'https://www.pharmamirror.com/wp-content/themes/fox/images/placeholder.jpg',
         logoName: `${this.title}'s logo`,
         locationPin: '',
         phone: '',
@@ -35,14 +35,13 @@ class Company extends React.Component {
     }
 
     componentDidMount(){
-        console.log("component did mount");
-        console.log('PROPSSSSS',this.props.loggedInUser)
+        //console.log("component did mount");
+        //console.log('PROPSSSSS',this.props.loggedInUser)
 
         let companyId = this.props.match.params.id;
-        console.log("pre", this.props.match.params.id)
+        //console.log("pre", this.props.match.params.id)
 
         if(this.props.match.params.id){
-            console.log("ENTROUUUUU", this.props.match.params.id)
             let service = axios.create({
                 baseURL: `${process.env.REACT_APP_SERVER}`,
                 withCredentials: true
@@ -51,7 +50,6 @@ class Company extends React.Component {
             return (
                 service.get(`/company/${companyId}`)
                     .then((response) => {
-                        console.log("RESPONSEEE", response)
                         let { title, logoPath, logoName, locationPin, phone, admins, workers, isAdmin, verified, companyProof } = response.data;
                         this.setState({
                             title,
@@ -75,14 +73,14 @@ class Company extends React.Component {
     }
 
     handleChange = (event) => {
-        console.log("change handle");
+        //console.log("change handle");
         const { name, value } = event.target;
         this.setState({ [name]: value });
     }
 
     handleFileChange = (event) => {
         this.setState({ tempLogoPath: event.target.files[0] });
-        console.log(this.state.tempLogoPath);
+        //console.log(this.state.tempLogoPath);
     }
 
     handleFormSubmit = (event) => {
@@ -144,7 +142,7 @@ class Company extends React.Component {
                             });
 
                             let id=response.data.response._id;
-
+                            this.props.setCurrentUser(response)
                             this.props.history.push(`/company/${id}`);
                     });
             });
@@ -161,7 +159,7 @@ class Company extends React.Component {
 
 
     render() {
-        console.log("render")
+        //console.log("render")
         /* getting props/state with all info from user destructured */
         //const {userInfo} = this.state;
         let { title, locationPin, phone, verified, companyProof } = this.state;

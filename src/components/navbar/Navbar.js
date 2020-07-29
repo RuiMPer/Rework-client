@@ -11,22 +11,16 @@ class Navbar extends React.Component {
 
     state = {
         dropdownOpen: false,
-        totalBookings: 0
+        totalBookings: 0,
+        hasCompany: false
     };
 
     componentDidMount() {
         this.getUserServices()
-            .then(() => {
-                this.countBookings()
-            })
-
+        .then(() => {
+            this.countBookings()
+        })
     }
-    // componentWillUpdate() {
-
-    // }
-    // componentDidUpdate() {
-    //     this.countBookings()
-    // }
 
     toggle() {
         this.setState({
@@ -74,9 +68,10 @@ class Navbar extends React.Component {
         // console.log("total", total)
     }
 
+
+
     render() {
-        //console.log(this.props.loggedInUser)
-        // console.log("navbar", this.state.listOfServices)
+       
         return (
             < nav className="navbar" >
                 <Nav pills>
@@ -130,7 +125,11 @@ class Navbar extends React.Component {
                                                     </DropdownItem>
                                                     <DropdownItem>
                                                         <NavItem>
-                                                            <NavLink to="/company">My Company</NavLink>
+                                                        {this.props.loggedInUser.company.length > 0 ? (
+                                                            <NavLink to={`/company/${this.props.loggedInUser.company[0]}`}>My Company</NavLink>
+                                                            ) :<>
+                                                                <NavLink to="/company">My Company</NavLink>
+                                                            </>}
                                                         </NavItem>
                                                     </DropdownItem>
                                                 </>

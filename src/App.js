@@ -30,7 +30,6 @@ class App extends Component {
   state = {
     loggedInUser: null,
     loading: true,
-    hasCompany: false
   }
 
   setCurrentUser = (userObj) => {
@@ -42,6 +41,9 @@ class App extends Component {
   componentDidMount() {
     this.fetchUser();
     this.setState({ loading: false });
+  }
+
+  componentDidUpdate() {
   }
 
   fetchUser = (props) => {
@@ -116,19 +118,16 @@ class App extends Component {
             }}
             />
 
-            {!this.state.hasCompany &&
               <Route exact path="/company" render={(props) => {
                 if (localStorage.getItem("loggedin")) {
-                  return <Company loggedInUser={this.state.loggedInUser} {...props} />
+                  return <Company loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} {...props} />
                 }
               }}
               />
-            }
-
 
             <Route exact path="/company/:id" render={(props) => {
               if (localStorage.getItem("loggedin")) {
-                return <Company loggedInUser={this.state.loggedInUser} {...props} />
+                return <Company loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} {...props} />
               }
             }}
             />
